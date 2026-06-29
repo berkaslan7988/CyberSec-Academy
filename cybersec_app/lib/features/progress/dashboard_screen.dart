@@ -7,6 +7,7 @@ import 'progress_store.dart';
 
 /// Phase 4 — statistics & achievements dashboard.
 /// Shows overall progress, stat cards, badges and weak-area suggestions.
+
 class DashboardScreen extends StatelessWidget {
   final List<Section> sections;
   final Map<String, Quiz> quizzes;
