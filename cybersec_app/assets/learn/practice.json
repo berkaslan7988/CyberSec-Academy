@@ -1,0 +1,45 @@
+{
+  "id": "practice",
+  "title": { "tr": "Pratik Ortamlar ve Sertifikalar", "en": "Practice Environments & Certifications" },
+  "subtitle": { "tr": "HTB, TryHackMe, DVWA, CTF, OSCP yolu", "en": "HTB, TryHackMe, DVWA, CTF, OSCP path" },
+  "icon": "school",
+  "level": "process",
+  "topics": [
+    {
+      "id": "platforms",
+      "title": { "tr": "Hack The Box, TryHackMe, PentesterLab", "en": "Hack The Box, TryHackMe, PentesterLab" },
+      "tags": ["practice"],
+      "content": {
+        "tr": "## Yasal Pratik Platformları\nBecerini **yasal ve güvenli** biçimde geliştirmenin en iyi yolu — gerçek sistemler yerine bunlara dokun.\n- **TryHackMe:** rehberli, başlangıç dostu yollar (adım adım odalar).\n- **Hack The Box:** gerçekçi makineler, orta-ileri seviye; HTB Academy ile teori.\n- **PentesterLab:** web zafiyetlerine odaklı egzersizler.\n\n### Mini-lab\nTryHackMe'de bir başlangıç odası tamamla; her adımda hangi tekniği kullandığını kısa notlarla yaz (write-up alışkanlığı).\n\n> Öneri: TryHackMe ile temel → HTB ile derinleşme. **Düzenli pratik** teoriden çok daha fazla öğretir; haftalık bir ritim kur.\n\n> Yaygın hata: Yalnızca yürüyüş (walkthrough) izleyip kendin denememek. İzlemek anlamak değildir; çözümü kapatıp kendi başına tekrar dene.",
+        "en": "## Legal Practice Platforms\nThe best way to build skills **legally and safely** — touch these instead of real systems.\n- **TryHackMe:** guided, beginner-friendly paths (step-by-step rooms).\n- **Hack The Box:** realistic machines, intermediate-advanced; HTB Academy for theory.\n- **PentesterLab:** exercises focused on web vulnerabilities.\n\n### Mini-lab\nComplete a beginner room on TryHackMe; jot short notes on which technique you used at each step (a write-up habit).\n\n> Recommendation: Build basics on TryHackMe → go deeper on HTB. **Regular practice** teaches far more than theory; set a weekly rhythm.\n\n> Common mistake: Only watching walkthroughs without trying yourself. Watching isn't understanding; close the solution and redo it on your own."
+      }
+    },
+    {
+      "id": "vuln-apps",
+      "title": { "tr": "DVWA, Juice Shop, Metasploitable", "en": "DVWA, Juice Shop, Metasploitable" },
+      "tags": ["practice", "lab"],
+      "content": {
+        "tr": "## Bilerek Savunmasız Hedefler\nKendi lab'ında çalıştırabileceğin, **denemen için tasarlanmış** uygulamalar.\n- **DVWA:** klasik web zafiyetleri (SQLi, XSS, CSRF) — zorluk ayarlanabilir.\n- **OWASP Juice Shop:** modern, çok bulgulu web uygulaması (challenge tabanlı).\n- **Metasploitable:** savunmasız Linux VM (ağ/servis istismarı).\n\n### Komut\n```\ndocker run -d -p 3000:3000 bkimminich/juice-shop\n```\n\n### Mini-lab\nJuice Shop'u ayağa kaldır, kolay bir 'challenge' çöz; aynı zafiyeti DVWA'da farklı zorluk seviyelerinde tekrar dene ve savunmanın nasıl güçlendiğini gözlemle.\n\n> Bu hedefler **izole ağda** çalıştırılır; gerçek sistemlere asla dokunma.\n\n> Yaygın hata: Savunmasız uygulamaları (Juice Shop/DVWA) internete açık çalıştırmak. Bunlar bilerek savunmasızdır; yalnızca yerel/izole ağda tut.",
+        "en": "## Intentionally Vulnerable Targets\nApps **designed for you to practice on**, runnable in your own lab.\n- **DVWA:** classic web vulns (SQLi, XSS, CSRF) — adjustable difficulty.\n- **OWASP Juice Shop:** a modern, many-finding web app (challenge-based).\n- **Metasploitable:** a vulnerable Linux VM (network/service exploitation).\n\n### Command\n```\ndocker run -d -p 3000:3000 bkimminich/juice-shop\n```\n\n### Mini-lab\nSpin up Juice Shop, solve an easy challenge; redo the same vuln in DVWA at different difficulty levels and observe how the defense strengthens.\n\n> Run these targets on an **isolated network**; never touch real systems.\n\n> Common mistake: Running vulnerable apps (Juice Shop/DVWA) exposed to the internet. They're intentionally vulnerable; keep them on a local/isolated network only."
+      }
+    },
+    {
+      "id": "ctf",
+      "title": { "tr": "CTF ve Etkili Çalışma Yöntemi", "en": "CTF & Effective Study Method" },
+      "tags": ["practice", "career"],
+      "content": {
+        "tr": "## CTF ve Çalışma Yöntemi\n**CTF (Capture The Flag)**, oyunlaştırılmış güvenlik yarışmalarıdır; gerçekçi ve yasal pratik sağlar.\n\n### Kategoriler\n- **Web, Pwn (binary), Crypto, Forensics, Reversing, OSINT, Misc.**\n- Türler: Jeopardy (kategorik görevler), Attack-Defense (canlı).\n\n### Etkili çalışma döngüsü\n1. Bir konu seç, kısa teori oku.\n2. İlgili lab/CTF görevini çöz (uygulama).\n3. **Write-up** yaz (öğrendiğini pekiştirir, portföy olur).\n4. Tekrar et; zayıf kategorilere ağırlık ver.\n\n### Mini-lab\nKüçük bir CTF görevi seç (örn. picoCTF başlangıç); çöz ve kısa bir write-up yaz: hangi araç, hangi adım, hangi ders?\n\n> Öneri: Portföy (lab write-ları, GitHub, CTF profili) sertifikalar kadar değerlidir — gerçek beceriyi **gösterir**. Süreklilik anahtardır.\n\n> Yaygın hata: Tek bir kategoride (örn. yalnızca web) kalmak. Geniş temel, hangi alanda uzmanlaşacağını keşfetmeni sağlar; önce çeşitlen, sonra derinleş.",
+        "en": "## CTF & Study Method\n**CTF (Capture The Flag)** are gamified security competitions; they offer realistic, legal practice.\n\n### Categories\n- **Web, Pwn (binary), Crypto, Forensics, Reversing, OSINT, Misc.**\n- Types: Jeopardy (categorized tasks), Attack-Defense (live).\n\n### Effective study loop\n1. Pick a topic, read brief theory.\n2. Solve a related lab/CTF task (practice).\n3. Write a **write-up** (reinforces learning, becomes a portfolio).\n4. Repeat; weight weak categories.\n\n### Mini-lab\nPick a small CTF task (e.g. a picoCTF beginner one); solve it and write a short write-up: which tool, which step, which lesson?\n\n> Recommendation: A portfolio (lab write-ups, GitHub, CTF profile) is as valuable as certs — it **demonstrates** real skill. Consistency is key.\n\n> Common mistake: Staying in a single category (e.g. only web). A broad base helps you discover where to specialize; diversify first, then go deep."
+      }
+    },
+    {
+      "id": "certs",
+      "title": { "tr": "Sertifika Yolları (OSCP, eJPT, CRTO...)", "en": "Certification Paths (OSCP, eJPT, CRTO...)" },
+      "tags": ["practice", "career"],
+      "content": {
+        "tr": "## Sertifikalar / Yollar\n- **Başlangıç:** CompTIA Security+, **eJPT** (pratik giriş).\n- **Saldırgan:** **OSCP** (en tanınan pratik pentest), **OSWE** (web), **PNPT**.\n- **Kırmızı takım/AD:** **CRTO**.\n- **Mavi takım:** **BTL1**, CySA+; bulut için **CKS**.\n\n### Nasıl seçilir?\nHedef rolüne göre: pentester → eJPT → OSCP; SOC analisti → Security+/BTL1; bulut → CKS. Pratik (uygulamalı) sınavlar, çoktan seçmeli teoriden daha çok değer taşır.\n\n### Mini-lab (kavramsal)\nHedeflediğin rolü yaz; ona uygun 6-12 aylık bir öğrenme + sertifika yol haritası taslağı çıkar (önce temel, sonra uzmanlık).\n\n> Tavsiye: Sertifika kapı açar ama **portföy** (lab yazıları, CTF, GitHub) gerçek beceriyi gösterir. İkisini birlikte yürüt; sertifika için ezber değil, beceri hedefle.\n\n> Yaygın hata: Sertifikayı 'bitiş çizgisi' sanmak. Alan hızla değişir; sertifika bir anlık doğrulamadır, sürekli öğrenme ve pratik şarttır.",
+        "en": "## Certifications / Paths\n- **Entry:** CompTIA Security+, **eJPT** (practical intro).\n- **Offensive:** **OSCP** (most recognized practical pentest), **OSWE** (web), **PNPT**.\n- **Red team/AD:** **CRTO**.\n- **Blue team:** **BTL1**, CySA+; for cloud, **CKS**.\n\n### How to choose\nBy target role: pentester → eJPT → OSCP; SOC analyst → Security+/BTL1; cloud → CKS. Practical (hands-on) exams carry more value than multiple-choice theory.\n\n### Mini-lab (conceptual)\nWrite your target role; draft a 6-12 month learning + certification roadmap for it (basics first, then specialization).\n\n> Advice: Certs open doors, but a **portfolio** (lab write-ups, CTF, GitHub) proves real skill. Pursue both; aim for skill, not memorization.\n\n> Common mistake: Treating a cert as a 'finish line'. The field changes fast; a cert is a point-in-time validation — continuous learning and practice are essential."
+      }
+    }
+  ]
+}

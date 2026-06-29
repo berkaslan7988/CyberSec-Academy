@@ -1,0 +1,135 @@
+{
+  "id": "quiz_network_recon_basics",
+  "title": { "tr": "Ağ Temelleri & Keşif", "en": "Network Basics & Recon" },
+  "questions": [
+    {
+      "id": "q_osi_layer",
+      "type": "multiple_choice",
+      "difficulty": "easy",
+      "prompt": {
+        "tr": "OSI modelinde IP adresleme hangi katmanda gerçekleşir?",
+        "en": "In the OSI model, IP addressing happens at which layer?"
+      },
+      "options": [
+        { "tr": "Katman 2 - Veri Bağı", "en": "Layer 2 - Data Link" },
+        { "tr": "Katman 3 - Ağ", "en": "Layer 3 - Network", "correct": true },
+        { "tr": "Katman 4 - Taşıma", "en": "Layer 4 - Transport" },
+        { "tr": "Katman 7 - Uygulama", "en": "Layer 7 - Application" }
+      ],
+      "explanation": {
+        "tr": "IP adresleme ve yönlendirme OSI Katman 3 (Ağ) seviyesinde yapılır.",
+        "en": "IP addressing and routing occur at OSI Layer 3 (Network)."
+      }
+    },
+    {
+      "id": "q_tcp_handshake_tf",
+      "type": "true_false",
+      "difficulty": "easy",
+      "prompt": {
+        "tr": "TCP üç yönlü el sıkışması SYN, SYN-ACK, ACK sırasıyla gerçekleşir.",
+        "en": "The TCP three-way handshake proceeds as SYN, SYN-ACK, ACK."
+      },
+      "options": [
+        { "tr": "Doğru", "en": "True", "correct": true },
+        { "tr": "Yanlış", "en": "False" }
+      ],
+      "explanation": {
+        "tr": "Doğru. İstemci SYN, sunucu SYN-ACK, istemci ACK gönderir.",
+        "en": "True. Client sends SYN, server SYN-ACK, client ACK."
+      }
+    },
+    {
+      "id": "q_nmap_versionscan_cmd",
+      "type": "command",
+      "difficulty": "medium",
+      "prompt": {
+        "tr": "10.10.10.5 hedefinde açık servislerin SÜRÜMLERİNİ tespit eden bir Nmap komutu yaz.",
+        "en": "Write an Nmap command that detects the VERSIONS of open services on 10.10.10.5."
+      },
+      "evaluation": {
+        "requiredTokens": ["nmap"],
+        "requiredFlagGroups": [["-sV", "--version-scan"]],
+        "requiredTargets": ["10.10.10.5"],
+        "flagAliases": { "--version-scan": "-sV" },
+        "allowSudo": true,
+        "acceptedSolutions": ["nmap -sV 10.10.10.5"]
+      },
+      "explanation": {
+        "tr": "-sV bayrağı servis/sürüm tespiti yapar. Örnek: nmap -sV 10.10.10.5",
+        "en": "The -sV flag performs service/version detection. e.g. nmap -sV 10.10.10.5"
+      }
+    },
+    {
+      "id": "q_dns_lookup_cmd",
+      "type": "command",
+      "difficulty": "easy",
+      "prompt": {
+        "tr": "example.com alan adının A kaydını sorgulayan bir 'dig' komutu yaz.",
+        "en": "Write a 'dig' command that queries the A record of example.com."
+      },
+      "evaluation": {
+        "requiredTokens": ["dig"],
+        "requiredFlagGroups": [["A", "a"]],
+        "requiredTargets": ["example.com"],
+        "allowSudo": false,
+        "acceptedSolutions": ["dig example.com A", "dig A example.com"]
+      },
+      "explanation": {
+        "tr": "dig example.com A komutu A (adres) kaydını döndürür.",
+        "en": "dig example.com A returns the A (address) record."
+      }
+    },
+    {
+      "id": "q_recon_match",
+      "type": "matching",
+      "difficulty": "medium",
+      "prompt": {
+        "tr": "Aracı doğru amacıyla eşleştir.",
+        "en": "Match each tool with its purpose."
+      },
+      "pairs": [
+        { "left": { "tr": "Shodan", "en": "Shodan" }, "right": { "tr": "İnternete açık cihaz arama", "en": "Internet-exposed device search" } },
+        { "left": { "tr": "theHarvester", "en": "theHarvester" }, "right": { "tr": "E-posta/host toplama", "en": "Email/host harvesting" } },
+        { "left": { "tr": "Amass", "en": "Amass" }, "right": { "tr": "Subdomain keşfi", "en": "Subdomain enumeration" } }
+      ],
+      "explanation": {
+        "tr": "Shodan cihaz arama, theHarvester OSINT toplama, Amass subdomain keşfi içindir.",
+        "en": "Shodan for device search, theHarvester for OSINT harvesting, Amass for subdomain enumeration."
+      }
+    },
+    {
+      "id": "q_killchain_order",
+      "type": "ordering",
+      "difficulty": "medium",
+      "prompt": {
+        "tr": "Bir sızma testinin tipik aşamalarını doğru sıraya koy.",
+        "en": "Put the typical phases of a penetration test in the correct order."
+      },
+      "orderedItems": [
+        { "tr": "Keşif (Recon)", "en": "Reconnaissance" },
+        { "tr": "Tarama (Scanning)", "en": "Scanning" },
+        { "tr": "İstismar (Exploitation)", "en": "Exploitation" },
+        { "tr": "Post-Exploit", "en": "Post-Exploitation" },
+        { "tr": "Raporlama", "en": "Reporting" }
+      ],
+      "explanation": {
+        "tr": "Standart akış: Keşif → Tarama → İstismar → Post-Exploit → Raporlama.",
+        "en": "Standard flow: Recon → Scanning → Exploitation → Post-Exploitation → Reporting."
+      }
+    },
+    {
+      "id": "q_owasp_a01_fill",
+      "type": "fill_blank",
+      "difficulty": "medium",
+      "prompt": {
+        "tr": "OWASP Top 10:2025 listesinde 1 numaradaki risk kategorisi: ______ (İngilizce kısaltma/ad kabul edilir).",
+        "en": "The #1 risk category in OWASP Top 10:2025 is: ______"
+      },
+      "acceptedAnswers": ["broken access control", "a01", "access control"],
+      "explanation": {
+        "tr": "A01:2025 Broken Access Control birinci sıradaki risktir.",
+        "en": "A01:2025 Broken Access Control is the top risk."
+      }
+    }
+  ]
+}

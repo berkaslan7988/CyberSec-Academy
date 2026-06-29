@@ -1,0 +1,45 @@
+{
+  "id": "scripting",
+  "title": { "tr": "Programlama ve Scripting", "en": "Programming & Scripting" },
+  "subtitle": { "tr": "Python, Bash, PowerShell, Regex", "en": "Python, Bash, PowerShell, Regex" },
+  "icon": "code",
+  "level": "foundation",
+  "topics": [
+    {
+      "id": "python",
+      "title": { "tr": "Python (requests, sockets, pwntools)", "en": "Python (requests, sockets, pwntools)" },
+      "tags": ["python"],
+      "content": {
+        "tr": "## Python — Güvenliğin Ortak Dili\nHızlı prototip, otomasyon ve özel araç yazımı için standart. Çoğu güvenlik aracı (sqlmap, pwntools) Python'dur.\n\n### Sık kütüphaneler\n- **requests:** HTTP istekleri (web testleri, API).\n- **socket:** ham TCP/UDP bağlantıları.\n- **pwntools:** exploit geliştirme (CTF/pwn).\n\n### Örnek: basit port tarayıcı\n```\nimport socket\nfor port in (22, 80, 443):\n    s = socket.socket(); s.settimeout(0.5)\n    if s.connect_ex(('127.0.0.1', port)) == 0:\n        print(f'{port} acik')\n    s.close()\n```\n\n### Mini-lab\n1. `requests` ile bir lab API'sine GET at, durum kodunu ve gövde uzunluğunu yazdır.\n2. Yukarıdaki tarayıcıyı bir IP aralığında çalışacak şekilde genişlet.\n\n> İpucu: Tekrarlayan her manuel işi küçük bir Python scriptine çevir — zamanla kişisel araç setin oluşur. Sanal ortam (`venv`) kullan, bağımlılıkları izole et.\n\n> Yaygın hata: `verify=False` ile TLS doğrulamasını kapatmak. Bu, üretimde MITM'e kapı açar; yalnızca bilinçli ve geçici olarak lab'da kullan.",
+        "en": "## Python — The Common Language of Security\nThe standard for fast prototyping, automation and custom tooling. Many tools (sqlmap, pwntools) are Python.\n\n### Common libraries\n- **requests:** HTTP requests (web tests, APIs).\n- **socket:** raw TCP/UDP connections.\n- **pwntools:** exploit development (CTF/pwn).\n\n### Example: a simple port scanner\n```\nimport socket\nfor port in (22, 80, 443):\n    s = socket.socket(); s.settimeout(0.5)\n    if s.connect_ex(('127.0.0.1', port)) == 0:\n        print(f'{port} open')\n    s.close()\n```\n\n### Mini-lab\n1. GET a lab API with `requests`, print status code and body length.\n2. Extend the scanner above to run over an IP range.\n\n> Tip: Turn every repetitive manual task into a small Python script — over time you build a personal toolkit. Use a virtual env (`venv`) and isolate dependencies.\n\n> Common mistake: Disabling TLS verification with `verify=False`. It opens the door to MITM in production; use only deliberately and temporarily in a lab."
+      }
+    },
+    {
+      "id": "bash",
+      "title": { "tr": "Bash Scripting", "en": "Bash Scripting" },
+      "tags": ["bash", "linux"],
+      "content": {
+        "tr": "## Bash Scripting\nLinux'ta hızlı otomasyon ve araç zincirleme dili.\n\n### Temel yapı\n```\n#!/usr/bin/env bash\nset -euo pipefail            # güvenli mod: hata/eksik değişkende dur\nfor ip in 10.10.10.{1..20}; do\n  ping -c1 -W1 \"$ip\" &>/dev/null && echo \"canli: $ip\"\ndone\n```\n\n### Önemli kavramlar\n- Borular (`|`), yönlendirme (`>`, `>>`), `$(...)` komut ikamesi, `&&`/`||` mantık, `$1 $2` argümanlar.\n\n### Mini-lab\n1. Bir hedef listesini dosyadan oku (`while read -r host; do ... done < hosts.txt`).\n2. Her host için `nmap`/`ping` çalıştırıp çıktıyı bir log dosyasına yaz.\n\n> İpucu: `set -euo pipefail` ile scriptlerini sağlamlaştır; değişkenleri her zaman tırnak içine al (`\"$var\"`).\n\n> Yaygın hata: Değişkenleri tırnaksız kullanmak. Boşluk içeren girdilerde (dosya adları) script beklenmedik biçimde bozulur veya komut enjeksiyonuna yol açabilir.",
+        "en": "## Bash Scripting\nThe language of quick automation and tool chaining on Linux.\n\n### Basic structure\n```\n#!/usr/bin/env bash\nset -euo pipefail            # safe mode: stop on error/unset var\nfor ip in 10.10.10.{1..20}; do\n  ping -c1 -W1 \"$ip\" &>/dev/null && echo \"alive: $ip\"\ndone\n```\n\n### Key concepts\n- Pipes (`|`), redirection (`>`, `>>`), `$(...)` substitution, `&&`/`||` logic, `$1 $2` arguments.\n\n### Mini-lab\n1. Read a target list from a file (`while read -r host; do ... done < hosts.txt`).\n2. Run `nmap`/`ping` per host and write output to a log file.\n\n> Tip: Harden scripts with `set -euo pipefail`; always quote variables (`\"$var\"`).\n\n> Common mistake: Using variables unquoted. With inputs containing spaces (filenames), the script breaks unexpectedly or can enable command injection."
+      }
+    },
+    {
+      "id": "powershell",
+      "title": { "tr": "PowerShell Scripting", "en": "PowerShell Scripting" },
+      "tags": ["powershell", "windows"],
+      "content": {
+        "tr": "## PowerShell\nWindows otomasyonunun ve kurumsal yönetimin dili; nesne tabanlıdır (metin değil).\n\n### Örnekler\n```\nGet-ChildItem C:\\ -Recurse -Filter *.config -ErrorAction SilentlyContinue\nGet-WinEvent -LogName Security -MaxEvents 20 |\n  Where-Object Id -eq 4625\nInvoke-WebRequest https://example.com -UseBasicParsing\n```\n\n### Neden önemli?\n- Nesne tabanlı olduğu için filtreleme/işleme güçlüdür (`Where-Object`, `Select-Object`).\n- Saldırganlar \"living off the land\" için PowerShell kullanır → savunmada **script block logging** ve **AMSI** şart.\n\n### Mini-lab\n1. `Get-WinEvent` ile son başarısız girişleri (4625) listele.\n2. Çıktıyı kaynak IP'ye göre grupla (`Group-Object`).\n\n> Savunma: PowerShell logging + AMSI + Constrained Language Mode kötüye kullanımı azaltır. `-enc` (kodlanmış komut) kullanımını uyarı kuralı yap.\n\n> Yaygın hata: Yürütme politikasını (`Set-ExecutionPolicy Bypass`) bir güvenlik sınırı sanmak. O bir kolaylık ayarıdır, güvenlik kontrolü değildir; gerçek savunma loglama ve AMSI'dir.",
+        "en": "## PowerShell\nThe language of Windows automation and enterprise management; object-based (not text).\n\n### Examples\n```\nGet-ChildItem C:\\ -Recurse -Filter *.config -ErrorAction SilentlyContinue\nGet-WinEvent -LogName Security -MaxEvents 20 |\n  Where-Object Id -eq 4625\nInvoke-WebRequest https://example.com -UseBasicParsing\n```\n\n### Why it matters\n- Being object-based makes filtering/processing powerful (`Where-Object`, `Select-Object`).\n- Attackers use PowerShell to live off the land → defenders need **script block logging** and **AMSI**.\n\n### Mini-lab\n1. List recent failed logons (4625) with `Get-WinEvent`.\n2. Group the output by source IP (`Group-Object`).\n\n> Defense: PowerShell logging + AMSI + Constrained Language Mode reduce abuse. Alert on `-enc` (encoded command) usage.\n\n> Common mistake: Treating execution policy (`Set-ExecutionPolicy Bypass`) as a security boundary. It's a convenience setting, not a control; real defense is logging and AMSI."
+      }
+    },
+    {
+      "id": "regex",
+      "title": { "tr": "Regex (Desen Eşleme)", "en": "Regex (Pattern Matching)" },
+      "tags": ["regex"],
+      "content": {
+        "tr": "## Regex\nLog analizi, veri çıkarma ve girdi doğrulamanın temeli. SIEM kuralları, WAF imzaları ve veri ayıklama regex'e dayanır.\n\n### Örnekler\n```\n# IP adreslerini çıkar\ngrep -Eo '([0-9]{1,3}\\.){3}[0-9]{1,3}' access.log\n# E-posta deseni\n[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}\n# Yakalama grubu ile alan ayıkla\nsed -E 's/.*user=([a-z]+).*/\\1/' auth.log\n```\n\n### Temel meta-karakterler\n`.` herhangi · `*` 0+ · `+` 1+ · `?` 0/1 · `[]` küme · `()` grup · `^$` başlangıç/son · `\\d \\w \\s` sınıflar.\n\n### Mini-lab\nBir log dosyasından başarısız giriş satırlarını grep ile süz, sonra kaynak IP'leri yakalama grubuyla ayıkla ve say.\n\n> Dikkat: Aşırı geniş regex (catastrophic backtracking) bir **DoS** kaynağı olabilir; iç içe niceleyicilerden (`(a+)+`) kaçın, desenleri sınırla.\n\n> Yaygın hata: Girdi doğrulamasını yalnızca regex 'kara listesiyle' yapmak. Güvenlik için allowlist (izinli desen) yaklaşımı daha sağlamdır.",
+        "en": "## Regex\nThe basis of log analysis, data extraction and input validation. SIEM rules, WAF signatures and parsing rely on regex.\n\n### Examples\n```\n# Extract IP addresses\ngrep -Eo '([0-9]{1,3}\\.){3}[0-9]{1,3}' access.log\n# Email pattern\n[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}\n# Extract a field with a capture group\nsed -E 's/.*user=([a-z]+).*/\\1/' auth.log\n```\n\n### Core meta-characters\n`.` any · `*` 0+ · `+` 1+ · `?` 0/1 · `[]` set · `()` group · `^$` start/end · `\\d \\w \\s` classes.\n\n### Mini-lab\nFilter failed-login lines from a log with grep, then extract source IPs with a capture group and count them.\n\n> Caution: Overly broad regex (catastrophic backtracking) can cause **DoS**; avoid nested quantifiers (`(a+)+`), constrain patterns.\n\n> Common mistake: Validating input only with a regex 'blacklist'. For security, an allowlist (permitted-pattern) approach is more robust."
+      }
+    }
+  ]
+}

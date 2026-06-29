@@ -1,0 +1,47 @@
+{
+  "id": "vulnscan",
+  "title": { "tr": "Zafiyet Tarama", "en": "Vulnerability Scanning" },
+  "subtitle": { "tr": "Nessus, OpenVAS, Nikto, CVE/CVSS/EPSS, yama yönetimi", "en": "Nessus, OpenVAS, Nikto, CVE/CVSS/EPSS, patch management" },
+  "icon": "find_in_page",
+  "level": "offensive",
+  "topics": [
+    {
+      "id": "scanners",
+      "title": { "tr": "Nessus & OpenVAS", "en": "Nessus & OpenVAS" },
+      "tags": ["vulnscan"],
+      "ethics": true,
+      "content": {
+        "tr": "## Otomatik Zafiyet Tarayıcıları\nBilinen zafiyetleri (CVE) hedef sistemlerde otomatik tespit eder.\n- **Nessus:** ticari, geniş eklenti tabanı, ayrıntılı raporlar.\n- **OpenVAS / Greenbone:** açık kaynak alternatif.\n\n### İş akışı\n1. Kapsamı tanımla (hangi IP'ler, hangi pencere).\n2. **Kimlik bilgili (authenticated)** tarama daha doğru sonuç verir.\n3. Bulguları doğrula (false positive ayıkla), önceliklendir, raporla.\n\n### Mini-lab\nBir lab hedefinde OpenVAS/Greenbone ile tarama çalıştır; bir bulguyu seç, CVE'sini ve önerilen düzeltmeyi incele.\n\n> Etik & savunma: Tarama yük oluşturur ve yalnızca izinli hedeflerde yapılır. Savunmada düzenli tarama + yama yönetimi risk penceresini kapatır.\n\n> Yaygın hata: Tarayıcı çıktısını doğrulamadan 'gerçek' kabul etmek. Tarayıcılar yanlış pozitif/negatif üretir; kritik bulguları elle teyit et.",
+        "en": "## Automated Vulnerability Scanners\nAutomatically detect known vulnerabilities (CVEs) on target systems.\n- **Nessus:** commercial, large plugin base, detailed reports.\n- **OpenVAS / Greenbone:** open-source alternative.\n\n### Workflow\n1. Define scope (which IPs, which window).\n2. **Authenticated** scans give more accurate results.\n3. Validate findings (filter false positives), prioritize, report.\n\n### Mini-lab\nRun a scan against a lab target with OpenVAS/Greenbone; pick a finding and review its CVE and recommended fix.\n\n> Ethics & defense: Scanning adds load and is done only on authorized targets. Defenders close the risk window with regular scanning + patch management.\n\n> Common mistake: Accepting scanner output as 'truth' without validation. Scanners produce false positives/negatives; confirm critical findings by hand."
+      }
+    },
+    {
+      "id": "nikto",
+      "title": { "tr": "Nikto (Web Sunucu Tarama)", "en": "Nikto (Web Server Scanning)" },
+      "tags": ["vulnscan", "web"],
+      "ethics": true,
+      "content": {
+        "tr": "## Nikto\nWeb sunucularını bilinen zayıf yapılandırmalar, eski yazılım ve riskli dosyalar için tarar.\n\n### Komut\n```\nnikto -h http://hedef\nnikto -h https://hedef -ssl -o rapor.html -Format html\n```\n\n### Tipik bulgular\n- Açık yönetim panelleri, varsayılan/örnek dosyalar, eksik güvenlik başlıkları, eski sunucu sürümleri.\n\n### Mini-lab\nLab'da DVWA/Juice Shop'a karşı Nikto çalıştır; çıkan bulguları OWASP kategorileriyle eşleştir.\n\n> Etik & not: Gürültülüdür ve loglara çok iz bırakır. Yalnızca izinli hedefte; savunmada bu izler tespit için kullanılabilir.\n\n> Yaygın hata: Nikto'yu kapsamlı bir web pentest yerine koymak. O bir başlangıç tarayıcısıdır; mantık hataları ve erişim kontrolü için manuel test (Burp) şarttır.",
+        "en": "## Nikto\nScans web servers for known weak configs, outdated software and risky files.\n\n### Command\n```\nnikto -h http://target\nnikto -h https://target -ssl -o report.html -Format html\n```\n\n### Typical findings\n- Exposed admin panels, default/sample files, missing security headers, old server versions.\n\n### Mini-lab\nRun Nikto against DVWA/Juice Shop in a lab; map the findings to OWASP categories.\n\n> Ethics & note: It's noisy and leaves many log traces. Authorized targets only; defenders can use those traces for detection.\n\n> Common mistake: Treating Nikto as a substitute for a full web pentest. It's a starting scanner; manual testing (Burp) is essential for logic flaws and access control."
+      }
+    },
+    {
+      "id": "cve-cvss-epss",
+      "title": { "tr": "CVE, CVSS, EPSS, KEV", "en": "CVE, CVSS, EPSS, KEV" },
+      "tags": ["vulnscan", "process"],
+      "content": {
+        "tr": "## Zafiyet Önceliklendirme\n- **CVE:** her zafiyete verilen benzersiz kimlik (örn. CVE-2024-12345).\n- **CVSS:** ciddiyet puanı (0-10).\n- **EPSS:** zafiyetin yakın zamanda **istismar edilme olasılığı**.\n- **KEV (CISA):** aktif olarak **istismar edildiği bilinen** zafiyetler kataloğu.\n\n### Neden hepsi birlikte?\nYüksek CVSS her zaman acil değildir; EPSS + KEV gerçek dünyadaki riski gösterir. Pratik öncelik: önce **KEV'deki** ve **yüksek EPSS'li** zafiyetleri yama.\n\n### Mini-lab\nBir tarama raporundan 5 bulgu seç; her birini CVSS + (varsa) KEV/EPSS ile sıralayıp gerçek öncelik listesi oluştur.\n\n> Savunma: Sadece CVSS'e göre değil, **istismar edilirliğe** göre önceliklendir. Sınırlı yama kapasitesini en çok risk azaltan yere harca.\n\n> Yaygın hata: Tüm 'kritik' (CVSS 9+) bulguları aynı anda yamalamaya çalışıp gerçekten istismar edilenleri geciktirmek. Risk = olasılık × etki.",
+        "en": "## Vulnerability Prioritization\n- **CVE:** a unique ID per vulnerability (e.g. CVE-2024-12345).\n- **CVSS:** severity score (0-10).\n- **EPSS:** the **probability of exploitation** in the near term.\n- **KEV (CISA):** a catalog of vulnerabilities **known to be actively exploited**.\n\n### Why all together?\nHigh CVSS isn't always urgent; EPSS + KEV show real-world risk. Practical priority: patch **KEV-listed** and **high-EPSS** vulns first.\n\n### Mini-lab\nPick 5 findings from a scan report; rank each by CVSS + (if available) KEV/EPSS to build a real priority list.\n\n> Defense: Prioritize by **exploitability**, not CVSS alone. Spend limited patching capacity where it reduces the most risk.\n\n> Common mistake: Trying to patch all 'critical' (CVSS 9+) at once while delaying the ones actually being exploited. Risk = likelihood × impact."
+      }
+    },
+    {
+      "id": "patch-management",
+      "title": { "tr": "Yama Yönetimi (Savunma)", "en": "Patch Management (Defense)" },
+      "tags": ["vulnscan", "defense"],
+      "content": {
+        "tr": "## Yama Yönetimi\nZafiyet taramanın savunma tarafındaki karşılığı: bulunan açıkları **sistemli biçimde kapatmak**. Tarama 'sorunu bulur', yama yönetimi 'çözer'.\n\n### Süreç\n1. Envanter: hangi sistemde hangi yazılım/sürüm var (SBOM yardımcı olur).\n2. Önceliklendir: KEV/EPSS/CVSS ile sırala.\n3. Test: yamayı önce bir test ortamında dene.\n4. Uygula + doğrula: yamanın gerçekten kapattığını yeniden tara.\n\n### Mini-lab\nBir lab makinesinde eski bir paket bul (`apt list --upgradable`), önceliklendir ve güncelle; sonra tekrar tarayıp kapandığını doğrula.\n\n> Savunma: Düzenli, otomatik yama döngüsü kur; acil (out-of-band) yamalar için bir süreç tut. Yama yapılamıyorsa **telafi edici kontrol** (segmentasyon, WAF) uygula.\n\n> Yaygın hata: Yamayı test etmeden üretime uygulamak (kesinti riski) ya da tam tersi, 'bozarım' korkusuyla hiç yamamamak. İkisi de risklidir; dengeli, test edilmiş bir süreç gerekir.",
+        "en": "## Patch Management\nThe defensive counterpart of vulnerability scanning: **systematically closing** the holes found. Scanning 'finds the problem', patch management 'fixes' it.\n\n### Process\n1. Inventory: which software/version runs where (an SBOM helps).\n2. Prioritize: order by KEV/EPSS/CVSS.\n3. Test: try the patch in a test environment first.\n4. Apply + verify: re-scan to confirm the patch actually closed it.\n\n### Mini-lab\nFind an outdated package on a lab machine (`apt list --upgradable`), prioritize and update it; then re-scan to confirm it's closed.\n\n> Defense: Build a regular, automated patch cycle; keep a process for emergency (out-of-band) patches. If you can't patch, apply a **compensating control** (segmentation, WAF).\n\n> Common mistake: Applying patches to production without testing (outage risk), or the opposite — never patching out of fear of breakage. Both are risky; you need a balanced, tested process."
+      }
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "id": "scanning",
+  "title": { "tr": "Port ve Servis Tarama", "en": "Port & Service Scanning" },
+  "subtitle": { "tr": "Nmap, NSE, Masscan ve tespit", "en": "Nmap, NSE, Masscan and detection" },
+  "icon": "radar",
+  "level": "offensive",
+  "topics": [
+    {
+      "id": "nmap",
+      "title": { "tr": "Nmap (Port ve Servis Keşfi)", "en": "Nmap (Port & Service Discovery)" },
+      "tags": ["scanning"],
+      "ethics": true,
+      "content": {
+        "tr": "## Nmap\nAğ keşfinin standart aracı: açık portlar, servisler, sürümler ve işletim sistemi tahmini.\n\n### Sık kullanım\n```\nnmap 10.10.10.5                 # hızlı tarama\nnmap -sV 10.10.10.5             # servis/sürüm tespiti\nnmap -sC -sV -oN cikti.txt 10.10.10.5   # varsayılan scriptler + kayıt\nnmap -p- 10.10.10.5             # tüm 65535 TCP portu\nnmap -sU --top-ports 50 10.10.10.5      # yaygın UDP portları\nnmap -sn 10.10.10.0/24          # canlı host keşfi (ping sweep)\n```\n\n### Tarama türleri\n- `-sS` SYN (varsayılan, hızlı) · `-sT` tam bağlantı · `-sU` UDP · `-sn` yalnızca host keşfi.\n\n### Mini-lab\n1. Bir lab hedefinde `-sn` ile canlı hostları bul.\n2. Canlı bir hostta `-sC -sV -oN` ile detaylı tara, çıktıyı incele.\n\n> Etik & savunma: Tarama yalnızca **izinli** hedeflerde. Saldırı tarafı gürültü çıkarır; savunmada IDS/IPS (Snort/Suricata) bu taramaları tespit eder.\n\n> Yaygın hata: `-p-` (tüm portlar) atlamak ve yalnızca ilk 1000 portu taramak. Birçok servis yüksek portlarda çalışır; kapsamlı keşifte tüm portları unutma.",
+        "en": "## Nmap\nThe standard network discovery tool: open ports, services, versions and OS guess.\n\n### Common usage\n```\nnmap 10.10.10.5                 # quick scan\nnmap -sV 10.10.10.5             # service/version detection\nnmap -sC -sV -oN out.txt 10.10.10.5     # default scripts + save\nnmap -p- 10.10.10.5             # all 65535 TCP ports\nnmap -sU --top-ports 50 10.10.10.5      # common UDP ports\nnmap -sn 10.10.10.0/24          # live host discovery (ping sweep)\n```\n\n### Scan types\n- `-sS` SYN (default, fast) · `-sT` full connect · `-sU` UDP · `-sn` host discovery only.\n\n### Mini-lab\n1. Find live hosts on a lab target with `-sn`.\n2. On a live host, scan in detail with `-sC -sV -oN` and review the output.\n\n> Ethics & defense: Scan only **authorized** targets. Scanning is noisy; defenders detect it with IDS/IPS (Snort/Suricata).\n\n> Common mistake: Skipping `-p-` (all ports) and scanning only the top 1000. Many services run on high ports; don't forget all ports in thorough recon."
+      }
+    },
+    {
+      "id": "nse",
+      "title": { "tr": "Nmap NSE Scriptleri", "en": "Nmap NSE Scripts" },
+      "tags": ["scanning"],
+      "ethics": true,
+      "content": {
+        "tr": "## NSE (Nmap Scripting Engine)\nNmap'in script motoru; tarama sırasında otomatik keşif, zafiyet kontrolü ve hatta hafif istismar yapar.\n\n### Kategoriler ve örnekler\n```\nnmap -sC 10.10.10.5                       # varsayılan scriptler\nnmap --script vuln 10.10.10.5             # bilinen zafiyet kontrolleri\nnmap --script http-enum -p80 10.10.10.5   # web dizin/uygulama keşfi\nnmap --script smb-os-discovery -p445 10.10.10.5\n```\n- Kategoriler: `safe`, `default`, `discovery`, `vuln`, `auth`, `intrusive` (dikkatli kullan).\n\n### Mini-lab\nBir lab web sunucusunda `--script http-enum` çalıştır; bulunan yolları ve teknolojileri not et.\n\n> Etik & savunma: `intrusive`/`vuln` scriptleri hedefi etkileyebilir; yalnızca izinli, izole lab'da. Savunmada bu scriptler de IDS imzalarıyla tespit edilebilir.\n\n> Yaygın hata: `--script intrusive` veya `exploit` kategorilerini kapsam/etki düşünmeden üretim benzeri sistemlerde çalıştırmak; servisleri bozabilir.",
+        "en": "## NSE (Nmap Scripting Engine)\nNmap's scripting engine; during a scan it does automated discovery, vulnerability checks and even light exploitation.\n\n### Categories and examples\n```\nnmap -sC 10.10.10.5                       # default scripts\nnmap --script vuln 10.10.10.5             # known-vuln checks\nnmap --script http-enum -p80 10.10.10.5   # web dir/app discovery\nnmap --script smb-os-discovery -p445 10.10.10.5\n```\n- Categories: `safe`, `default`, `discovery`, `vuln`, `auth`, `intrusive` (use carefully).\n\n### Mini-lab\nRun `--script http-enum` on a lab web server; note the discovered paths and technologies.\n\n> Ethics & defense: `intrusive`/`vuln` scripts can affect the target; only in an authorized, isolated lab. Defensively these scripts can also be detected by IDS signatures.\n\n> Common mistake: Running `--script intrusive` or `exploit` categories on production-like systems without considering scope/impact; they can break services."
+      }
+    },
+    {
+      "id": "masscan",
+      "title": { "tr": "Masscan (Yüksek Hızlı Tarama)", "en": "Masscan (High-Speed Scanning)" },
+      "tags": ["scanning"],
+      "ethics": true,
+      "content": {
+        "tr": "## Masscan\nÇok geniş aralıkları aşırı hızlı tarar (saniyede milyonlarca paket). Keşif için kaba bir ilk geçiş; ardından Nmap ile detaylandırılır.\n\n### Komut\n```\nmasscan 10.10.0.0/16 -p80,443 --rate 1000 -oL sonuc.txt\n```\n- `--rate` paket/saniye; yüksek hız = yüksek gürültü ve ağ yükü.\n\n### Tipik iş akışı\n1. Masscan ile geniş aralıkta açık portları hızlıca bul.\n2. Çıkan host/portları Nmap'e ver: detaylı sürüm/script taraması.\n\n### Mini-lab\nLab aralığında düşük `--rate` ile Masscan çalıştır; çıktıyı Nmap'in `-iL` (girdi listesi) ile besle.\n\n> Etik: Yanlış kapsam veya aşırı hız hedef ağa **zarar** verebilir (DoS etkisi). Yalnızca izinli, izole testte ve kontrollü oranla kullan.\n\n> Yaygın hata: `--rate`'i bilinçsizce çok yüksek vermek. Bu, ağ ekipmanını veya hedef servisleri çökertebilir; oranı kademeli artır.",
+        "en": "## Masscan\nScans very large ranges extremely fast (millions of packets/sec). A coarse first pass for discovery; then detailed with Nmap.\n\n### Command\n```\nmasscan 10.10.0.0/16 -p80,443 --rate 1000 -oL out.txt\n```\n- `--rate` is packets/sec; high speed = high noise and network load.\n\n### Typical workflow\n1. Quickly find open ports across a wide range with Masscan.\n2. Feed the resulting hosts/ports to Nmap for detailed version/script scanning.\n\n### Mini-lab\nRun Masscan over a lab range with a low `--rate`; feed the output to Nmap's `-iL` (input list).\n\n> Ethics: Wrong scope or excessive rate can **harm** the target network (DoS effect). Use only in authorized, isolated tests at a controlled rate.\n\n> Common mistake: Setting `--rate` recklessly high. It can crash network gear or target services; ramp the rate up gradually."
+      }
+    },
+    {
+      "id": "scan-detection",
+      "title": { "tr": "Tarama Tespiti (Savunma)", "en": "Scan Detection (Defense)" },
+      "tags": ["blue", "scanning"],
+      "content": {
+        "tr": "## Tarama Nasıl Tespit Edilir?\nSaldırgan tarafını öğrenmek, savunma kurmayı kolaylaştırır.\n\n### Belirtiler\n- Kısa sürede çok sayıda farklı porta SYN paketi (port scan).\n- Tek kaynaktan birçok hedefe bağlantı denemesi (sweep).\n- Tamamlanmayan (yarı açık) TCP bağlantılarının yoğunluğu.\n\n### Araçlar\n- **IDS/IPS:** Snort/Suricata kuralları port-scan imzalarını yakalar.\n- Firewall log analizi ve netflow anormallik tespiti.\n- **Honeypot** portları: yalnızca tarayıcıların dokunacağı tuzaklar → erken uyarı.\n\n### Mini-lab\nBir lab'da Suricata/Snort kur, başka bir makineden `nmap` çalıştır ve üretilen uyarıyı incele.\n\n> İpucu: Tespit, taramayı engellemez ama **görünür** kılar. Görünürlük, bir saldırının erken aşamasını yakalamanın anahtarıdır.\n\n> Yaygın hata: Yalnızca dış (perimeter) taramayı izlemek. İç ağdaki yanal tarama, çoğu zaman gerçek ihlalin daha kritik bir işaretidir.",
+        "en": "## How Are Scans Detected?\nUnderstanding the attacker side makes defense easier.\n\n### Indicators\n- Many SYN packets to different ports in a short time (port scan).\n- Connection attempts from one source to many targets (sweep).\n- A spike of incomplete (half-open) TCP connections.\n\n### Tools\n- **IDS/IPS:** Snort/Suricata rules catch port-scan signatures.\n- Firewall log analysis and netflow anomaly detection.\n- **Honeypot** ports: traps only scanners touch → early warning.\n\n### Mini-lab\nSet up Suricata/Snort in a lab, run `nmap` from another machine and review the alert produced.\n\n> Tip: Detection doesn't block scanning but makes it **visible**. Visibility is key to catching the early stage of an attack.\n\n> Common mistake: Monitoring only external (perimeter) scanning. Internal lateral scanning is often a more critical sign of an actual breach."
+      }
+    }
+  ]
+}

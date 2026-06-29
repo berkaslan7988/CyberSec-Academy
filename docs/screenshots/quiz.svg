@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="600" viewBox="0 0 300 600" font-family="Segoe UI, Roboto, sans-serif">
+  <rect width="300" height="600" rx="18" fill="#101317"/>
+  <rect x="0" y="0" width="300" height="56" rx="18" fill="#1E88E5"/>
+  <rect x="0" y="30" width="300" height="26" fill="#1E88E5"/>
+  <text x="16" y="34" fill="#fff" font-size="17" font-weight="700">Networking &amp; Fundamentals</text>
+  <!-- progress -->
+  <rect x="0" y="56" width="300" height="4" fill="#1a1f25"/>
+  <rect x="0" y="56" width="120" height="4" fill="#1E88E5"/>
+  <text x="16" y="82" fill="#9aa0a6" font-size="11">Question 3/9</text>
+  <!-- prompt -->
+  <text x="16" y="110" fill="#e8eaed" font-size="14" font-weight="600">Write an Nmap command that detects</text>
+  <text x="16" y="130" fill="#e8eaed" font-size="14" font-weight="600">service versions on 10.10.10.5.</text>
+  <!-- command input -->
+  <rect x="16" y="146" width="268" height="40" rx="8" fill="#0D1117" stroke="#1E88E5" stroke-width="1.5"/>
+  <text x="26" y="171" fill="#9CDCFE" font-size="13" font-family="monospace">$ nmap -sV 10.10.10.5</text>
+  <!-- feedback panel (correct) -->
+  <rect x="16" y="200" width="268" height="150" rx="10" fill="#1b3a24" stroke="#43a047" stroke-width="1.2"/>
+  <circle cx="34" cy="224" r="8" fill="#43a047"/>
+  <text x="34" y="228" fill="#fff" font-size="11" text-anchor="middle" font-weight="700">✓</text>
+  <text x="50" y="228" fill="#66bb6a" font-size="14" font-weight="700">Correct!</text>
+  <text x="28" y="256" fill="#cfd3d6" font-size="11" font-weight="600">Explanation:</text>
+  <text x="28" y="274" fill="#b6bbbf" font-size="10.5">The -sV flag performs service/version</text>
+  <text x="28" y="290" fill="#b6bbbf" font-size="10.5">detection. e.g. nmap -sV 10.10.10.5</text>
+  <text x="28" y="320" fill="#cfd3d6" font-size="11" font-weight="600">Flexible grading:</text>
+  <text x="28" y="337" fill="#b6bbbf" font-size="10.5">flag order &amp; aliases accepted; partial</text>
+  <!-- next button -->
+  <rect x="16" y="372" width="268" height="44" rx="10" fill="#1E88E5"/>
+  <text x="150" y="400" fill="#fff" font-size="14" font-weight="700" text-anchor="middle">Next</text>
+  <!-- review hint card -->
+  <rect x="16" y="436" width="268" height="60" rx="10" fill="#13294a"/>
+  <text x="30" y="462" fill="#90caf9" font-size="13" font-weight="700">↻ Today's Review</text>
+  <text x="30" y="482" fill="#9aa0a6" font-size="10">6 questions due (spaced repetition)</text>
+  <circle cx="262" cy="466" r="13" fill="#90caf9"/>
+  <text x="262" y="471" fill="#13294a" font-size="12" font-weight="700" text-anchor="middle">6</text>
+  <!-- bottom nav -->
+  <rect x="0" y="548" width="300" height="52" fill="#171b20"/>
+  <text x="50" y="576" fill="#9aa0a6" font-size="11" text-anchor="middle">▣ Learn</text>
+  <text x="150" y="576" fill="#64b5f6" font-size="11" text-anchor="middle" font-weight="700">？ Quiz</text>
+  <text x="250" y="576" fill="#9aa0a6" font-size="11" text-anchor="middle">▤ Stats</text>
+</svg>

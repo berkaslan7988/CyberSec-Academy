@@ -1,0 +1,1176 @@
+{
+  "quizzes": {
+    "network": {
+      "id": "quiz_network",
+      "title": { "tr": "Ağ ve Temel Kavramlar", "en": "Networking & Fundamentals" },
+      "questions": [
+        {
+          "id": "n1", "type": "multiple_choice", "difficulty": "easy",
+          "prompt": { "tr": "IP adresleme OSI'de hangi katmanda olur?", "en": "At which OSI layer does IP addressing occur?" },
+          "options": [
+            { "tr": "Katman 2", "en": "Layer 2" },
+            { "tr": "Katman 3", "en": "Layer 3", "correct": true },
+            { "tr": "Katman 4", "en": "Layer 4" },
+            { "tr": "Katman 7", "en": "Layer 7" }
+          ],
+          "explanation": { "tr": "IP adresleme/yönlendirme Katman 3'tedir.", "en": "IP addressing/routing is at Layer 3." }
+        },
+        {
+          "id": "n2", "type": "command", "difficulty": "easy",
+          "prompt": { "tr": "example.com'un A kaydını sorgulayan dig komutu yaz.", "en": "Write a dig command querying the A record of example.com." },
+          "evaluation": { "requiredTokens": ["dig"], "requiredFlagGroups": [["A", "a"]], "requiredTargets": ["example.com"], "allowSudo": false, "acceptedSolutions": ["dig example.com A", "dig A example.com"] },
+          "explanation": { "tr": "dig example.com A → A (adres) kaydı.", "en": "dig example.com A → the A (address) record." }
+        },
+        {
+          "id": "n3", "type": "true_false", "difficulty": "easy",
+          "prompt": { "tr": "TCP el sıkışması SYN, SYN-ACK, ACK sırasıyla olur.", "en": "The TCP handshake is SYN, SYN-ACK, ACK." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru.", "en": "True." }
+        },
+        {
+          "id": "n4", "type": "multiple_choice", "difficulty": "easy",
+          "prompt": { "tr": "HTTPS'in varsayılan portu?", "en": "Default port for HTTPS?" },
+          "options": [ { "tr": "80", "en": "80" }, { "tr": "443", "en": "443", "correct": true }, { "tr": "22", "en": "22" }, { "tr": "53", "en": "53" } ],
+          "explanation": { "tr": "HTTPS 443, HTTP 80, SSH 22, DNS 53.", "en": "HTTPS 443, HTTP 80, SSH 22, DNS 53." }
+        },
+        {
+          "id": "n5", "type": "fill_blank", "difficulty": "medium",
+          "prompt": { "tr": "ARP, IP adresini ___ adresine çözer.", "en": "ARP resolves an IP address to a ___ address." },
+          "acceptedAnswers": ["mac", "mac adresi", "donanım"],
+          "explanation": { "tr": "ARP, IP'yi MAC (donanım) adresine çözer.", "en": "ARP resolves IP to a MAC (hardware) address." }
+        },
+        {
+          "id": "n6", "type": "true_false", "difficulty": "easy",
+          "prompt": { "tr": "UDP bağlantı kurar ve teslimatı garanti eder.", "en": "UDP establishes a connection and guarantees delivery." },
+          "options": [ { "tr": "Doğru", "en": "True" }, { "tr": "Yanlış", "en": "False", "correct": true } ],
+          "explanation": { "tr": "Yanlış — UDP bağlantısız ve garantisizdir; TCP güvenilirdir.", "en": "False — UDP is connectionless/best-effort; TCP is reliable." }
+        },
+        {
+          "id": "n7", "type": "multiple_choice", "difficulty": "medium",
+          "prompt": { "tr": "Güvenlik duvarında en güvenli varsayılan politika?", "en": "Safest default firewall policy?" },
+          "options": [ { "tr": "Varsayılan reddet (default deny)", "en": "Default deny", "correct": true }, { "tr": "Her şeye izin ver", "en": "Allow all" }, { "tr": "Kural koymamak", "en": "No rules" }, { "tr": "Yalnızca giden izin", "en": "Allow all outbound only" } ],
+          "explanation": { "tr": "Default deny: yalnızca açıkça izin verileni geçir.", "en": "Default deny: pass only what is explicitly allowed." }
+        },
+        {
+          "id": "n8", "type": "fill_blank", "difficulty": "medium",
+          "prompt": { "tr": "Reverse shell ve veri sızıntısını zorlaştıran giden trafik filtresi: ___ filtering", "en": "Outbound filtering that hampers reverse shells and exfiltration: ___ filtering" },
+          "acceptedAnswers": ["egress"],
+          "explanation": { "tr": "Egress filtering (giden trafik kısıtlama).", "en": "Egress filtering." }
+        },
+        {
+          "id": "n9", "type": "true_false", "difficulty": "easy",
+          "prompt": { "tr": "Ağ segmentasyonu bir ihlalin etki alanını (blast radius) sınırlar.", "en": "Network segmentation limits the blast radius of a breach." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru — yanal hareketi zorlaştırır.", "en": "True — it impedes lateral movement." }
+        }
+      ]
+    },
+    "os": {
+      "id": "quiz_os",
+      "title": { "tr": "İşletim Sistemleri ve Komutlar", "en": "Operating Systems & Commands" },
+      "questions": [
+        {
+          "id": "o1", "type": "multiple_choice", "difficulty": "easy",
+          "prompt": { "tr": "Windows'ta başarısız oturum açma Event ID'si?", "en": "Windows failed logon Event ID?" },
+          "options": [ { "tr": "4624", "en": "4624" }, { "tr": "4625", "en": "4625", "correct": true }, { "tr": "4688", "en": "4688" }, { "tr": "1102", "en": "1102" } ],
+          "explanation": { "tr": "4625 = başarısız giriş.", "en": "4625 = failed logon." }
+        },
+        {
+          "id": "o2", "type": "fill_blank", "difficulty": "medium",
+          "prompt": { "tr": "SUID dosyaları bulmak için: find / -perm ___ -type f", "en": "To find SUID files: find / -perm ___ -type f" },
+          "acceptedAnswers": ["-4000", "4000"],
+          "explanation": { "tr": "find / -perm -4000 -type f", "en": "find / -perm -4000 -type f" }
+        },
+        {
+          "id": "o3", "type": "true_false", "difficulty": "easy",
+          "prompt": { "tr": "journalctl systemd servis loglarını gösterir.", "en": "journalctl shows systemd service logs." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru.", "en": "True." }
+        },
+        {
+          "id": "o4", "type": "fill_blank", "difficulty": "easy",
+          "prompt": { "tr": "Linux'ta dosya izinlerini değiştiren komut: ___", "en": "Linux command to change file permissions: ___" },
+          "acceptedAnswers": ["chmod"],
+          "explanation": { "tr": "chmod izinleri, chown sahipliği değiştirir.", "en": "chmod changes permissions, chown changes ownership." }
+        },
+        {
+          "id": "o5", "type": "multiple_choice", "difficulty": "medium",
+          "prompt": { "tr": "Linux'ta dinleyen portları görmek için en uygun komut?", "en": "Best command to view listening ports on Linux?" },
+          "options": [ { "tr": "ss -tulpn", "en": "ss -tulpn", "correct": true }, { "tr": "ls -la", "en": "ls -la" }, { "tr": "ps aux", "en": "ps aux" }, { "tr": "cat /etc/passwd", "en": "cat /etc/passwd" } ],
+          "explanation": { "tr": "ss -tulpn (veya netstat) dinleyen portları listeler.", "en": "ss -tulpn (or netstat) lists listening ports." }
+        },
+        {
+          "id": "o6", "type": "true_false", "difficulty": "medium",
+          "prompt": { "tr": "PowerShell nesne tabanlıdır (metin değil).", "en": "PowerShell is object-based (not text)." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru — bu yüzden filtreleme güçlüdür.", "en": "True — which makes filtering powerful." }
+        },
+        {
+          "id": "o7", "type": "multiple_choice", "difficulty": "medium",
+          "prompt": { "tr": "Hangi sürecin hangi portu dinlediğini Linux'ta gösteren komut?", "en": "Linux command showing which process listens on which port?" },
+          "options": [ { "tr": "lsof -i -P -n", "en": "lsof -i -P -n", "correct": true }, { "tr": "chmod 777", "en": "chmod 777" }, { "tr": "ping -c1", "en": "ping -c1" }, { "tr": "curl -I", "en": "curl -I" } ],
+          "explanation": { "tr": "lsof -i (veya ss -tulpn) süreç-port eşlemesini gösterir.", "en": "lsof -i (or ss -tulpn) shows the process-port mapping." }
+        },
+        {
+          "id": "o8", "type": "fill_blank", "difficulty": "easy",
+          "prompt": { "tr": "Mevcut kullanıcının sudo haklarını listeleyen komut: sudo ___", "en": "Command listing the current user's sudo rights: sudo ___" },
+          "acceptedAnswers": ["-l"],
+          "explanation": { "tr": "sudo -l", "en": "sudo -l" }
+        },
+        {
+          "id": "o9", "type": "true_false", "difficulty": "easy",
+          "prompt": { "tr": "Lab VM'leri köprü (bridged) yerine host-only/internal ağda tutulmalıdır.", "en": "Lab VMs should be on a host-only/internal network, not bridged." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru — lab trafiğinin üretim ağına sızmasını önler.", "en": "True — it prevents lab traffic from leaking into production." }
+        }
+      ]
+    },
+    "scripting": {
+      "id": "quiz_scripting",
+      "title": { "tr": "Programlama ve Scripting", "en": "Programming & Scripting" },
+      "questions": [
+        {
+          "id": "s1", "type": "multiple_choice", "difficulty": "easy",
+          "prompt": { "tr": "Python'da HTTP istekleri için en yaygın kütüphane?", "en": "Most common Python library for HTTP requests?" },
+          "options": [ { "tr": "requests", "en": "requests", "correct": true }, { "tr": "pandas", "en": "pandas" }, { "tr": "numpy", "en": "numpy" }, { "tr": "flask", "en": "flask" } ],
+          "explanation": { "tr": "requests HTTP için standarttır.", "en": "requests is the standard for HTTP." }
+        },
+        {
+          "id": "s2", "type": "fill_blank", "difficulty": "easy",
+          "prompt": { "tr": "Bash'te HTTP isteği yapan yaygın CLI aracı: ___", "en": "Common CLI tool for HTTP requests in Bash: ___" },
+          "acceptedAnswers": ["curl", "wget"],
+          "explanation": { "tr": "curl (veya wget).", "en": "curl (or wget)." }
+        },
+        {
+          "id": "s3", "type": "true_false", "difficulty": "medium",
+          "prompt": { "tr": "Aşırı geniş regex bir DoS kaynağı olabilir.", "en": "Overly broad regex can be a DoS source." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru — catastrophic backtracking.", "en": "True — catastrophic backtracking." }
+        },
+        {
+          "id": "s4", "type": "multiple_choice", "difficulty": "medium",
+          "prompt": { "tr": "pwntools ne için kullanılır?", "en": "What is pwntools used for?" },
+          "options": [ { "tr": "Exploit/pwn geliştirme", "en": "Exploit/pwn development", "correct": true }, { "tr": "Veri görselleştirme", "en": "Data visualization" }, { "tr": "Web tasarımı", "en": "Web design" }, { "tr": "Veritabanı yönetimi", "en": "Database admin" } ],
+          "explanation": { "tr": "pwntools, CTF/pwn exploit geliştirme çerçevesidir.", "en": "pwntools is a CTF/pwn exploit-dev framework." }
+        },
+        {
+          "id": "s5", "type": "fill_blank", "difficulty": "medium",
+          "prompt": { "tr": "Bash scriptin ilk satırındaki yorumlayıcı bildirimi (örn. #!/bin/bash): ___", "en": "The interpreter declaration on a Bash script's first line (e.g. #!/bin/bash): ___" },
+          "acceptedAnswers": ["shebang", "hashbang"],
+          "explanation": { "tr": "Buna shebang (#!) denir.", "en": "It's called a shebang (#!)." }
+        },
+        {
+          "id": "s6", "type": "true_false", "difficulty": "easy",
+          "prompt": { "tr": "PowerShell hem savunma hem (lab içinde) post-exploit için kullanılabilir.", "en": "PowerShell can be used for both defense and (in-lab) post-exploitation." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru — bu yüzden script block logging önemlidir.", "en": "True — which is why script block logging matters." }
+        }
+        ,
+        {
+          "id": "s7", "type": "fill_blank", "difficulty": "medium",
+          "prompt": { "tr": "Bash scriptini hata/eksik değişkende durduran güvenli mod satırı: set ___", "en": "Bash 'safe mode' line that stops on error/unset var: set ___" },
+          "acceptedAnswers": ["-euo pipefail", "-e", "-euo"],
+          "explanation": { "tr": "set -euo pipefail scriptleri sağlamlaştırır.", "en": "set -euo pipefail hardens scripts." }
+        },
+        {
+          "id": "s8", "type": "true_false", "difficulty": "easy",
+          "prompt": { "tr": "Python'da verify=False ile TLS doğrulamasını kapatmak üretimde güvenlidir.", "en": "Disabling TLS verification with verify=False is safe in production." },
+          "options": [ { "tr": "Doğru", "en": "True" }, { "tr": "Yanlış", "en": "False", "correct": true } ],
+          "explanation": { "tr": "Yanlış — MITM'e kapı açar; yalnızca bilinçli lab kullanımı.", "en": "False — opens the door to MITM; deliberate lab use only." }
+        }
+      ]
+    },
+    "recon": {
+      "id": "quiz_recon",
+      "title": { "tr": "Keşif / Recon", "en": "Reconnaissance" },
+      "questions": [
+        {
+          "id": "r1", "type": "command", "difficulty": "easy",
+          "prompt": { "tr": "example.com için kayıt/sahiplik bilgisini sorgulayan komut.", "en": "Command to query registration/ownership for example.com." },
+          "evaluation": { "requiredTokens": ["whois"], "requiredTargets": ["example.com"], "allowSudo": false, "acceptedSolutions": ["whois example.com"] },
+          "explanation": { "tr": "whois example.com", "en": "whois example.com" }
+        },
+        {
+          "id": "r2", "type": "multiple_choice", "difficulty": "easy",
+          "prompt": { "tr": "Shodan ne için kullanılır?", "en": "What is Shodan used for?" },
+          "options": [ { "tr": "İnternete açık cihaz arama", "en": "Internet-exposed device search", "correct": true }, { "tr": "Parola kırma", "en": "Password cracking" }, { "tr": "Paket yakalama", "en": "Packet capture" }, { "tr": "Tersine mühendislik", "en": "Reverse engineering" } ],
+          "explanation": { "tr": "Shodan internete açık cihaz/servis arar.", "en": "Shodan searches internet-exposed devices/services." }
+        },
+        {
+          "id": "r3", "type": "fill_blank", "difficulty": "medium",
+          "prompt": { "tr": "Subdomain keşfinde kullanılan popüler araç: ___", "en": "Popular subdomain enumeration tool: ___" },
+          "acceptedAnswers": ["amass", "subfinder"],
+          "explanation": { "tr": "Amass (veya subfinder).", "en": "Amass (or subfinder)." }
+        },
+        {
+          "id": "r4", "type": "multiple_choice", "difficulty": "easy",
+          "prompt": { "tr": "theHarvester neyi toplar?", "en": "What does theHarvester gather?" },
+          "options": [ { "tr": "E-posta ve host bilgileri", "en": "Emails and host info", "correct": true }, { "tr": "Bellek dökümü", "en": "Memory dumps" }, { "tr": "Ağ paketleri", "en": "Network packets" }, { "tr": "Exploit kodu", "en": "Exploit code" } ],
+          "explanation": { "tr": "theHarvester açık kaynaklardan e-posta/host toplar.", "en": "theHarvester gathers emails/hosts from open sources." }
+        },
+        {
+          "id": "r5", "type": "fill_blank", "difficulty": "medium",
+          "prompt": { "tr": "DNS'te MX kaydı hangi servisi işaret eder?", "en": "A DNS MX record points to which service?" },
+          "acceptedAnswers": ["mail", "e-posta", "email", "mail sunucusu", "posta"],
+          "explanation": { "tr": "MX = mail (e-posta) sunucuları.", "en": "MX = mail (email) servers." }
+        },
+        {
+          "id": "r6", "type": "true_false", "difficulty": "easy",
+          "prompt": { "tr": "Pasif keşif hedefe doğrudan paket göndermeden yapılır.", "en": "Passive recon is done without sending packets directly to the target." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru — düşük iz bırakır.", "en": "True — low footprint." }
+        }
+        ,
+        {
+          "id": "r7", "type": "multiple_choice", "difficulty": "easy",
+          "prompt": { "tr": "OSINT ne demektir?", "en": "What does OSINT mean?" },
+          "options": [ { "tr": "Açık kaynak istihbaratı", "en": "Open-source intelligence", "correct": true }, { "tr": "Bir tarama aracı", "en": "A scanning tool" }, { "tr": "Bir şifreleme türü", "en": "A type of encryption" }, { "tr": "Bir güvenlik duvarı", "en": "A firewall" } ],
+          "explanation": { "tr": "OSINT = herkese açık bilgiden istihbarat.", "en": "OSINT = intelligence from publicly available info." }
+        },
+        {
+          "id": "r8", "type": "fill_blank", "difficulty": "medium",
+          "prompt": { "tr": "Tüm DNS kayıtlarını sızdırabilen yanlış yapılandırma: zone ___", "en": "Misconfiguration that can leak all DNS records: zone ___" },
+          "acceptedAnswers": ["transfer", "transfer (axfr)", "axfr"],
+          "explanation": { "tr": "Açık zone transfer (AXFR).", "en": "Open zone transfer (AXFR)." }
+        }
+      ]
+    },
+    "scanning": {
+      "id": "quiz_scanning",
+      "title": { "tr": "Port ve Servis Tarama", "en": "Port & Service Scanning" },
+      "questions": [
+        {
+          "id": "sc1", "type": "command", "difficulty": "medium",
+          "prompt": { "tr": "10.10.10.5'te servis sürümlerini tespit eden Nmap komutu.", "en": "Nmap command detecting service versions on 10.10.10.5." },
+          "evaluation": { "requiredTokens": ["nmap"], "requiredFlagGroups": [["-sV", "--version-scan"]], "requiredTargets": ["10.10.10.5"], "flagAliases": { "--version-scan": "-sV" }, "acceptedSolutions": ["nmap -sV 10.10.10.5"] },
+          "explanation": { "tr": "-sV servis/sürüm tespiti yapar.", "en": "-sV performs version detection." }
+        },
+        {
+          "id": "sc2", "type": "multiple_choice", "difficulty": "easy",
+          "prompt": { "tr": "Masscan en çok neyiyle bilinir?", "en": "Masscan is best known for?" },
+          "options": [ { "tr": "Çok yüksek tarama hızı", "en": "Very high scan speed", "correct": true }, { "tr": "Web zafiyet taraması", "en": "Web vuln scanning" }, { "tr": "Paket analizi", "en": "Packet analysis" }, { "tr": "Exploit çalıştırma", "en": "Running exploits" } ],
+          "explanation": { "tr": "Masscan aşırı hızlı port taramasıyla bilinir.", "en": "Masscan is known for very fast port scanning." }
+        },
+        {
+          "id": "sc3", "type": "true_false", "difficulty": "easy",
+          "prompt": { "tr": "Port taraması IDS/IPS tarafından tespit edilebilir.", "en": "Port scanning can be detected by IDS/IPS." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru.", "en": "True." }
+        },
+        {
+          "id": "sc4", "type": "fill_blank", "difficulty": "medium",
+          "prompt": { "tr": "Nmap'te tüm 65535 portu tarayan bayrak: ___", "en": "Nmap flag to scan all 65535 ports: ___" },
+          "acceptedAnswers": ["-p-", "-p 1-65535"],
+          "explanation": { "tr": "nmap -p- hedef → tüm portlar.", "en": "nmap -p- target → all ports." }
+        },
+        {
+          "id": "sc5", "type": "multiple_choice", "difficulty": "medium",
+          "prompt": { "tr": "nmap -sn ne yapar?", "en": "What does nmap -sn do?" },
+          "options": [ { "tr": "Canlı host keşfi (ping taraması)", "en": "Live host discovery (ping sweep)", "correct": true }, { "tr": "Sürüm tespiti", "en": "Version detection" }, { "tr": "Tüm portları tarar", "en": "Scans all ports" }, { "tr": "Exploit çalıştırır", "en": "Runs an exploit" } ],
+          "explanation": { "tr": "-sn port taramadan canlı hostları bulur.", "en": "-sn finds live hosts without port scanning." }
+        },
+        {
+          "id": "sc6", "type": "command", "difficulty": "hard",
+          "prompt": { "tr": "10.10.10.5'te varsayılan scriptler + sürüm taraması yapan Nmap komutu.", "en": "Nmap command running default scripts + version scan on 10.10.10.5." },
+          "evaluation": { "requiredTokens": ["nmap"], "requiredFlagGroups": [["-sC", "--script=default"], ["-sV", "--version-scan"]], "requiredTargets": ["10.10.10.5"], "acceptedSolutions": ["nmap -sC -sV 10.10.10.5"] },
+          "explanation": { "tr": "nmap -sC -sV 10.10.10.5", "en": "nmap -sC -sV 10.10.10.5" }
+        }
+        ,
+        {
+          "id": "sc7", "type": "multiple_choice", "difficulty": "medium",
+          "prompt": { "tr": "Nmap'in script motoru hangisidir?", "en": "What is Nmap's scripting engine?" },
+          "options": [ { "tr": "NSE", "en": "NSE", "correct": true }, { "tr": "SSH", "en": "SSH" }, { "tr": "SMB", "en": "SMB" }, { "tr": "RDP", "en": "RDP" } ],
+          "explanation": { "tr": "NSE (Nmap Scripting Engine) keşif/zafiyet scriptleri çalıştırır.", "en": "NSE (Nmap Scripting Engine) runs discovery/vuln scripts." }
+        },
+        {
+          "id": "sc8", "type": "fill_blank", "difficulty": "medium",
+          "prompt": { "tr": "Varsayılan NSE scriptlerini çalıştıran Nmap bayrağı: ___", "en": "Nmap flag that runs default NSE scripts: ___" },
+          "acceptedAnswers": ["-sc", "-sC"],
+          "explanation": { "tr": "nmap -sC varsayılan scriptleri çalıştırır.", "en": "nmap -sC runs default scripts." }
+        }
+      ]
+    },
+    "vulnscan": {
+      "id": "quiz_vulnscan",
+      "title": { "tr": "Zafiyet Tarama", "en": "Vulnerability Scanning" },
+      "questions": [
+        {
+          "id": "v1", "type": "multiple_choice", "difficulty": "easy",
+          "prompt": { "tr": "CVSS neyi ifade eder?", "en": "What does CVSS represent?" },
+          "options": [ { "tr": "Zafiyetin ciddiyet puanı", "en": "Vulnerability severity score", "correct": true }, { "tr": "İstismar olasılığı", "en": "Exploit probability" }, { "tr": "Zafiyet kimliği", "en": "Vulnerability ID" }, { "tr": "Yama tarihi", "en": "Patch date" } ],
+          "explanation": { "tr": "CVSS ciddiyet (0-10), EPSS istismar olasılığıdır.", "en": "CVSS is severity (0-10); EPSS is exploit probability." }
+        },
+        {
+          "id": "v2", "type": "fill_blank", "difficulty": "medium",
+          "prompt": { "tr": "CISA'nın aktif istismar edilen zafiyetler kataloğu: ___", "en": "CISA's catalog of actively exploited vulnerabilities: ___" },
+          "acceptedAnswers": ["kev", "known exploited vulnerabilities"],
+          "explanation": { "tr": "KEV.", "en": "KEV." }
+        },
+        {
+          "id": "v3", "type": "true_false", "difficulty": "easy",
+          "prompt": { "tr": "Kimlik bilgili (authenticated) tarama daha doğru sonuç verir.", "en": "Authenticated scans give more accurate results." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru.", "en": "True." }
+        },
+        {
+          "id": "v4", "type": "multiple_choice", "difficulty": "medium",
+          "prompt": { "tr": "EPSS neyi gösterir?", "en": "What does EPSS indicate?" },
+          "options": [ { "tr": "İstismar edilme olasılığı", "en": "Probability of exploitation", "correct": true }, { "tr": "Ciddiyet puanı", "en": "Severity score" }, { "tr": "Yama boyutu", "en": "Patch size" }, { "tr": "Zafiyet yaşı", "en": "Vulnerability age" } ],
+          "explanation": { "tr": "EPSS, yakın vadeli istismar olasılığını gösterir.", "en": "EPSS shows near-term exploit probability." }
+        },
+        {
+          "id": "v5", "type": "fill_blank", "difficulty": "easy",
+          "prompt": { "tr": "Web sunucuları bilinen zayıflıklar için tarayan araç: ___", "en": "Tool that scans web servers for known weaknesses: ___" },
+          "acceptedAnswers": ["nikto"],
+          "explanation": { "tr": "Nikto.", "en": "Nikto." }
+        },
+        {
+          "id": "v6", "type": "true_false", "difficulty": "medium",
+          "prompt": { "tr": "Yüksek CVSS puanı her zaman en acil yamadır.", "en": "A high CVSS score is always the most urgent patch." },
+          "options": [ { "tr": "Doğru", "en": "True" }, { "tr": "Yanlış", "en": "False", "correct": true } ],
+          "explanation": { "tr": "Yanlış — EPSS/KEV gerçek riski daha iyi gösterir.", "en": "False — EPSS/KEV better reflect real risk." }
+        }
+        ,
+        {
+          "id": "v7", "type": "multiple_choice", "difficulty": "medium",
+          "prompt": { "tr": "Zafiyet taramanın savunma tarafındaki karşılığı?", "en": "The defensive counterpart of vulnerability scanning?" },
+          "options": [ { "tr": "Yama yönetimi", "en": "Patch management", "correct": true }, { "tr": "Port tarama", "en": "Port scanning" }, { "tr": "Exploit yazma", "en": "Writing exploits" }, { "tr": "Phishing", "en": "Phishing" } ],
+          "explanation": { "tr": "Tarama bulur, yama yönetimi kapatır.", "en": "Scanning finds, patch management closes." }
+        },
+        {
+          "id": "v8", "type": "true_false", "difficulty": "easy",
+          "prompt": { "tr": "Yama, üretime uygulanmadan önce bir test ortamında denenmelidir.", "en": "A patch should be tested in a test environment before production." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru — kesinti riskini azaltır.", "en": "True — it reduces outage risk." }
+        }
+      ]
+    },
+    "web": {
+      "id": "quiz_web",
+      "title": { "tr": "Web Uygulama Güvenliği", "en": "Web Application Security" },
+      "questions": [
+        {
+          "id": "w1", "type": "fill_blank", "difficulty": "medium",
+          "prompt": { "tr": "OWASP Top 10:2025'te #1 risk kategorisi: ___", "en": "The #1 risk in OWASP Top 10:2025: ___" },
+          "acceptedAnswers": ["broken access control", "a01", "access control"],
+          "explanation": { "tr": "A01 Broken Access Control.", "en": "A01 Broken Access Control." }
+        },
+        {
+          "id": "w2", "type": "multiple_choice", "difficulty": "medium",
+          "prompt": { "tr": "SQLi'ye karşı en etkili savunma?", "en": "Most effective defense against SQLi?" },
+          "options": [ { "tr": "Parametreli sorgular", "en": "Parameterized queries", "correct": true }, { "tr": "Girdiyi gizlemek", "en": "Hiding the input" }, { "tr": "HTTPS kullanmak", "en": "Using HTTPS" }, { "tr": "Daha hızlı sunucu", "en": "A faster server" } ],
+          "explanation": { "tr": "Parametreli sorgular (prepared statements).", "en": "Parameterized queries (prepared statements)." }
+        },
+        {
+          "id": "w3", "type": "true_false", "difficulty": "medium",
+          "prompt": { "tr": "Çıktı kodlama (output encoding) XSS'i azaltır.", "en": "Output encoding mitigates XSS." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru — bağlama göre kodlama + CSP.", "en": "True — context-aware encoding + CSP." }
+        },
+        {
+          "id": "w4", "type": "multiple_choice", "difficulty": "medium",
+          "prompt": { "tr": "OWASP 2025'te 5'ten 2'ye yükselen kategori (A02)?", "en": "Category that rose from #5 to #2 in OWASP 2025 (A02)?" },
+          "options": [ { "tr": "Security Misconfiguration", "en": "Security Misconfiguration", "correct": true }, { "tr": "Injection", "en": "Injection" }, { "tr": "Cryptographic Failures", "en": "Cryptographic Failures" }, { "tr": "SSRF", "en": "SSRF" } ],
+          "explanation": { "tr": "A02:2025 Security Misconfiguration.", "en": "A02:2025 Security Misconfiguration." }
+        },
+        {
+          "id": "w5", "type": "fill_blank", "difficulty": "medium",
+          "prompt": { "tr": "Çerezin JavaScript'ten okunmasını engelleyen bayrak: ___", "en": "Cookie flag that blocks JavaScript access: ___" },
+          "acceptedAnswers": ["httponly", "http only"],
+          "explanation": { "tr": "HttpOnly bayrağı XSS ile oturum çalmayı zorlaştırır.", "en": "The HttpOnly flag hampers session theft via XSS." }
+        },
+        {
+          "id": "w6", "type": "command", "difficulty": "hard",
+          "prompt": { "tr": "Verilen URL'de SQLmap ile veritabanlarını listele (lab hedefi).", "en": "List databases with SQLmap on the given URL (lab target)." },
+          "evaluation": { "requiredTokens": ["sqlmap"], "requiredFlagGroups": [["--dbs"]], "acceptedSolutions": ["sqlmap -u http://hedef/item?id=1 --dbs"] },
+          "explanation": { "tr": "sqlmap -u <URL> --dbs veritabanlarını listeler.", "en": "sqlmap -u <URL> --dbs lists databases." }
+        },
+        {
+          "id": "w7", "type": "multiple_choice", "difficulty": "medium",
+          "prompt": { "tr": "Parolaları saklamanın doğru yolu?", "en": "The correct way to store passwords?" },
+          "options": [ { "tr": "bcrypt/argon2 ile hash'lemek", "en": "Hashing with bcrypt/argon2", "correct": true }, { "tr": "Düz metin", "en": "Plaintext" }, { "tr": "MD5", "en": "MD5" }, { "tr": "base64", "en": "base64" } ],
+          "explanation": { "tr": "Parolalar bcrypt/argon2 gibi yavaş hash'lerle saklanır; MD5/base64 güvensizdir.", "en": "Use slow hashes like bcrypt/argon2; MD5/base64 are insecure." }
+        },
+        {
+          "id": "w8", "type": "fill_blank", "difficulty": "hard",
+          "prompt": { "tr": "En sık API zafiyeti, nesne düzeyinde yetkisiz erişim (API1): ___", "en": "The most common API flaw, object-level authorization (API1): ___" },
+          "acceptedAnswers": ["bola", "idor", "broken object level authorization"],
+          "explanation": { "tr": "BOLA (Broken Object Level Authorization) ≈ IDOR.", "en": "BOLA (Broken Object Level Authorization) ≈ IDOR." }
+        },
+        {
+          "id": "w9", "type": "true_false", "difficulty": "medium",
+          "prompt": { "tr": "JWT varsayılan olarak şifrelidir; içeriği gizli kalır.", "en": "A JWT is encrypted by default; its payload stays secret." },
+          "options": [ { "tr": "Doğru", "en": "True" }, { "tr": "Yanlış", "en": "False", "correct": true } ],
+          "explanation": { "tr": "Yanlış — JWT yalnızca imzalıdır; payload base64'tür ve okunabilir.", "en": "False — a JWT is only signed; the payload is base64 and readable." }
+        }
+      ]
+    },
+    "exploitation": {
+      "id": "quiz_exploitation",
+      "title": { "tr": "Exploitation", "en": "Exploitation" },
+      "questions": [
+        {
+          "id": "e1", "type": "multiple_choice", "difficulty": "easy",
+          "prompt": { "tr": "Metasploit'te zafiyeti istismar eden modül türü?", "en": "Metasploit module type that exploits a vuln?" },
+          "options": [ { "tr": "exploit", "en": "exploit", "correct": true }, { "tr": "auxiliary", "en": "auxiliary" }, { "tr": "post", "en": "post" }, { "tr": "encoder", "en": "encoder" } ],
+          "explanation": { "tr": "exploit modülü.", "en": "The exploit module." }
+        },
+        {
+          "id": "e2", "type": "fill_blank", "difficulty": "easy",
+          "prompt": { "tr": "Otomatik SQL injection istismar aracı: ___", "en": "Automated SQL injection exploitation tool: ___" },
+          "acceptedAnswers": ["sqlmap"],
+          "explanation": { "tr": "SQLmap.", "en": "SQLmap." }
+        },
+        {
+          "id": "e3", "type": "true_false", "difficulty": "medium",
+          "prompt": { "tr": "Reverse shell'de hedef, saldırgana doğru bağlanır.", "en": "In a reverse shell, the target connects back to the attacker." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru.", "en": "True." }
+        },
+        {
+          "id": "e4", "type": "fill_blank", "difficulty": "easy",
+          "prompt": { "tr": "Metasploit'in etkileşimli konsolu: ___", "en": "Metasploit's interactive console: ___" },
+          "acceptedAnswers": ["msfconsole"],
+          "explanation": { "tr": "msfconsole.", "en": "msfconsole." }
+        },
+        {
+          "id": "e5", "type": "multiple_choice", "difficulty": "medium",
+          "prompt": { "tr": "Bind shell'de bir portu kim dinler?", "en": "In a bind shell, who listens on a port?" },
+          "options": [ { "tr": "Hedef makine", "en": "The target", "correct": true }, { "tr": "Saldırgan makine", "en": "The attacker" }, { "tr": "DNS sunucusu", "en": "The DNS server" }, { "tr": "Router", "en": "The router" } ],
+          "explanation": { "tr": "Bind shell'de hedef dinler, saldırgan bağlanır.", "en": "In a bind shell the target listens and the attacker connects." }
+        },
+        {
+          "id": "e6", "type": "true_false", "difficulty": "easy",
+          "prompt": { "tr": "İnternetten alınan exploit kodu körlemesine çalıştırılmalıdır.", "en": "Exploit code from the internet should be run blindly." },
+          "options": [ { "tr": "Doğru", "en": "True" }, { "tr": "Yanlış", "en": "False", "correct": true } ],
+          "explanation": { "tr": "Yanlış — önce incele, yalnızca izinli lab'da test et.", "en": "False — review it first; test only in an authorized lab." }
+        },
+        {
+          "id": "e7", "type": "multiple_choice", "difficulty": "medium",
+          "prompt": { "tr": "Komut enjeksiyonuna karşı en güvenilir savunma?", "en": "Most reliable defense against command injection?" },
+          "options": [ { "tr": "Parametreli/güvenli API (shell=False)", "en": "Parameterized/safe API (shell=False)", "correct": true }, { "tr": "Yalnızca ';' silmek", "en": "Stripping only ';'" }, { "tr": "Kara liste", "en": "A blacklist" }, { "tr": "Daha hızlı sunucu", "en": "A faster server" } ],
+          "explanation": { "tr": "Güvenli API + allowlist; sistem komutundan kaçın.", "en": "Safe API + allowlist; avoid system commands." }
+        },
+        {
+          "id": "e8", "type": "fill_blank", "difficulty": "medium",
+          "prompt": { "tr": "Komut enjeksiyonunda iki komutu ayıran yaygın karakter: ___", "en": "Common character separating two commands in command injection: ___" },
+          "acceptedAnswers": [";", "|", "&&"],
+          "explanation": { "tr": "; (ayrıca |, &&, $() kullanılabilir).", "en": "; (also |, &&, $() can be used)." }
+        }
+      ]
+    },
+    "shells": {
+      "id": "quiz_shells",
+      "title": { "tr": "Kabuklar ve Payloadlar", "en": "Shells & Payloads" },
+      "questions": [
+        {
+          "id": "sh1", "type": "command", "difficulty": "medium",
+          "prompt": { "tr": "4444 portunda dinleyen bir Netcat kabuğu başlat.", "en": "Start a Netcat listener on port 4444." },
+          "evaluation": { "requiredTokens": ["nc"], "requiredFlagGroups": [["-lvnp", "-lnvp", "-nlvp", "-nvlp", "-lvp", "-lp", "-l"]], "requiredTargets": ["4444"], "acceptedSolutions": ["nc -lvnp 4444"] },
+          "explanation": { "tr": "nc -lvnp 4444", "en": "nc -lvnp 4444" }
+        },
+        {
+          "id": "sh2", "type": "multiple_choice", "difficulty": "easy",
+          "prompt": { "tr": "msfvenom ne yapar?", "en": "What does msfvenom do?" },
+          "options": [ { "tr": "Payload üretir", "en": "Generates payloads", "correct": true }, { "tr": "Port tarar", "en": "Scans ports" }, { "tr": "Log analiz eder", "en": "Analyzes logs" }, { "tr": "Paket yakalar", "en": "Captures packets" } ],
+          "explanation": { "tr": "msfvenom payload üreticisidir.", "en": "msfvenom is a payload generator." }
+        },
+        {
+          "id": "sh3", "type": "true_false", "difficulty": "medium",
+          "prompt": { "tr": "Socat ile TLS-şifreli kabuk kurulabilir.", "en": "Socat can set up a TLS-encrypted shell." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru.", "en": "True." }
+        },
+        {
+          "id": "sh4", "type": "multiple_choice", "difficulty": "medium",
+          "prompt": { "tr": "Socat'ı Netcat'ten ayıran temel üstünlük?", "en": "Key advantage of Socat over Netcat?" },
+          "options": [ { "tr": "Şifreli tünel/TTY desteği", "en": "Encrypted tunnels / TTY support", "correct": true }, { "tr": "Grafik arayüz", "en": "A GUI" }, { "tr": "Antivirüs", "en": "Antivirus" }, { "tr": "Veritabanı", "en": "A database" } ],
+          "explanation": { "tr": "Socat şifreli tünel ve tam TTY kabuk sağlar.", "en": "Socat provides encrypted tunnels and full TTY shells." }
+        },
+        {
+          "id": "sh5", "type": "fill_blank", "difficulty": "easy",
+          "prompt": { "tr": "Metasploit'in payload üretme aracı: ___", "en": "Metasploit's payload generation tool: ___" },
+          "acceptedAnswers": ["msfvenom"],
+          "explanation": { "tr": "msfvenom.", "en": "msfvenom." }
+        },
+        {
+          "id": "sh6", "type": "command", "difficulty": "medium",
+          "prompt": { "tr": "10.10.10.5'in 22 portuna Netcat ile bağlantı testi yap.", "en": "Test connectivity to port 22 of 10.10.10.5 with Netcat." },
+          "evaluation": { "requiredTokens": ["nc"], "requiredFlagGroups": [["-zv", "-vz", "-z"]], "requiredTargets": ["10.10.10.5", "22"], "acceptedSolutions": ["nc -zv 10.10.10.5 22"] },
+          "explanation": { "tr": "nc -zv 10.10.10.5 22", "en": "nc -zv 10.10.10.5 22" }
+        }
+        ,
+        {
+          "id": "sh7", "type": "multiple_choice", "difficulty": "medium",
+          "prompt": { "tr": "Kısıtlı bir reverse shell'i tam terminale yükseltmeye ne denir?", "en": "Upgrading a limited reverse shell to a full terminal is called?" },
+          "options": [ { "tr": "Shell stabilizasyonu / TTY upgrade", "en": "Shell stabilization / TTY upgrade", "correct": true }, { "tr": "Port tarama", "en": "Port scanning" }, { "tr": "Privilege escalation", "en": "Privilege escalation" }, { "tr": "Phishing", "en": "Phishing" } ],
+          "explanation": { "tr": "PTY oluşturup terminali ham moda alarak tam TTY elde edilir.", "en": "Spawn a PTY and set the terminal to raw mode for a full TTY." }
+        },
+        {
+          "id": "sh8", "type": "true_false", "difficulty": "easy",
+          "prompt": { "tr": "Şifreli (TLS) bir kabuk, ağda tamamen görünmez ve tespit edilemez olur.", "en": "An encrypted (TLS) shell becomes completely invisible/undetectable on the network." },
+          "options": [ { "tr": "Doğru", "en": "True" }, { "tr": "Yanlış", "en": "False", "correct": true } ],
+          "explanation": { "tr": "Yanlış — içerik gizlense de meta veri ve uç nokta davranışı tespit edilebilir.", "en": "False — even if content is hidden, metadata and endpoint behavior remain detectable." }
+        }
+      ]
+    },
+    "postexploit": {
+      "id": "quiz_postexploit",
+      "title": { "tr": "Post-Exploit ve Yetki Yükseltme", "en": "Post-Exploitation & Privesc" },
+      "questions": [
+        {
+          "id": "p1", "type": "fill_blank", "difficulty": "easy",
+          "prompt": { "tr": "Windows bellekten kimlik bilgisi çıkaran ünlü araç: ___", "en": "Famous tool extracting credentials from Windows memory: ___" },
+          "acceptedAnswers": ["mimikatz"],
+          "explanation": { "tr": "Mimikatz.", "en": "Mimikatz." }
+        },
+        {
+          "id": "p2", "type": "multiple_choice", "difficulty": "medium",
+          "prompt": { "tr": "BloodHound neyi analiz eder?", "en": "What does BloodHound analyze?" },
+          "options": [ { "tr": "AD saldırı yolları", "en": "AD attack paths", "correct": true }, { "tr": "Web zafiyetleri", "en": "Web vulns" }, { "tr": "Bellek dökümü", "en": "Memory dumps" }, { "tr": "Ağ paketleri", "en": "Network packets" } ],
+          "explanation": { "tr": "AD'de en kısa saldırı yolunu bulur.", "en": "Finds the shortest attack path in AD." }
+        },
+        {
+          "id": "p3", "type": "true_false", "difficulty": "easy",
+          "prompt": { "tr": "Lateral movement, ele geçirilen hosttan diğer sistemlere yayılmaktır.", "en": "Lateral movement is spreading from a compromised host to others." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru.", "en": "True." }
+        },
+        {
+          "id": "p4", "type": "multiple_choice", "difficulty": "easy",
+          "prompt": { "tr": "Privilege escalation ne demektir?", "en": "What does privilege escalation mean?" },
+          "options": [ { "tr": "Düşük yetkiyi yönetici/root'a taşımak", "en": "Raising low privilege to admin/root", "correct": true }, { "tr": "Ağı taramak", "en": "Scanning the network" }, { "tr": "Log silmek", "en": "Deleting logs" }, { "tr": "Şifre kırmak", "en": "Cracking a password" } ],
+          "explanation": { "tr": "Yetki yükseltme = ayrıcalığı artırmak.", "en": "Privilege escalation = raising privilege." }
+        },
+        {
+          "id": "p5", "type": "fill_blank", "difficulty": "medium",
+          "prompt": { "tr": "AD saldırı yollarını grafikleyen araç: ___", "en": "Tool that graphs AD attack paths: ___" },
+          "acceptedAnswers": ["bloodhound"],
+          "explanation": { "tr": "BloodHound (SharpHound toplar).", "en": "BloodHound (SharpHound collects)." }
+        },
+        {
+          "id": "p6", "type": "true_false", "difficulty": "easy",
+          "prompt": { "tr": "Persistence, erişimi kalıcı kılma yöntemlerini ifade eder.", "en": "Persistence refers to methods of making access durable." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru — zamanlanmış görev, servis vb.", "en": "True — scheduled task, service, etc." }
+        }
+        ,
+        {
+          "id": "p7", "type": "multiple_choice", "difficulty": "medium",
+          "prompt": { "tr": "Ele geçirilen bir makineyi atlama taşı yapıp iç ağa ulaşmaya ne denir?", "en": "Using a compromised machine as a stepping stone to reach the internal network is called?" },
+          "options": [ { "tr": "Pivoting / tünelleme", "en": "Pivoting / tunneling", "correct": true }, { "tr": "Kerberoasting", "en": "Kerberoasting" }, { "tr": "Fuzzing", "en": "Fuzzing" }, { "tr": "Sandboxing", "en": "Sandboxing" } ],
+          "explanation": { "tr": "Pivoting, pivot host üzerinden iç segmentlere tünel açar.", "en": "Pivoting tunnels through a pivot host into internal segments." }
+        },
+        {
+          "id": "p8", "type": "fill_blank", "difficulty": "medium",
+          "prompt": { "tr": "SSH ile dinamik SOCKS proxy açan bayrak: ssh ___", "en": "SSH flag that opens a dynamic SOCKS proxy: ssh ___" },
+          "acceptedAnswers": ["-d", "-D"],
+          "explanation": { "tr": "ssh -D 1080 user@pivot dinamik SOCKS proxy açar.", "en": "ssh -D 1080 user@pivot opens a dynamic SOCKS proxy." }
+        }
+      ]
+    },
+    "ad": {
+      "id": "quiz_ad",
+      "title": { "tr": "Active Directory", "en": "Active Directory" },
+      "questions": [
+        {
+          "id": "a1", "type": "multiple_choice", "difficulty": "easy",
+          "prompt": { "tr": "Kerberos neye dayalı çalışır?", "en": "Kerberos is based on?" },
+          "options": [ { "tr": "Biletler (tickets)", "en": "Tickets", "correct": true }, { "tr": "Çerezler", "en": "Cookies" }, { "tr": "Sertifikalar yalnızca", "en": "Certificates only" }, { "tr": "MAC adresleri", "en": "MAC addresses" } ],
+          "explanation": { "tr": "Kerberos bilet (TGT/TGS) tabanlıdır.", "en": "Kerberos is ticket (TGT/TGS) based." }
+        },
+        {
+          "id": "a2", "type": "fill_blank", "difficulty": "hard",
+          "prompt": { "tr": "KRBTGT hash'iyle sahte TGT üretme saldırısı: ___ Ticket", "en": "Forging a TGT with the KRBTGT hash: ___ Ticket" },
+          "acceptedAnswers": ["golden", "golden ticket"],
+          "explanation": { "tr": "Golden Ticket.", "en": "Golden Ticket." }
+        },
+        {
+          "id": "a3", "type": "true_false", "difficulty": "medium",
+          "prompt": { "tr": "NTLM, Pass-the-Hash saldırısına açıktır.", "en": "NTLM is vulnerable to Pass-the-Hash." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru.", "en": "True." }
+        },
+        {
+          "id": "a4", "type": "multiple_choice", "difficulty": "medium",
+          "prompt": { "tr": "Kerberos'ta biletleri dağıtan bileşen?", "en": "Which component issues tickets in Kerberos?" },
+          "options": [ { "tr": "KDC", "en": "KDC", "correct": true }, { "tr": "DNS", "en": "DNS" }, { "tr": "DHCP", "en": "DHCP" }, { "tr": "Proxy", "en": "Proxy" } ],
+          "explanation": { "tr": "KDC (Key Distribution Center) bilet verir.", "en": "The KDC (Key Distribution Center) issues tickets." }
+        },
+        {
+          "id": "a5", "type": "fill_blank", "difficulty": "hard",
+          "prompt": { "tr": "SPN'li servis hesabı biletlerini çevrimdışı kırma saldırısı: ___", "en": "Offline cracking of SPN service-account tickets: ___" },
+          "acceptedAnswers": ["kerberoasting"],
+          "explanation": { "tr": "Kerberoasting.", "en": "Kerberoasting." }
+        },
+        {
+          "id": "a6", "type": "true_false", "difficulty": "medium",
+          "prompt": { "tr": "Anonim/null SMB oturumları savunmada kapatılmalıdır.", "en": "Anonymous/null SMB sessions should be disabled defensively." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru — keşfi zorlaştırır.", "en": "True — it hampers enumeration." }
+        }
+        ,
+        {
+          "id": "a7", "type": "multiple_choice", "difficulty": "hard",
+          "prompt": { "tr": "Yanlış yapılandırılmış sertifika şablonlarıyla yetki yükseltme hangi AD bileşenindedir?", "en": "Privilege escalation via misconfigured certificate templates is in which AD component?" },
+          "options": [ { "tr": "ADCS (Certificate Services)", "en": "ADCS (Certificate Services)", "correct": true }, { "tr": "DHCP", "en": "DHCP" }, { "tr": "DNS", "en": "DNS" }, { "tr": "WSUS", "en": "WSUS" } ],
+          "explanation": { "tr": "ADCS şablon yanlış yapılandırmaları (ESC1-8) güçlü bir privesc vektörüdür.", "en": "ADCS template misconfigs (ESC1-8) are a strong privesc vector." }
+        },
+        {
+          "id": "a8", "type": "true_false", "difficulty": "medium",
+          "prompt": { "tr": "Golden Ticket varsa AD ihlalinde KRBTGT parolası sıfırlanmalıdır.", "en": "If a Golden Ticket exists, the KRBTGT password must be reset in an AD breach." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru — KRBTGT sıfırlanana kadar sahte TGT'ler geçerli kalır.", "en": "True — forged TGTs stay valid until KRBTGT is reset." }
+        }
+      ]
+    },
+    "reversing": {
+      "id": "quiz_reversing",
+      "title": { "tr": "Reversing ve Binary Exploitation", "en": "Reversing & Binary Exploitation" },
+      "questions": [
+        {
+          "id": "re1", "type": "multiple_choice", "difficulty": "easy",
+          "prompt": { "tr": "Ghidra ne için kullanılır?", "en": "What is Ghidra used for?" },
+          "options": [ { "tr": "Tersine mühendislik / decompile", "en": "Reverse engineering / decompile", "correct": true }, { "tr": "Port tarama", "en": "Port scanning" }, { "tr": "Web proxy", "en": "Web proxy" }, { "tr": "Log toplama", "en": "Log collection" } ],
+          "explanation": { "tr": "Ghidra açık kaynak RE aracıdır.", "en": "Ghidra is an open-source RE tool." }
+        },
+        {
+          "id": "re2", "type": "fill_blank", "difficulty": "medium",
+          "prompt": { "tr": "Tampona kapasitesinden fazla yazıp dönüş adresini ezme: ___ overflow", "en": "Writing past a buffer to overwrite the return address: ___ overflow" },
+          "acceptedAnswers": ["buffer"],
+          "explanation": { "tr": "Buffer overflow.", "en": "Buffer overflow." }
+        },
+        {
+          "id": "re3", "type": "true_false", "difficulty": "medium",
+          "prompt": { "tr": "ASLR, bellek istismarını zorlaştırır.", "en": "ASLR makes memory exploitation harder." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru.", "en": "True." }
+        },
+        {
+          "id": "re4", "type": "multiple_choice", "difficulty": "medium",
+          "prompt": { "tr": "Mevcut kod parçalarını (gadget) zincirleyen teknik?", "en": "Technique chaining existing code snippets (gadgets)?" },
+          "options": [ { "tr": "ROP", "en": "ROP", "correct": true }, { "tr": "XSS", "en": "XSS" }, { "tr": "CSRF", "en": "CSRF" }, { "tr": "MITM", "en": "MITM" } ],
+          "explanation": { "tr": "ROP (Return-Oriented Programming).", "en": "ROP (Return-Oriented Programming)." }
+        },
+        {
+          "id": "re5", "type": "fill_blank", "difficulty": "easy",
+          "prompt": { "tr": "NSA'in açık kaynak tersine mühendislik paketi: ___", "en": "NSA's open-source reverse engineering suite: ___" },
+          "acceptedAnswers": ["ghidra"],
+          "explanation": { "tr": "Ghidra.", "en": "Ghidra." }
+        },
+        {
+          "id": "re6", "type": "true_false", "difficulty": "medium",
+          "prompt": { "tr": "DEP/NX, veri bölgelerinde kod çalıştırmayı engeller.", "en": "DEP/NX prevents executing code in data regions." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru.", "en": "True." }
+        }
+        ,
+        {
+          "id": "re7", "type": "multiple_choice", "difficulty": "medium",
+          "prompt": { "tr": "Bir programı çalıştırmadan inceleme türü?", "en": "The analysis type that inspects a program without running it?" },
+          "options": [ { "tr": "Statik analiz", "en": "Static analysis", "correct": true }, { "tr": "Dinamik analiz", "en": "Dynamic analysis" }, { "tr": "Fuzzing", "en": "Fuzzing" }, { "tr": "Pivoting", "en": "Pivoting" } ],
+          "explanation": { "tr": "Statik analiz: dizeler, importlar, disassembly — çalıştırmadan.", "en": "Static analysis: strings, imports, disassembly — without running." }
+        },
+        {
+          "id": "re8", "type": "true_false", "difficulty": "easy",
+          "prompt": { "tr": "Şüpheli bir örnek, dinamik analiz için doğrudan kişisel makinende çalıştırılmalıdır.", "en": "A suspicious sample should be run directly on your personal machine for dynamic analysis." },
+          "options": [ { "tr": "Doğru", "en": "True" }, { "tr": "Yanlış", "en": "False", "correct": true } ],
+          "explanation": { "tr": "Yanlış — yalnızca internetsiz, izole, snapshot'lı analiz VM'inde.", "en": "False — only in an offline, isolated, snapshotted analysis VM." }
+        }
+      ]
+    },
+    "forensics": {
+      "id": "quiz_forensics",
+      "title": { "tr": "Trafik Analizi ve Forensics", "en": "Traffic Analysis & Forensics" },
+      "questions": [
+        {
+          "id": "f1", "type": "multiple_choice", "difficulty": "easy",
+          "prompt": { "tr": "Volatility ne için kullanılır?", "en": "What is Volatility used for?" },
+          "options": [ { "tr": "Bellek (RAM) adli analizi", "en": "Memory (RAM) forensics", "correct": true }, { "tr": "Port tarama", "en": "Port scanning" }, { "tr": "Payload üretme", "en": "Payload generation" }, { "tr": "Subdomain keşfi", "en": "Subdomain enum" } ],
+          "explanation": { "tr": "Volatility bellek adli analizi yapar.", "en": "Volatility does memory forensics." }
+        },
+        {
+          "id": "f2", "type": "command", "difficulty": "medium",
+          "prompt": { "tr": "eth0 arayüzünden trafiği capture.pcap dosyasına kaydeden tcpdump komutu.", "en": "tcpdump command capturing eth0 traffic to capture.pcap." },
+          "evaluation": { "requiredTokens": ["tcpdump"], "requiredFlagGroups": [["-i"], ["-w"]], "acceptedSolutions": ["tcpdump -i eth0 -w capture.pcap"] },
+          "explanation": { "tr": "tcpdump -i eth0 -w capture.pcap", "en": "tcpdump -i eth0 -w capture.pcap" }
+        },
+        {
+          "id": "f3", "type": "true_false", "difficulty": "medium",
+          "prompt": { "tr": "Bir makineyi kapatmadan önce RAM'i almak gerekir.", "en": "Capture RAM before powering off a machine." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru — uçucu kanıt kaybolur.", "en": "True — volatile evidence is lost." }
+        },
+        {
+          "id": "f4", "type": "multiple_choice", "difficulty": "easy",
+          "prompt": { "tr": "tcpdump ne yapar?", "en": "What does tcpdump do?" },
+          "options": [ { "tr": "Komut satırından paket yakalar", "en": "Captures packets from the CLI", "correct": true }, { "tr": "Exploit çalıştırır", "en": "Runs exploits" }, { "tr": "Parola kırar", "en": "Cracks passwords" }, { "tr": "Web tarar", "en": "Scans web" } ],
+          "explanation": { "tr": "tcpdump hafif, komut satırı paket yakalayıcısıdır.", "en": "tcpdump is a lightweight CLI packet capturer." }
+        },
+        {
+          "id": "f5", "type": "fill_blank", "difficulty": "easy",
+          "prompt": { "tr": "RAM imajından süreçleri çıkaran araç: ___", "en": "Tool that extracts processes from a RAM image: ___" },
+          "acceptedAnswers": ["volatility"],
+          "explanation": { "tr": "Volatility.", "en": "Volatility." }
+        },
+        {
+          "id": "f6", "type": "true_false", "difficulty": "easy",
+          "prompt": { "tr": "Wireshark'ta 'Follow TCP Stream' bir oturumun tamamını gösterir.", "en": "Wireshark's 'Follow TCP Stream' shows a whole session." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru.", "en": "True." }
+        }
+        ,
+        {
+          "id": "f7", "type": "multiple_choice", "difficulty": "medium",
+          "prompt": { "tr": "Disk adli incelemesinde ilk adım nedir?", "en": "What is the first step in disk forensics?" },
+          "options": [ { "tr": "İmaj al ve hash'le, kopya üzerinde çalış", "en": "Image and hash it, work on the copy", "correct": true }, { "tr": "Orijinali doğrudan düzenle", "en": "Edit the original directly" }, { "tr": "Diski biçimlendir", "en": "Format the disk" }, { "tr": "Makineyi yeniden başlat", "en": "Reboot the machine" } ],
+          "explanation": { "tr": "Orijinale dokunma; birebir imaj al, hash'le, kopyada incele.", "en": "Don't touch the original; take a bit-for-bit image, hash it, examine the copy." }
+        },
+        {
+          "id": "f8", "type": "fill_blank", "difficulty": "medium",
+          "prompt": { "tr": "Kanıtın kim/ne zaman/nasıl toplandığını izleyen kayıt: kanıt ___", "en": "The record tracking who/when/how evidence was collected: chain of ___" },
+          "acceptedAnswers": ["zinciri", "custody", "chain of custody", "kanıt zinciri"],
+          "explanation": { "tr": "Kanıt zinciri (chain of custody).", "en": "Chain of custody." }
+        }
+      ]
+    },
+    "blueteam": {
+      "id": "quiz_blueteam",
+      "title": { "tr": "Endpoint, EDR ve SOC", "en": "Endpoint, EDR & SOC" },
+      "questions": [
+        {
+          "id": "b1", "type": "multiple_choice", "difficulty": "medium",
+          "prompt": { "tr": "EDR'ı klasik antivirüsten ayıran temel fark?", "en": "Key difference of EDR vs classic antivirus?" },
+          "options": [ { "tr": "Davranış tabanlı tespit", "en": "Behavior-based detection", "correct": true }, { "tr": "Yalnızca imza", "en": "Signatures only" }, { "tr": "Yalnızca ağ", "en": "Network only" }, { "tr": "Sadece e-posta", "en": "Email only" } ],
+          "explanation": { "tr": "EDR davranış tabanlıdır.", "en": "EDR is behavior-based." }
+        },
+        {
+          "id": "b2", "type": "fill_blank", "difficulty": "medium",
+          "prompt": { "tr": "SIEM-bağımsız log tespit kuralı formatı: ___", "en": "SIEM-agnostic log detection rule format: ___" },
+          "acceptedAnswers": ["sigma"],
+          "explanation": { "tr": "Sigma.", "en": "Sigma." }
+        },
+        {
+          "id": "b3", "type": "true_false", "difficulty": "easy",
+          "prompt": { "tr": "MITRE ATT&CK saldırgan taktik/tekniklerinin (TTP) çerçevesidir.", "en": "MITRE ATT&CK is a framework of attacker TTPs." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru.", "en": "True." }
+        },
+        {
+          "id": "b4", "type": "multiple_choice", "difficulty": "easy",
+          "prompt": { "tr": "SIEM'in temel görevi nedir?", "en": "What is the main job of a SIEM?" },
+          "options": [ { "tr": "Log toplama ve korelasyon", "en": "Log collection and correlation", "correct": true }, { "tr": "Exploit geliştirme", "en": "Exploit development" }, { "tr": "Port tarama", "en": "Port scanning" }, { "tr": "Payload üretme", "en": "Payload generation" } ],
+          "explanation": { "tr": "SIEM farklı kaynaklardan logu toplayıp korele eder.", "en": "A SIEM collects and correlates logs from many sources." }
+        },
+        {
+          "id": "b5", "type": "fill_blank", "difficulty": "medium",
+          "prompt": { "tr": "Dosya/bellekte zararlı desen eşleştiren imza dili: ___", "en": "Signature language matching malicious patterns in files/memory: ___" },
+          "acceptedAnswers": ["yara"],
+          "explanation": { "tr": "YARA.", "en": "YARA." }
+        },
+        {
+          "id": "b6", "type": "true_false", "difficulty": "easy",
+          "prompt": { "tr": "Kısa sürede çok sayıda 4625 olayı brute-force işareti olabilir.", "en": "Many 4625 events in a short time can indicate brute-force." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru.", "en": "True." }
+        },
+        {
+          "id": "b7", "type": "multiple_choice", "difficulty": "medium",
+          "prompt": { "tr": "Alarm triyajının temel amacı nedir?", "en": "What is the core goal of alert triage?" },
+          "options": [ { "tr": "Gerçek mi/yanlış pozitif mi ve aciliyeti belirlemek", "en": "Decide real vs false-positive and urgency", "correct": true }, { "tr": "Sunucuyu kapatmak", "en": "Shutting down the server" }, { "tr": "Logları silmek", "en": "Deleting logs" }, { "tr": "Parola değiştirmek", "en": "Changing a password" } ],
+          "explanation": { "tr": "Triyaj uyarıyı hızlıca sınıflandırır: gerçek mi, ne kadar acil?", "en": "Triage quickly classifies an alert: real, and how urgent?" }
+        },
+        {
+          "id": "b8", "type": "fill_blank", "difficulty": "medium",
+          "prompt": { "tr": "Tekrarlayan müdahale adımlarını otomatikleştiren SOC teknolojisi: ___", "en": "SOC technology that automates repetitive response steps: ___" },
+          "acceptedAnswers": ["soar"],
+          "explanation": { "tr": "SOAR (Security Orchestration, Automation & Response).", "en": "SOAR (Security Orchestration, Automation & Response)." }
+        }
+      ]
+    },
+    "ir": {
+      "id": "quiz_ir",
+      "title": { "tr": "Olay Müdahalesi ve Threat Intel", "en": "Incident Response & Threat Intel" },
+      "questions": [
+        {
+          "id": "i1", "type": "multiple_choice", "difficulty": "medium",
+          "prompt": { "tr": "NIST IR'de hazırlıktan sonraki aşama?", "en": "NIST IR phase after preparation?" },
+          "options": [ { "tr": "Tespit & Analiz", "en": "Detection & Analysis", "correct": true }, { "tr": "Kurtarma", "en": "Recovery" }, { "tr": "Eradikasyon", "en": "Eradication" }, { "tr": "Dersler", "en": "Lessons learned" } ],
+          "explanation": { "tr": "Hazırlık → Tespit & Analiz → Sınırlama...", "en": "Preparation → Detection & Analysis → Containment..." }
+        },
+        {
+          "id": "i2", "type": "fill_blank", "difficulty": "easy",
+          "prompt": { "tr": "IOC = Indicator of ___", "en": "IOC = Indicator of ___" },
+          "acceptedAnswers": ["compromise", "uzlaşma", "ihlal"],
+          "explanation": { "tr": "Indicator of Compromise.", "en": "Indicator of Compromise." }
+        },
+        {
+          "id": "i3", "type": "true_false", "difficulty": "easy",
+          "prompt": { "tr": "Çevrimdışı/değiştirilemez yedekler ransomware kurtarmanın anahtarıdır.", "en": "Offline/immutable backups are key to ransomware recovery." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru.", "en": "True." }
+        },
+        {
+          "id": "i4", "type": "multiple_choice", "difficulty": "medium",
+          "prompt": { "tr": "IR'de 'containment' ne demektir?", "en": "What does 'containment' mean in IR?" },
+          "options": [ { "tr": "Yayılmayı sınırlama/durdurma", "en": "Limiting/stopping the spread", "correct": true }, { "tr": "Log toplama", "en": "Log collection" }, { "tr": "Yama yapma", "en": "Patching" }, { "tr": "Rapor yazma", "en": "Report writing" } ],
+          "explanation": { "tr": "Containment = saldırının yayılmasını durdurma (örn. ağ izolasyonu).", "en": "Containment = stopping the spread (e.g. network isolation)." }
+        },
+        {
+          "id": "i5", "type": "fill_blank", "difficulty": "medium",
+          "prompt": { "tr": "IOC paylaşım/yönetim platformu: ___", "en": "IOC sharing/management platform: ___" },
+          "acceptedAnswers": ["misp"],
+          "explanation": { "tr": "MISP.", "en": "MISP." }
+        },
+        {
+          "id": "i6", "type": "true_false", "difficulty": "easy",
+          "prompt": { "tr": "Fidye ödemek verilerin kurtarılmasını garanti eder.", "en": "Paying ransom guarantees data recovery." },
+          "options": [ { "tr": "Doğru", "en": "True" }, { "tr": "Yanlış", "en": "False", "correct": true } ],
+          "explanation": { "tr": "Yanlış — garanti yoktur ve yeni saldırıyı teşvik eder.", "en": "False — no guarantee, and it encourages more attacks." }
+        }
+        ,
+        {
+          "id": "i7", "type": "multiple_choice", "difficulty": "medium",
+          "prompt": { "tr": "Kanıt toplamada 'uçuculuk sırasına' göre önce hangisi alınır?", "en": "By the 'order of volatility', which is collected first?" },
+          "options": [ { "tr": "RAM / çalışan süreçler", "en": "RAM / running processes", "correct": true }, { "tr": "Arşiv yedekleri", "en": "Archive backups" }, { "tr": "Basılı raporlar", "en": "Printed reports" }, { "tr": "Disk imajı", "en": "Disk image" } ],
+          "explanation": { "tr": "Önce en uçucu olan (RAM, ağ), sonra disk, sonra arşiv.", "en": "Most volatile first (RAM, network), then disk, then archives." }
+        },
+        {
+          "id": "i8", "type": "true_false", "difficulty": "easy",
+          "prompt": { "tr": "Yedekler düzenli olarak geri yükleme provasıyla test edilmelidir.", "en": "Backups should be tested with regular restore drills." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru — test edilmeyen yedek, olay anında en kötü sürprizdir.", "en": "True — an untested backup is the worst surprise during an incident." }
+        }
+      ]
+    },
+    "automation": {
+      "id": "quiz_automation",
+      "title": { "tr": "Otomasyon ve Lab Altyapısı", "en": "Automation & Lab Infrastructure" },
+      "questions": [
+        {
+          "id": "au1", "type": "multiple_choice", "difficulty": "easy",
+          "prompt": { "tr": "Docker ne sağlar?", "en": "What does Docker provide?" },
+          "options": [ { "tr": "İzole konteynerler", "en": "Isolated containers", "correct": true }, { "tr": "Tam sanal makine", "en": "Full virtual machines" }, { "tr": "Antivirüs", "en": "Antivirus" }, { "tr": "Firewall", "en": "Firewall" } ],
+          "explanation": { "tr": "Docker hafif izole konteynerler sunar.", "en": "Docker provides lightweight isolated containers." }
+        },
+        {
+          "id": "au2", "type": "true_false", "difficulty": "easy",
+          "prompt": { "tr": "Parolaları/anahtarları git deposuna commit etmek güvenlidir.", "en": "Committing passwords/keys to a git repo is safe." },
+          "options": [ { "tr": "Doğru", "en": "True" }, { "tr": "Yanlış", "en": "False", "correct": true } ],
+          "explanation": { "tr": "Yanlış — sır gömme; sızarsa döndür (rotate).", "en": "False — never commit secrets; rotate if leaked." }
+        },
+        {
+          "id": "au3", "type": "fill_blank", "difficulty": "medium",
+          "prompt": { "tr": "Altyapıyı kod olarak tanımlayan popüler araç: ___", "en": "Popular infrastructure-as-code tool: ___" },
+          "acceptedAnswers": ["terraform"],
+          "explanation": { "tr": "Terraform.", "en": "Terraform." }
+        },
+        {
+          "id": "au4", "type": "multiple_choice", "difficulty": "easy",
+          "prompt": { "tr": "VirtualBox/VMware ne sağlar?", "en": "What do VirtualBox/VMware provide?" },
+          "options": [ { "tr": "Sanal makineler (tam izolasyon)", "en": "Virtual machines (full isolation)", "correct": true }, { "tr": "Konteyner imajı", "en": "A container image" }, { "tr": "Web proxy", "en": "A web proxy" }, { "tr": "SIEM" , "en": "A SIEM" } ],
+          "explanation": { "tr": "Sanallaştırma ile izole lab VM'leri.", "en": "Virtualization for isolated lab VMs." }
+        },
+        {
+          "id": "au5", "type": "fill_blank", "difficulty": "easy",
+          "prompt": { "tr": "Bir imajı konteyner olarak çalıştıran komut: docker ___", "en": "Command to run an image as a container: docker ___" },
+          "acceptedAnswers": ["run"],
+          "explanation": { "tr": "docker run <imaj>.", "en": "docker run <image>." }
+        },
+        {
+          "id": "au6", "type": "true_false", "difficulty": "easy",
+          "prompt": { "tr": "IaC, lab'ı tekrar üretilebilir ve sıfırlanabilir yapar.", "en": "IaC makes a lab reproducible and resettable." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru.", "en": "True." }
+        }
+        ,
+        {
+          "id": "au7", "type": "multiple_choice", "difficulty": "medium",
+          "prompt": { "tr": "Sırları (parola, API anahtarı) saklamanın doğru yolu?", "en": "The correct way to store secrets (passwords, API keys)?" },
+          "options": [ { "tr": "Bir kasada (vault), rotasyonla", "en": "In a vault, with rotation", "correct": true }, { "tr": "Koda gömerek", "en": "Embedded in code" }, { "tr": "Repoya commit ederek", "en": "Committed to the repo" }, { "tr": "İmaja yazarak", "en": "Baked into the image" } ],
+          "explanation": { "tr": "Kasa + rotasyon + tarama; koda/depoya asla gömme.", "en": "Vault + rotation + scanning; never embed in code/repos." }
+        },
+        {
+          "id": "au8", "type": "true_false", "difficulty": "easy",
+          "prompt": { "tr": "Bir sır git geçmişine girdiyse, silmek yeterlidir; döndürmeye gerek yoktur.", "en": "If a secret entered git history, deleting it is enough; no need to rotate." },
+          "options": [ { "tr": "Doğru", "en": "True" }, { "tr": "Yanlış", "en": "False", "correct": true } ],
+          "explanation": { "tr": "Yanlış — git geçmişi tutar; tek güvenli yol anahtarı döndürmektir.", "en": "False — git keeps history; the only safe fix is rotating the key." }
+        }
+      ]
+    },
+    "cloud": {
+      "id": "quiz_cloud",
+      "title": { "tr": "Bulut ve Cloud-Native Güvenlik", "en": "Cloud & Cloud-Native Security" },
+      "questions": [
+        {
+          "id": "c1", "type": "multiple_choice", "difficulty": "medium",
+          "prompt": { "tr": "Bulut ihlallerinin en sık nedeni?", "en": "Most common cause of cloud breaches?" },
+          "options": [ { "tr": "Yanlış yapılandırma", "en": "Misconfiguration", "correct": true }, { "tr": "Sıfırıncı gün", "en": "Zero-day" }, { "tr": "Fiziksel hırsızlık", "en": "Physical theft" }, { "tr": "DDoS" , "en": "DDoS" } ],
+          "explanation": { "tr": "Çoğu ihlal yanlış yapılandırmadan kaynaklanır.", "en": "Most breaches stem from misconfiguration." }
+        },
+        {
+          "id": "c2", "type": "fill_blank", "difficulty": "medium",
+          "prompt": { "tr": "Kubernetes erişim kontrol mekanizması: ___", "en": "Kubernetes access control mechanism: ___" },
+          "acceptedAnswers": ["rbac"],
+          "explanation": { "tr": "RBAC.", "en": "RBAC." }
+        },
+        {
+          "id": "c3", "type": "true_false", "difficulty": "easy",
+          "prompt": { "tr": "En az ayrıcalık ilkesi bulut riskini azaltır.", "en": "Least privilege reduces cloud risk." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru.", "en": "True." }
+        },
+        {
+          "id": "c4", "type": "multiple_choice", "difficulty": "easy",
+          "prompt": { "tr": "Bulutta IAM neyi yönetir?", "en": "What does cloud IAM manage?" },
+          "options": [ { "tr": "Kim, neye, hangi koşulda erişebilir", "en": "Who can access what, and when", "correct": true }, { "tr": "Ağ kablolaması", "en": "Network cabling" }, { "tr": "Disk birleştirme", "en": "Disk defragmentation" }, { "tr": "Yazı tipleri", "en": "Fonts" } ],
+          "explanation": { "tr": "IAM erişim/kimlik yönetiminin kalbidir.", "en": "IAM is the heart of access/identity management." }
+        },
+        {
+          "id": "c5", "type": "fill_blank", "difficulty": "easy",
+          "prompt": { "tr": "Açık (public) ___ bucket'ları sık veri sızıntısı nedenidir.", "en": "Public ___ buckets are a common data-leak cause." },
+          "acceptedAnswers": ["s3"],
+          "explanation": { "tr": "Açık S3 bucket'ları.", "en": "Public S3 buckets." }
+        },
+        {
+          "id": "c6", "type": "true_false", "difficulty": "medium",
+          "prompt": { "tr": "Minimal (distroless) imajlar saldırı yüzeyini düşürür.", "en": "Minimal (distroless) images reduce attack surface." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru.", "en": "True." }
+        }
+        ,
+        {
+          "id": "c7", "type": "multiple_choice", "difficulty": "medium",
+          "prompt": { "tr": "AWS'te API etkinliklerini kaydeden denetim log servisi?", "en": "Which AWS audit log service records API activity?" },
+          "options": [ { "tr": "CloudTrail", "en": "CloudTrail", "correct": true }, { "tr": "S3", "en": "S3" }, { "tr": "EC2", "en": "EC2" }, { "tr": "Lambda", "en": "Lambda" } ],
+          "explanation": { "tr": "CloudTrail (Azure Activity Log / GCP Audit Logs muadili).", "en": "CloudTrail (counterpart to Azure Activity Log / GCP Audit Logs)." }
+        },
+        {
+          "id": "c8", "type": "true_false", "difficulty": "easy",
+          "prompt": { "tr": "Bulut denetim logları, saldırganın silemeyeceği ayrı/değiştirilemez bir yerde tutulmalıdır.", "en": "Cloud audit logs should be kept in a separate/immutable place an attacker can't delete." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru — merkezi ve değiştirilemez (immutable) saklama.", "en": "True — central and immutable storage." }
+        }
+      ]
+    },
+    "ai": {
+      "id": "quiz_ai",
+      "title": { "tr": "Yapay Zekâ Güvenliği (AI/LLM)", "en": "AI Security (AI/LLM)" },
+      "questions": [
+        {
+          "id": "ai1", "type": "fill_blank", "difficulty": "medium",
+          "prompt": { "tr": "OWASP LLM Top 10:2025'te #1 risk: ___ Injection", "en": "OWASP LLM Top 10:2025 #1 risk: ___ Injection" },
+          "acceptedAnswers": ["prompt"],
+          "explanation": { "tr": "LLM01 Prompt Injection.", "en": "LLM01 Prompt Injection." }
+        },
+        {
+          "id": "ai2", "type": "fill_blank", "difficulty": "medium",
+          "prompt": { "tr": "LLM06: Excessive ___ (ajanlara aşırı yetki).", "en": "LLM06: Excessive ___ (too much agent autonomy)." },
+          "acceptedAnswers": ["agency"],
+          "explanation": { "tr": "Excessive Agency.", "en": "Excessive Agency." }
+        },
+        {
+          "id": "ai3", "type": "true_false", "difficulty": "medium",
+          "prompt": { "tr": "Dolaylı prompt injection, modelin okuduğu belge/sayfaya gizlenebilir.", "en": "Indirect prompt injection can hide in content the model reads." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru — RAG/ajan senaryoları.", "en": "True — RAG/agent scenarios." }
+        },
+        {
+          "id": "ai4", "type": "multiple_choice", "difficulty": "medium",
+          "prompt": { "tr": "LLM02 hangi riski ifade eder?", "en": "What risk is LLM02?" },
+          "options": [ { "tr": "Hassas bilgi sızması", "en": "Sensitive information disclosure", "correct": true }, { "tr": "Aşırı yetki", "en": "Excessive agency" }, { "tr": "Model zehirlenmesi", "en": "Model poisoning" }, { "tr": "Sınırsız tüketim", "en": "Unbounded consumption" } ],
+          "explanation": { "tr": "LLM02 Sensitive Information Disclosure.", "en": "LLM02 Sensitive Information Disclosure." }
+        },
+        {
+          "id": "ai5", "type": "fill_blank", "difficulty": "hard",
+          "prompt": { "tr": "RAG sistemlerinde embedding/___ zafiyetleri (LLM08).", "en": "Embedding/___ weaknesses in RAG systems (LLM08)." },
+          "acceptedAnswers": ["vector", "vektör", "vektor"],
+          "explanation": { "tr": "LLM08 Vector & Embedding Weaknesses.", "en": "LLM08 Vector & Embedding Weaknesses." }
+        },
+        {
+          "id": "ai6", "type": "true_false", "difficulty": "easy",
+          "prompt": { "tr": "Kritik AI eylemlerinde insan onayı iyi bir guardrail'dir.", "en": "Human approval for critical AI actions is a good guardrail." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru — Excessive Agency'yi azaltır.", "en": "True — it reduces Excessive Agency." }
+        },
+        {
+          "id": "ai7", "type": "multiple_choice", "difficulty": "medium",
+          "prompt": { "tr": "Bir LLM ajanına araç (e-posta, dosya, API) verirken en büyük risk?", "en": "Biggest risk when giving an LLM agent tools (email, files, API)?" },
+          "options": [ { "tr": "Excessive Agency (LLM06)", "en": "Excessive Agency (LLM06)", "correct": true }, { "tr": "Yavaş yanıt", "en": "Slow response" }, { "tr": "Yüksek maliyet", "en": "High cost" }, { "tr": "Arayüz hatası", "en": "A UI bug" } ],
+          "explanation": { "tr": "Ajana aşırı yetki = Excessive Agency; allowlist + insan onayı ile sınırla.", "en": "Too much agent authority = Excessive Agency; bound it with allowlist + human approval." }
+        },
+        {
+          "id": "ai8", "type": "true_false", "difficulty": "medium",
+          "prompt": { "tr": "LLM çıktısı doğrudan SQL/shell'e verilebilir; güvenlidir.", "en": "LLM output can be passed straight to SQL/shell; it's safe." },
+          "options": [ { "tr": "Doğru", "en": "True" }, { "tr": "Yanlış", "en": "False", "correct": true } ],
+          "explanation": { "tr": "Yanlış — çıktı kullanıcı girdisi kadar güvenilmezdir; doğrula ve sınırla.", "en": "False — output is as untrusted as user input; validate and constrain." }
+        }
+      ]
+    },
+    "futuretech": {
+      "id": "quiz_futuretech",
+      "title": { "tr": "Geleceğe Hazırlık", "en": "Future-Readiness" },
+      "questions": [
+        {
+          "id": "ft1", "type": "multiple_choice", "difficulty": "easy",
+          "prompt": { "tr": "Zero Trust ilkesi nedir?", "en": "What is the Zero Trust principle?" },
+          "options": [ { "tr": "Asla güvenme, her zaman doğrula", "en": "Never trust, always verify", "correct": true }, { "tr": "İç ağa tam güven", "en": "Fully trust the internal network" }, { "tr": "Tek faktör yeterli", "en": "Single factor is enough" }, { "tr": "VPN her şeyi çözer", "en": "VPN solves everything" } ],
+          "explanation": { "tr": "Asla güvenme, her zaman doğrula.", "en": "Never trust, always verify." }
+        },
+        {
+          "id": "ft2", "type": "fill_blank", "difficulty": "medium",
+          "prompt": { "tr": "Kuantuma dayanıklı kriptografi kısaltması: ___", "en": "Abbreviation for quantum-resistant cryptography: ___" },
+          "acceptedAnswers": ["pqc", "post-quantum cryptography", "post quantum cryptography"],
+          "explanation": { "tr": "PQC.", "en": "PQC." }
+        },
+        {
+          "id": "ft3", "type": "true_false", "difficulty": "medium",
+          "prompt": { "tr": "OT/ICS'te kullanılabilirlik ve güvenlik (safety) gizlilikten önce gelir.", "en": "In OT/ICS, availability and safety come before confidentiality." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru.", "en": "True." }
+        },
+        {
+          "id": "ft4", "type": "multiple_choice", "difficulty": "medium",
+          "prompt": { "tr": "Mikro-segmentasyon hangi mimarinin parçasıdır?", "en": "Micro-segmentation is part of which architecture?" },
+          "options": [ { "tr": "Zero Trust", "en": "Zero Trust", "correct": true }, { "tr": "Düz ağ", "en": "Flat network" }, { "tr": "Tek faktör", "en": "Single factor" }, { "tr": "Açık bucket", "en": "Open bucket" } ],
+          "explanation": { "tr": "Mikro-segmentasyon Zero Trust ilkelerindendir.", "en": "Micro-segmentation is a Zero Trust principle." }
+        },
+        {
+          "id": "ft5", "type": "fill_blank", "difficulty": "medium",
+          "prompt": { "tr": "Güvenliği geliştirmenin başına taşıma (shift-left) pratiği: ___", "en": "The 'shift-left' practice of building security in early: ___" },
+          "acceptedAnswers": ["devsecops"],
+          "explanation": { "tr": "DevSecOps.", "en": "DevSecOps." }
+        },
+        {
+          "id": "ft6", "type": "true_false", "difficulty": "medium",
+          "prompt": { "tr": "'Şimdi topla, sonra çöz' post-quantum geçişini gerekçelendirir.", "en": "'Harvest-now, decrypt-later' justifies the post-quantum migration." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru.", "en": "True." }
+        }
+        ,
+        {
+          "id": "ft7", "type": "fill_blank", "difficulty": "medium",
+          "prompt": { "tr": "Güvenliği geliştirmenin başına taşıyan (shift-left) pratik: ___", "en": "The 'shift-left' practice of building security in early: ___" },
+          "acceptedAnswers": ["devsecops"],
+          "explanation": { "tr": "DevSecOps (SAST/DAST/SCA/secret scanning).", "en": "DevSecOps (SAST/DAST/SCA/secret scanning)." }
+        },
+        {
+          "id": "ft8", "type": "true_false", "difficulty": "medium",
+          "prompt": { "tr": "Mobil uygulamada hassas mantık ve doğrulama sunucu tarafında olmalıdır.", "en": "In a mobile app, sensitive logic and validation should be server-side." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru — istemci (APK) tersine çevrilebilir, güvenilmezdir.", "en": "True — the client (APK) can be reverse-engineered and is untrusted." }
+        }
+      ]
+    },
+    "reporting": {
+      "id": "quiz_reporting",
+      "title": { "tr": "Raporlama ve Süreç", "en": "Reporting & Process" },
+      "questions": [
+        {
+          "id": "rp1", "type": "multiple_choice", "difficulty": "easy",
+          "prompt": { "tr": "Executive Summary kime yöneliktir?", "en": "Who is the Executive Summary for?" },
+          "options": [ { "tr": "Yöneticiler (iş riski dili)", "en": "Leadership (business-risk language)", "correct": true }, { "tr": "Sadece pentester", "en": "Only the pentester" }, { "tr": "Saldırganlar", "en": "Attackers" }, { "tr": "Son kullanıcılar", "en": "End users" } ],
+          "explanation": { "tr": "Yöneticilere iş riski dilinde yazılır.", "en": "Written for leadership in business-risk language." }
+        },
+        {
+          "id": "rp2", "type": "fill_blank", "difficulty": "easy",
+          "prompt": { "tr": "Test edilebilecek sistemleri tanımlayan kavram: ___", "en": "The concept defining which systems may be tested: ___" },
+          "acceptedAnswers": ["scope", "kapsam"],
+          "explanation": { "tr": "Scope (kapsam).", "en": "Scope." }
+        },
+        {
+          "id": "rp3", "type": "true_false", "difficulty": "easy",
+          "prompt": { "tr": "Yazılı izin olmadan test yapmak yasa dışıdır.", "en": "Testing without written authorization is illegal." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru.", "en": "True." }
+        },
+        {
+          "id": "rp4", "type": "multiple_choice", "difficulty": "medium",
+          "prompt": { "tr": "Rules of Engagement (RoE) neyi tanımlar?", "en": "What do Rules of Engagement (RoE) define?" },
+          "options": [ { "tr": "İzinli teknikler, zaman ve sınırlar", "en": "Allowed techniques, timing and limits", "correct": true }, { "tr": "Sunucu donanımı", "en": "Server hardware" }, { "tr": "Maaş", "en": "Salary" }, { "tr": "Renk paleti", "en": "Color palette" } ],
+          "explanation": { "tr": "RoE; zaman penceresi, izinli teknikler ve kaçınılacakları belirler.", "en": "RoE sets the time window, allowed techniques and what to avoid." }
+        },
+        {
+          "id": "rp5", "type": "fill_blank", "difficulty": "easy",
+          "prompt": { "tr": "Gizlilik yükümlülüğü sözleşmesi kısaltması: ___", "en": "Abbreviation for a confidentiality agreement: ___" },
+          "acceptedAnswers": ["nda"],
+          "explanation": { "tr": "NDA (Non-Disclosure Agreement).", "en": "NDA (Non-Disclosure Agreement)." }
+        },
+        {
+          "id": "rp6", "type": "true_false", "difficulty": "easy",
+          "prompt": { "tr": "Sorumlu açıklama, zafiyeti sahibine gizlice bildirip süre tanımaktır.", "en": "Responsible disclosure means privately reporting a vuln and allowing time to fix." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru.", "en": "True." }
+        }
+        ,
+        {
+          "id": "rp7", "type": "multiple_choice", "difficulty": "medium",
+          "prompt": { "tr": "İyi bir teknik bulgu mutlaka neyi içermelidir?", "en": "What must a good technical finding always include?" },
+          "options": [ { "tr": "Yeniden üretim adımları + düzeltme önerisi", "en": "Reproduction steps + remediation", "correct": true }, { "tr": "Yalnızca araç adı", "en": "Just the tool name" }, { "tr": "Saldırganın kimliği", "en": "The attacker's identity" }, { "tr": "Şirketin cirosu", "en": "The company's revenue" } ],
+          "explanation": { "tr": "Bulgu, savunanın tek başına düzeltebileceği kadar net olmalı.", "en": "A finding should be clear enough for the defender to fix alone." }
+        },
+        {
+          "id": "rp8", "type": "true_false", "difficulty": "easy",
+          "prompt": { "tr": "Uyumlu (compliant) olmak, pratikte güvenli olmayı garanti eder.", "en": "Being compliant guarantees being secure in practice." },
+          "options": [ { "tr": "Doğru", "en": "True" }, { "tr": "Yanlış", "en": "False", "correct": true } ],
+          "explanation": { "tr": "Yanlış — uyumluluk asgari taban sağlar; gerçek güvenlik anlamlı kontrollerdir.", "en": "False — compliance provides a baseline; real security is meaningful controls." }
+        }
+      ]
+    },
+    "practice": {
+      "id": "quiz_practice",
+      "title": { "tr": "Pratik Ortamlar ve Sertifikalar", "en": "Practice & Certifications" },
+      "questions": [
+        {
+          "id": "pr1", "type": "multiple_choice", "difficulty": "easy",
+          "prompt": { "tr": "OSCP nasıl bir sertifikadır?", "en": "What kind of certification is OSCP?" },
+          "options": [ { "tr": "Pratik/uygulamalı pentest", "en": "Hands-on practical pentest", "correct": true }, { "tr": "Yalnızca çoktan seçmeli teori", "en": "Multiple-choice theory only" }, { "tr": "Proje yönetimi", "en": "Project management" }, { "tr": "Ağ donanımı", "en": "Network hardware" } ],
+          "explanation": { "tr": "OSCP pratik/uygulamalı bir sınavdır.", "en": "OSCP is a hands-on practical exam." }
+        },
+        {
+          "id": "pr2", "type": "fill_blank", "difficulty": "easy",
+          "prompt": { "tr": "Modern, bilerek savunmasız OWASP web uygulaması: ___ Shop", "en": "Modern intentionally-vulnerable OWASP web app: ___ Shop" },
+          "acceptedAnswers": ["juice", "juice shop", "owasp juice shop"],
+          "explanation": { "tr": "OWASP Juice Shop.", "en": "OWASP Juice Shop." }
+        },
+        {
+          "id": "pr3", "type": "true_false", "difficulty": "easy",
+          "prompt": { "tr": "Pratik yalnızca izole/izinli hedeflerde yapılmalıdır.", "en": "Practice should only be done on isolated/authorized targets." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru.", "en": "True." }
+        },
+        {
+          "id": "pr4", "type": "multiple_choice", "difficulty": "easy",
+          "prompt": { "tr": "TryHackMe hangi seviyeye en uygundur?", "en": "TryHackMe is best suited for which level?" },
+          "options": [ { "tr": "Rehberli, başlangıç dostu", "en": "Guided, beginner-friendly", "correct": true }, { "tr": "Yalnızca uzmanlar", "en": "Experts only" }, { "tr": "Donanım tasarımı", "en": "Hardware design" }, { "tr": "Pazarlama", "en": "Marketing" } ],
+          "explanation": { "tr": "TryHackMe rehberli ve başlangıç dostudur.", "en": "TryHackMe is guided and beginner-friendly." }
+        },
+        {
+          "id": "pr5", "type": "fill_blank", "difficulty": "easy",
+          "prompt": { "tr": "Ağ/servis istismarı pratiği için savunmasız Linux VM: ___", "en": "Vulnerable Linux VM for network/service exploitation practice: ___" },
+          "acceptedAnswers": ["metasploitable"],
+          "explanation": { "tr": "Metasploitable.", "en": "Metasploitable." }
+        },
+        {
+          "id": "pr6", "type": "true_false", "difficulty": "easy",
+          "prompt": { "tr": "Hack The Box gerçekçi, orta-ileri seviye makineler sunar.", "en": "Hack The Box offers realistic, intermediate-advanced machines." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru.", "en": "True." }
+        }
+        ,
+        {
+          "id": "pr7", "type": "multiple_choice", "difficulty": "easy",
+          "prompt": { "tr": "CTF kategorisi hangisi DEĞİLDİR?", "en": "Which is NOT a CTF category?" },
+          "options": [ { "tr": "Faturalandırma", "en": "Invoicing", "correct": true }, { "tr": "Web", "en": "Web" }, { "tr": "Pwn", "en": "Pwn" }, { "tr": "Crypto", "en": "Crypto" } ],
+          "explanation": { "tr": "CTF kategorileri: Web, Pwn, Crypto, Forensics, Reversing, OSINT, Misc.", "en": "CTF categories: Web, Pwn, Crypto, Forensics, Reversing, OSINT, Misc." }
+        },
+        {
+          "id": "pr8", "type": "true_false", "difficulty": "easy",
+          "prompt": { "tr": "Portföy (write-up, GitHub, CTF) gerçek beceriyi göstermede sertifikalar kadar değerlidir.", "en": "A portfolio (write-ups, GitHub, CTF) is as valuable as certs in showing real skill." },
+          "options": [ { "tr": "Doğru", "en": "True", "correct": true }, { "tr": "Yanlış", "en": "False" } ],
+          "explanation": { "tr": "Doğru — ikisini birlikte yürüt.", "en": "True — pursue both together." }
+        }
+      ]
+    }
+  }
+}

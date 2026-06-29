@@ -1,0 +1,63 @@
+{
+  "id": "futuretech",
+  "title": { "tr": "Geleceğe Hazırlık ve Özel Alanlar", "en": "Future-Readiness & Specialties" },
+  "subtitle": { "tr": "Zero Trust, post-quantum, OT/ICS, IoT, DevSecOps, mobil", "en": "Zero Trust, post-quantum, OT/ICS, IoT, DevSecOps, mobile" },
+  "icon": "lock",
+  "level": "modern",
+  "topics": [
+    {
+      "id": "zero-trust",
+      "title": { "tr": "Zero Trust Mimarisi", "en": "Zero Trust Architecture" },
+      "tags": ["modern", "defense"],
+      "content": {
+        "tr": "## Zero Trust\n\"Asla güvenme, her zaman doğrula.\" Konum (iç/dış ağ) tek başına güven sağlamaz; her erişim talebi doğrulanır.\n\n### İlkeler\n- Her istek **kimlik + cihaz + bağlam** ile doğrulanır.\n- **En az ayrıcalık** ve **mikro-segmentasyon**.\n- **Sürekli doğrulama** (oturum boyunca, tek seferlik değil).\n- Varsay: ihlal olmuş olabilir (assume breach).\n\n### Bileşenler\nKimlik (MFA, SSO), cihaz duruşu, politika motoru, mikro-segmentasyon, sürekli izleme.\n\n### Mini-lab (kavramsal)\nKurumun için bir uygulamaya Zero Trust uygula: kim, hangi cihazdan, hangi koşulda erişebilir? Bir erişim politikası tablosu yaz.\n\n> Etki: Bir host ele geçse bile yanal hareket sınırlanır — modern savunmanın temel modeli.\n\n> Yaygın hata: Zero Trust'ı tek bir ürün sanmak. O bir **mimari/strateji**dir; kimlik, cihaz, ağ ve veri katmanlarında kademeli uygulanır, tek kutuda satılmaz.",
+        "en": "## Zero Trust\n\"Never trust, always verify.\" Location (internal/external network) alone confers no trust; every access request is verified.\n\n### Principles\n- Every request is verified by **identity + device + context**.\n- **Least privilege** and **micro-segmentation**.\n- **Continuous verification** (throughout the session, not one-time).\n- Assume breach.\n\n### Components\nIdentity (MFA, SSO), device posture, policy engine, micro-segmentation, continuous monitoring.\n\n### Mini-lab (conceptual)\nApply Zero Trust to an app in your org: who, from which device, under what conditions can access? Write an access policy table.\n\n> Impact: Even if a host is compromised, lateral movement is constrained — a core model of modern defense.\n\n> Common mistake: Treating Zero Trust as a single product. It's an **architecture/strategy** applied gradually across identity, device, network and data layers — not sold in one box."
+      }
+    },
+    {
+      "id": "post-quantum",
+      "title": { "tr": "Post-Quantum Cryptography (PQC)", "en": "Post-Quantum Cryptography (PQC)" },
+      "tags": ["modern", "crypto"],
+      "content": {
+        "tr": "## Post-Quantum Kriptografi\nYeterince güçlü kuantum bilgisayarlar bugünkü açık anahtarlı şifrelemeyi (RSA/ECC) kırabilir. **NIST**, kuantuma dayanıklı yeni algoritmaları standartlaştırıyor (örn. ML-KEM/Kyber, ML-DSA/Dilithium).\n\n### Neden şimdi?\n- **\"Şimdi topla, sonra çöz\" (harvest-now, decrypt-later):** bugün çalınan şifreli veri, gelecekte kuantumla çözülebilir. Uzun ömürlü gizli veriler bugün risk altında.\n- Kuruluşlar **kripto envanteri** çıkarıp PQC geçiş planı yapmalı (crypto-agility).\n\n### Mini-lab (kavramsal)\nKurumun için bir 'kripto envanteri' taslağı çıkar: nerede RSA/ECC kullanılıyor, hangileri uzun ömürlü veri koruyor, hangileri önce geçmeli?\n\n> Bağlam: Geçiş yıllar sürer; erken başlayanlar (crypto-agility kuranlar) önümüzdeki on yılın liderleri olacak.\n\n> Yaygın hata: 'Kuantum henüz yok, acelesi yok' demek. Harvest-now/decrypt-later nedeniyle uzun ömürlü veri **bugün** risk altındadır; planlama şimdi başlamalı.",
+        "en": "## Post-Quantum Cryptography\nSufficiently powerful quantum computers could break today's public-key crypto (RSA/ECC). **NIST** is standardizing new quantum-resistant algorithms (e.g. ML-KEM/Kyber, ML-DSA/Dilithium).\n\n### Why now?\n- **\"Harvest-now, decrypt-later\":** encrypted data stolen today may be decrypted in the future with quantum. Long-lived secret data is at risk today.\n- Organizations should build a **crypto inventory** and plan a PQC migration (crypto-agility).\n\n### Mini-lab (conceptual)\nDraft a 'crypto inventory' for your org: where is RSA/ECC used, which protects long-lived data, which should migrate first?\n\n> Context: Migration takes years; those who start early (build crypto-agility) will be the leaders of the next decade.\n\n> Common mistake: Saying 'quantum isn't here yet, no rush'. Due to harvest-now/decrypt-later, long-lived data is at risk **today**; planning must start now."
+      }
+    },
+    {
+      "id": "ot-ics",
+      "title": { "tr": "OT/ICS Güvenliği", "en": "OT/ICS Security" },
+      "tags": ["modern", "ot"],
+      "content": {
+        "tr": "## OT/ICS Güvenliği\nEndüstriyel kontrol sistemleri (SCADA, DCS, PLC) fabrika, enerji, su ve üretim altyapısını yönetir.\n\n### IT'den farkları\n- **Kullanılabilirlik ve güvenlik (safety)** gizlilikten önce gelir — bir hat durması ya da kaza ölümcül olabilir.\n- Eski protokoller (Modbus, DNP3) kimlik doğrulamasızdır; sistemler nadiren yamanır (kesinti maliyeti).\n- IT/OT ayrımı kritiktir.\n\n### Mini-lab (kavramsal)\nBir OT ağı için Purdue modeli katmanlarını çiz; hangi katmanın hangisine hangi yönde erişebileceğini (tek yönlü) tasarla.\n\n> Savunma: **Purdue modeli** ile segmentasyon, tek yönlü ağ geçitleri (data diode), pasif izleme (aktif tarama OT'yi bozabilir), sıkı IT/OT sınırı. Yüksek değerli, niş bir uzmanlık.\n\n> Yaygın hata: OT'de IT araçlarını (agresif tarama, zorla yama) düşünmeden kullanmak. Bir Nmap taraması bile hassas bir PLC'yi çökertebilir; OT'de pasif ve dikkatli ol.",
+        "en": "## OT/ICS Security\nIndustrial control systems (SCADA, DCS, PLC) run factory, energy, water and manufacturing infrastructure.\n\n### Differences from IT\n- **Availability and safety** come before confidentiality — a line stoppage or accident can be fatal.\n- Legacy protocols (Modbus, DNP3) lack authentication; systems are rarely patched (downtime cost).\n- IT/OT separation is critical.\n\n### Mini-lab (conceptual)\nDraw the Purdue model layers for an OT network; design which layer can reach which, in which (one-way) direction.\n\n> Defense: Segmentation via the **Purdue model**, unidirectional gateways (data diodes), passive monitoring (active scanning can disrupt OT), a strict IT/OT boundary. A high-value, niche specialty.\n\n> Common mistake: Using IT tools (aggressive scanning, forced patching) in OT without thought. Even an Nmap scan can crash a sensitive PLC; be passive and careful in OT."
+      }
+    },
+    {
+      "id": "iot",
+      "title": { "tr": "IoT Cihaz Güvenliği", "en": "IoT Device Security" },
+      "tags": ["modern", "iot"],
+      "content": {
+        "tr": "## IoT Güvenliği\nMilyarlarca bağlı cihaz (kamera, sensör, akıllı ev, medikal) genellikle zayıf güvenlikle gelir ve nadiren güncellenir.\n\n### Yaygın sorunlar\n- Varsayılan/sabit kodlanmış parolalar, güncellenmeyen firmware, şifrelenmemiş iletişim, açık yönetim arayüzleri, fiziksel erişim riski.\n\n### Mini-lab (kavramsal/kendi cihazın)\nKendi ağındaki bir IoT cihazını incele: varsayılan parola değişmiş mi, firmware güncel mi, internete açık mı (Shodan)?\n\n> Savunma: Cihazları ayrı **VLAN**'a koy, varsayılan parolaları değiştir, firmware'i güncelle, gereksiz internet erişimini kapat, üreticinin destek süresini dikkate al. (Shodan bölümüyle ilişkilidir.)\n\n> Yaygın hata: IoT cihazlarını ana ağda, gözetimsiz bırakmak. Tek bir savunmasız kamera, tüm ev/ofis ağına giriş noktası olabilir; segmentle ve izle.",
+        "en": "## IoT Security\nBillions of connected devices (cameras, sensors, smart home, medical) often ship with weak security and are rarely updated.\n\n### Common issues\n- Default/hardcoded passwords, un-updated firmware, unencrypted communication, exposed management interfaces, physical access risk.\n\n### Mini-lab (conceptual / your own device)\nInspect an IoT device on your network: is the default password changed, firmware current, exposed to the internet (Shodan)?\n\n> Defense: Put devices on a separate **VLAN**, change default passwords, update firmware, disable needless internet access, consider the vendor's support lifetime. (Related to the Shodan topic.)\n\n> Common mistake: Leaving IoT devices on the main network, unmonitored. One vulnerable camera can be an entry point to the whole home/office network; segment and monitor."
+      }
+    },
+    {
+      "id": "devsecops",
+      "title": { "tr": "DevSecOps ve Shift-Left", "en": "DevSecOps & Shift-Left" },
+      "tags": ["modern", "devsecops"],
+      "content": {
+        "tr": "## DevSecOps\nGüvenliği geliştirme sürecinin **başına** taşıma (shift-left) — sonradan eklenen değil, baştan tasarlanan güvenlik.\n\n### Araçlar ve aşamalar\n- **SAST:** kaynak kod analizi (kod yazılırken).\n- **DAST:** çalışan uygulama testi (çalışırken).\n- **SCA:** bağımlılık zafiyetleri.\n- **Secret scanning:** sızmış sırlar.\n- **IaC tarama:** yanlış yapılandırma (tfsec/checkov).\n\n### Mini-lab\nBasit bir projeye bir CI adımı ekle: her push'ta SAST veya `npm audit` (SCA) çalışsın; bir bulgu üret ve düzelt.\n\n> İlke: Güvenlik kontrolleri CI/CD hattına **otomatik** gömülür; hata ne kadar erken bulunursa o kadar ucuz düzeltilir. Geliştiriciyle iş birliği şarttır (engel değil, kolaylaştırıcı).\n\n> Yaygın hata: Güvenliği yalnızca sürümün sonuna 'kapı' olarak koymak. Bu, geç ve pahalı düzeltmeler doğurur; kontrolleri sürecin tamamına yay.",
+        "en": "## DevSecOps\nMoving security to the **start** of development (shift-left) — security designed in, not bolted on.\n\n### Tools and stages\n- **SAST:** source code analysis (as code is written).\n- **DAST:** running-app testing (at runtime).\n- **SCA:** dependency vulnerabilities.\n- **Secret scanning:** leaked secrets.\n- **IaC scanning:** misconfiguration (tfsec/checkov).\n\n### Mini-lab\nAdd a CI step to a small project: run SAST or `npm audit` (SCA) on every push; produce a finding and fix it.\n\n> Principle: Security checks are embedded **automatically** in the CI/CD pipeline; the earlier a bug is found, the cheaper to fix. Collaboration with developers is essential (an enabler, not a gate).\n\n> Common mistake: Putting security only as a 'gate' at the end of a release. That produces late, expensive fixes; spread controls across the whole process."
+      }
+    },
+    {
+      "id": "mobile",
+      "title": { "tr": "Mobil Uygulama Güvenliği", "en": "Mobile App Security" },
+      "tags": ["modern", "mobile"],
+      "content": {
+        "tr": "## Mobil Güvenlik (Android/iOS)\nMobil uygulamalar kendi saldırı yüzeyini taşır; istemci cihaz **güvenilmez** kabul edilmelidir.\n\n### Yaygın riskler\n- Güvensiz veri saklama (düz metin/SharedPreferences), zayıf TLS/sertifika doğrulama, sabit kodlanmış sırlar (API anahtarı), ters mühendisliğe açık APK, güvensiz IPC.\n\n### Araçlar\n- MobSF (statik/dinamik analiz), Frida (çalışma anı enstrümantasyon), apktool/jadx (tersine mühendislik).\n\n### Mini-lab (kendi/izinli uygulama)\nKendi test uygulamanın APK'sını jadx ile aç; sabit kodlanmış bir sır veya anahtar arıyor musun? Veri nasıl saklanıyor?\n\n> Referans: **OWASP Mobile Top 10** ve MASVS. Test için izinli cihaz/emülatör ve uygulamanın kendi build'i kullanılır.\n\n> Yaygın hata: Sırları veya iş mantığını yalnızca istemcide tutmak. Saldırgan APK'yı tersine çevirir; hassas mantık ve doğrulama **sunucuda** olmalıdır.",
+        "en": "## Mobile Security (Android/iOS)\nMobile apps carry their own attack surface; the client device must be treated as **untrusted**.\n\n### Common risks\n- Insecure data storage (plaintext/SharedPreferences), weak TLS/cert validation, hardcoded secrets (API keys), reverse-engineerable APKs, insecure IPC.\n\n### Tools\n- MobSF (static/dynamic analysis), Frida (runtime instrumentation), apktool/jadx (reverse engineering).\n\n### Mini-lab (your own / authorized app)\nOpen your own test app's APK in jadx; are you finding a hardcoded secret or key? How is data stored?\n\n> Reference: **OWASP Mobile Top 10** and MASVS. Test on an authorized device/emulator with your own build of the app.\n\n> Common mistake: Keeping secrets or business logic only on the client. An attacker reverse-engineers the APK; sensitive logic and validation must be **server-side**."
+      }
+    }
+  ]
+}

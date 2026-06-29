@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="600" viewBox="0 0 300 600" font-family="Segoe UI, Roboto, sans-serif">
+  <rect width="300" height="600" rx="18" fill="#101317"/>
+  <!-- app bar -->
+  <rect x="0" y="0" width="300" height="56" rx="18" fill="#1E88E5"/>
+  <rect x="0" y="30" width="300" height="26" fill="#1E88E5"/>
+  <text x="16" y="34" fill="#fff" font-size="17" font-weight="700">Learn</text>
+  <circle cx="232" cy="28" r="3" fill="#fff"/><circle cx="240" cy="22" r="3" fill="none" stroke="#fff" stroke-width="2"/>
+  <text x="252" y="33" fill="#fff" font-size="13" font-weight="700">TR</text>
+  <circle cx="282" cy="28" r="9" fill="none" stroke="#fff" stroke-width="2"/>
+  <!-- section cards -->
+  <g>
+    <rect x="12" y="72" width="276" height="64" rx="12" fill="#1a1f25"/>
+    <circle cx="40" cy="104" r="16" fill="#1E88E5" opacity="0.22"/>
+    <text x="40" y="109" fill="#64b5f6" font-size="15" text-anchor="middle">⌗</text>
+    <text x="68" y="98" fill="#e8eaed" font-size="14" font-weight="600">Networking &amp; Fundamentals</text>
+    <text x="68" y="114" fill="#9aa0a6" font-size="10">TCP/IP, OSI, DNS, firewall…</text>
+    <rect x="68" y="122" width="160" height="6" rx="3" fill="#1E88E5" opacity="0.2"/>
+    <rect x="68" y="122" width="120" height="6" rx="3" fill="#1E88E5"/>
+    <text x="236" y="128" fill="#9aa0a6" font-size="9">7/9</text>
+  </g>
+  <g>
+    <rect x="12" y="146" width="276" height="64" rx="12" fill="#1a1f25"/>
+    <circle cx="40" cy="178" r="16" fill="#1E88E5" opacity="0.22"/>
+    <text x="40" y="183" fill="#64b5f6" font-size="14" text-anchor="middle">▢</text>
+    <text x="68" y="172" fill="#e8eaed" font-size="14" font-weight="600">Operating Systems</text>
+    <text x="68" y="188" fill="#9aa0a6" font-size="10">Linux, Windows, permissions…</text>
+    <rect x="68" y="196" width="160" height="6" rx="3" fill="#1E88E5" opacity="0.2"/>
+    <rect x="68" y="196" width="80" height="6" rx="3" fill="#1E88E5"/>
+    <text x="236" y="202" fill="#9aa0a6" font-size="9">4/7</text>
+  </g>
+  <g>
+    <rect x="12" y="220" width="276" height="64" rx="12" fill="#1a1f25"/>
+    <circle cx="40" cy="252" r="16" fill="#ef5350" opacity="0.22"/>
+    <text x="40" y="257" fill="#ef9a9a" font-size="14" text-anchor="middle">◎</text>
+    <text x="68" y="246" fill="#e8eaed" font-size="14" font-weight="600">Web App Security</text>
+    <text x="68" y="262" fill="#9aa0a6" font-size="10">OWASP 2025, SQLi, XSS, API…</text>
+    <rect x="68" y="270" width="160" height="6" rx="3" fill="#ef5350" opacity="0.2"/>
+    <rect x="68" y="270" width="40" height="6" rx="3" fill="#ef5350"/>
+    <text x="236" y="276" fill="#9aa0a6" font-size="9">2/8</text>
+  </g>
+  <g>
+    <rect x="12" y="294" width="276" height="64" rx="12" fill="#1a1f25"/>
+    <circle cx="40" cy="326" r="16" fill="#ab47bc" opacity="0.22"/>
+    <text x="40" y="331" fill="#ce93d8" font-size="13" text-anchor="middle">⚇</text>
+    <text x="68" y="320" fill="#e8eaed" font-size="14" font-weight="600">AI Security (AI/LLM)</text>
+    <text x="68" y="336" fill="#9aa0a6" font-size="10">OWASP LLM Top 10, prompt inj…</text>
+    <rect x="68" y="344" width="160" height="6" rx="3" fill="#ab47bc" opacity="0.2"/>
+    <rect x="68" y="344" width="100" height="6" rx="3" fill="#ab47bc"/>
+    <text x="236" y="350" fill="#9aa0a6" font-size="9">3/5</text>
+  </g>
+  <g opacity="0.6">
+    <rect x="12" y="368" width="276" height="56" rx="12" fill="#1a1f25"/>
+    <circle cx="40" cy="396" r="16" fill="#26a69a" opacity="0.22"/>
+    <text x="68" y="392" fill="#e8eaed" font-size="14" font-weight="600">Blue Team / SOC</text>
+    <text x="68" y="408" fill="#9aa0a6" font-size="10">EDR, SIEM, triage, hunting…</text>
+  </g>
+  <g opacity="0.35">
+    <rect x="12" y="434" width="276" height="48" rx="12" fill="#1a1f25"/>
+    <text x="68" y="463" fill="#9aa0a6" font-size="13">Reconnaissance …</text>
+  </g>
+  <!-- bottom nav -->
+  <rect x="0" y="548" width="300" height="52" fill="#171b20"/>
+  <text x="50" y="576" fill="#64b5f6" font-size="11" text-anchor="middle" font-weight="700">▣ Learn</text>
+  <text x="150" y="576" fill="#9aa0a6" font-size="11" text-anchor="middle">？ Quiz</text>
+  <text x="250" y="576" fill="#9aa0a6" font-size="11" text-anchor="middle">▤ Stats</text>
+</svg>

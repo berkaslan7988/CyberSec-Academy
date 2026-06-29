@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="600" viewBox="0 0 300 600" font-family="Segoe UI, Roboto, sans-serif">
+  <rect width="300" height="600" rx="18" fill="#101317"/>
+  <rect x="0" y="0" width="300" height="56" rx="18" fill="#1E88E5"/>
+  <rect x="0" y="30" width="300" height="26" fill="#1E88E5"/>
+  <text x="16" y="34" fill="#fff" font-size="17" font-weight="700">Dashboard</text>
+  <!-- progress ring -->
+  <g transform="translate(150,128)">
+    <circle r="52" fill="none" stroke="#1E88E5" stroke-opacity="0.18" stroke-width="12"/>
+    <circle r="52" fill="none" stroke="#1E88E5" stroke-width="12" stroke-linecap="round"
+      stroke-dasharray="196 327" transform="rotate(-90)"/>
+    <text y="-2" font-size="26" fill="#e8eaed" font-weight="700" text-anchor="middle">60%</text>
+    <text y="16" font-size="10" fill="#9aa0a6" text-anchor="middle">complete</text>
+  </g>
+  <!-- stat cards -->
+  <g>
+    <rect x="14" y="206" width="132" height="52" rx="10" fill="#1a1f25"/>
+    <text x="28" y="232" fill="#64b5f6" font-size="16">▤</text>
+    <text x="48" y="230" fill="#e8eaed" font-size="16" font-weight="700">63/105</text>
+    <text x="48" y="246" fill="#9aa0a6" font-size="9">Topics read</text>
+  </g>
+  <g>
+    <rect x="154" y="206" width="132" height="52" rx="10" fill="#1a1f25"/>
+    <text x="168" y="232" fill="#64b5f6" font-size="16">▦</text>
+    <text x="188" y="230" fill="#e8eaed" font-size="16" font-weight="700">12/21</text>
+    <text x="188" y="246" fill="#9aa0a6" font-size="9">Sections started</text>
+  </g>
+  <g>
+    <rect x="14" y="266" width="132" height="52" rx="10" fill="#1a1f25"/>
+    <text x="28" y="292" fill="#64b5f6" font-size="16">？</text>
+    <text x="48" y="290" fill="#e8eaed" font-size="16" font-weight="700">18</text>
+    <text x="48" y="306" fill="#9aa0a6" font-size="9">Quizzes taken</text>
+  </g>
+  <g>
+    <rect x="154" y="266" width="132" height="52" rx="10" fill="#1a1f25"/>
+    <text x="168" y="292" fill="#64b5f6" font-size="16">★</text>
+    <text x="188" y="290" fill="#e8eaed" font-size="16" font-weight="700">82%</text>
+    <text x="188" y="306" fill="#9aa0a6" font-size="9">Avg best score</text>
+  </g>
+  <!-- achievements -->
+  <text x="16" y="344" fill="#e8eaed" font-size="13" font-weight="700">Achievements</text>
+  <g>
+    <rect x="14" y="354" width="84" height="64" rx="10" fill="#2a2410" stroke="#c9a227" stroke-opacity="0.5"/>
+    <text x="56" y="386" fill="#e6c34a" font-size="20" text-anchor="middle">⚑</text>
+    <text x="56" y="406" fill="#e6c34a" font-size="9" text-anchor="middle" font-weight="600">First Step</text>
+  </g>
+  <g>
+    <rect x="108" y="354" width="84" height="64" rx="10" fill="#2a2410" stroke="#c9a227" stroke-opacity="0.5"/>
+    <text x="150" y="386" fill="#e6c34a" font-size="20" text-anchor="middle">✦</text>
+    <text x="150" y="406" fill="#e6c34a" font-size="9" text-anchor="middle" font-weight="600">Explorer</text>
+  </g>
+  <g opacity="0.55">
+    <rect x="202" y="354" width="84" height="64" rx="10" fill="#1a1f25" stroke="#555" stroke-opacity="0.4"/>
+    <text x="244" y="386" fill="#888" font-size="18" text-anchor="middle">🔒</text>
+    <text x="244" y="406" fill="#888" font-size="9" text-anchor="middle" font-weight="600">Scholar</text>
+  </g>
+  <!-- suggestion -->
+  <text x="16" y="446" fill="#e8eaed" font-size="13" font-weight="700">Suggested Next Steps</text>
+  <rect x="14" y="456" width="272" height="50" rx="10" fill="#1a1f25"/>
+  <text x="30" y="478" fill="#ffb74d" font-size="14">↘</text>
+  <text x="46" y="478" fill="#e8eaed" font-size="12" font-weight="600">Web App Security</text>
+  <text x="46" y="494" fill="#9aa0a6" font-size="9.5">Low quiz score (50%) — review again</text>
+  <rect x="14" y="512" width="272" height="44" rx="10" fill="#1a1f25"/>
+  <text x="30" y="538" fill="#4fc3f7" font-size="14">？</text>
+  <text x="46" y="534" fill="#e8eaed" font-size="12" font-weight="600">Reconnaissance</text>
+  <text x="46" y="549" fill="#9aa0a6" font-size="9.5">Read — now test yourself</text>
+  <!-- bottom nav -->
+  <rect x="0" y="556" width="300" height="44" fill="#171b20"/>
+  <text x="50" y="582" fill="#9aa0a6" font-size="11" text-anchor="middle">▣ Learn</text>
+  <text x="150" y="582" fill="#9aa0a6" font-size="11" text-anchor="middle">？ Quiz</text>
+  <text x="250" y="582" fill="#64b5f6" font-size="11" text-anchor="middle" font-weight="700">▤ Stats</text>
+</svg>

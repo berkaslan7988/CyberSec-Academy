@@ -1,0 +1,47 @@
+{
+  "id": "reversing",
+  "title": { "tr": "Reversing ve Binary Exploitation", "en": "Reversing & Binary Exploitation" },
+  "subtitle": { "tr": "Statik/dinamik analiz, Ghidra, Buffer Overflow, ROP", "en": "Static/dynamic analysis, Ghidra, Buffer Overflow, ROP" },
+  "icon": "memory",
+  "level": "offensive",
+  "topics": [
+    {
+      "id": "static-dynamic",
+      "title": { "tr": "Statik vs Dinamik Analiz", "en": "Static vs Dynamic Analysis" },
+      "tags": ["reversing"],
+      "ethics": true,
+      "content": {
+        "tr": "## Statik vs Dinamik Analiz\nBir ikiliyi (binary) ya da kötü amaçlı yazılımı anlamanın iki temel yolu.\n\n### Statik analiz\n- Programı **çalıştırmadan** inceleme: dizeler, içe aktarmalar (imports), disassembly, decompile.\n```\nfile sample; strings -n 8 sample\nnm -D sample 2>/dev/null      # dışa/içe aktarılan semboller\n```\n\n### Dinamik analiz\n- Programı **izole bir ortamda çalıştırıp** davranışını gözleme: ağ, dosya, süreç, API çağrıları.\n- Araçlar: kum havuzu (sandbox), `ltrace`/`strace`, debugger.\n\n### Mini-lab (yalnızca izole analiz VM'i)\nZararsız bir test ikilisinde `strings` ve `strace` çalıştır; statik olarak gördüğün ipuçlarıyla dinamik davranışı karşılaştır.\n\n> Etik & güvenlik: Şüpheli/zararlı dosyalar yalnızca **internetsiz, izole** bir analiz VM'inde (snapshot'lı) çalıştırılır; asla ana makinende.\n\n> Yaygın hata: Şüpheli bir örneği analiz için doğrudan kişisel makinende çalıştırmak. Zararlı yazılım yayılabilir/şifreleyebilir; daima yalıtılmış, geri alınabilir ortam kullan.",
+        "en": "## Static vs Dynamic Analysis\nTwo fundamental ways to understand a binary or malware.\n\n### Static analysis\n- Inspecting **without running**: strings, imports, disassembly, decompile.\n```\nfile sample; strings -n 8 sample\nnm -D sample 2>/dev/null      # exported/imported symbols\n```\n\n### Dynamic analysis\n- **Running in an isolated environment** and observing behavior: network, files, processes, API calls.\n- Tools: sandbox, `ltrace`/`strace`, a debugger.\n\n### Mini-lab (isolated analysis VM only)\nRun `strings` and `strace` on a harmless test binary; compare the static hints with the dynamic behavior.\n\n> Ethics & safety: Run suspicious/malicious files only in an **offline, isolated** analysis VM (snapshotted); never on your host.\n\n> Common mistake: Running a suspicious sample directly on your personal machine for analysis. Malware can spread/encrypt; always use an isolated, revertible environment."
+      }
+    },
+    {
+      "id": "re-tools",
+      "title": { "tr": "Ghidra, IDA, radare2", "en": "Ghidra, IDA, radare2" },
+      "tags": ["reversing"],
+      "content": {
+        "tr": "## Tersine Mühendislik Araçları\nDerlenmiş bir programı kaynak mantığına geri çözümlemek için.\n- **Ghidra:** NSA'in açık kaynak paketi (ücretsiz decompiler) — başlamak için ideal.\n- **IDA Pro:** endüstri standardı disassembler/decompiler.\n- **radare2 / Cutter:** açık kaynak, komut satırı + GUI.\n\n### Tipik akış\n1. İkiliyi yükle, fonksiyonları/dizeleri keşfet.\n2. Decompiler ile sahte-C koduna bak, mantığı izle.\n3. İlgi çekici fonksiyonları (kimlik doğrulama, şifre kontrolü) işaretle.\n\n### Mini-lab\nGhidra'da basit bir 'crackme' (CTF) ikilisini aç; parola kontrol fonksiyonunu bul ve mantığını çöz.\n\n> Kullanım: kötü amaçlı yazılım analizi, CTF, kapalı kaynak yazılımda zafiyet araştırması. Şüpheli ikilileri **izole** analiz VM'inde incele.\n\n> Yaygın hata: Disassembly'de kaybolup decompiler çıktısını kullanmamak. Modern decompiler'lar (Ghidra) okunabilir sahte-C üretir; önce ondan başla, gerekince assembly'ye in.",
+        "en": "## Reverse Engineering Tools\nTo resolve a compiled program back to its source logic.\n- **Ghidra:** NSA's open-source suite (free decompiler) — ideal to start.\n- **IDA Pro:** industry-standard disassembler/decompiler.\n- **radare2 / Cutter:** open-source, CLI + GUI.\n\n### Typical flow\n1. Load the binary, explore functions/strings.\n2. View pseudo-C with the decompiler, follow the logic.\n3. Mark interesting functions (auth, password check).\n\n### Mini-lab\nOpen a simple 'crackme' (CTF) binary in Ghidra; find the password-check function and work out its logic.\n\n> Use: malware analysis, CTF, vulnerability research in closed-source software. Analyze suspicious binaries in an **isolated** analysis VM.\n\n> Common mistake: Getting lost in disassembly without using the decompiler. Modern decompilers (Ghidra) produce readable pseudo-C; start there, drop to assembly when needed."
+      }
+    },
+    {
+      "id": "bof-rop",
+      "title": { "tr": "Buffer Overflow ve ROP", "en": "Buffer Overflow and ROP" },
+      "tags": ["reversing", "pwn"],
+      "ethics": true,
+      "content": {
+        "tr": "## Bellek İstismarı\n- **Buffer Overflow:** bir tampona kapasitesinden fazla veri yazıp bitişik belleği (örn. dönüş adresi) ezme → akış kontrolünü ele geçirme.\n- **ROP (Return-Oriented Programming):** mevcut kod parçalarını (gadget) zincirleyerek korumaları (DEP/NX) aşma.\n\n### Modern korumalar\n- **ASLR** (adres rastgeleleştirme), **DEP/NX** (veri bölgesinde kod çalıştırma yok), **stack canary** (taşma tespiti), **CFG/CET**.\n\n### Mini-lab (yalnızca lab/CTF)\nKorumaları kapalı basit bir savunmasız C programında (örn. `gets`) klasik bir stack overflow ile akışı yönlendirmeyi dene (eğitim amaçlı CTF ortamı).\n\n> Etik: Yalnızca lab/CTF hedeflerinde. Bu konu, savunmanın neden **bellek-güvenli diller** (Rust) ve sertleştirmeye yöneldiğini açıklar.\n\n> Yaygın hata: Modern korumaları (ASLR/NX/canary) yok saymak. Gerçek hedeflerde bunlar açıktır; eğitimde önce korumasız, sonra kademeli olarak korumalı senaryolarda çalış.",
+        "en": "## Memory Exploitation\n- **Buffer Overflow:** writing more data into a buffer than it holds, overwriting adjacent memory (e.g. the return address) → hijacking control flow.\n- **ROP (Return-Oriented Programming):** chaining existing code snippets (gadgets) to bypass protections (DEP/NX).\n\n### Modern protections\n- **ASLR** (address randomization), **DEP/NX** (no code execution in data regions), **stack canary** (overflow detection), **CFG/CET**.\n\n### Mini-lab (lab/CTF only)\nIn a simple vulnerable C program with protections off (e.g. `gets`), try redirecting flow with a classic stack overflow (educational CTF setting).\n\n> Ethics: Only on lab/CTF targets. This explains why defense moves toward **memory-safe languages** (Rust) and hardening.\n\n> Common mistake: Ignoring modern protections (ASLR/NX/canary). On real targets they're enabled; in training, work first without protections, then gradually with them."
+      }
+    },
+    {
+      "id": "pwn-tools",
+      "title": { "tr": "x64dbg, pwntools", "en": "x64dbg, pwntools" },
+      "tags": ["reversing", "pwn"],
+      "content": {
+        "tr": "## Pwn Araçları\n- **x64dbg:** Windows için açık kaynak hata ayıklayıcı (debugger); adım adım çalıştırma, bellek/registry inceleme.\n- **pwntools:** Python exploit geliştirme çerçevesi (CTF pwn'da standart).\n\n### Örnek (pwntools)\n```\nfrom pwn import *\np = process('./vuln')\np.recvuntil(b'>')\np.sendline(b'A'*72 + p64(0xdeadbeef))\np.interactive()\n```\n\n### Mini-lab\nBasit bir CTF pwn challenge'ında pwntools ile girdi gönder, offset'i (`cyclic`) bul ve akışı yönlendir.\n\n> Pratik: CTF pwn kategorisi bu becerileri **güvenli ve yasal** biçimde geliştirmenin en iyi yoludur; gerçek hedeflerde kullanma.\n\n> Yaygın hata: Offset'i tahminle bulmaya çalışmak. `cyclic`/`pattern` araçlarıyla offset'i sistematik bul; deneme-yanılma zaman kaybıdır.",
+        "en": "## Pwn Tools\n- **x64dbg:** open-source debugger for Windows; step execution, inspect memory/registers.\n- **pwntools:** a Python exploit-development framework (standard in CTF pwn).\n\n### Example (pwntools)\n```\nfrom pwn import *\np = process('./vuln')\np.recvuntil(b'>')\np.sendline(b'A'*72 + p64(0xdeadbeef))\np.interactive()\n```\n\n### Mini-lab\nIn a simple CTF pwn challenge, send input with pwntools, find the offset (`cyclic`) and redirect flow.\n\n> Practice: The CTF pwn category is the best way to build these skills **safely and legally**; don't use them on real targets.\n\n> Common mistake: Guessing the offset. Find it systematically with `cyclic`/`pattern` tools; trial-and-error wastes time."
+      }
+    }
+  ]
+}

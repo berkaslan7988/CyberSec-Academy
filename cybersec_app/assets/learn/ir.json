@@ -1,0 +1,45 @@
+{
+  "id": "ir",
+  "title": { "tr": "Olay Müdahalesi ve Tehdit İstihbaratı", "en": "Incident Response & Threat Intelligence" },
+  "subtitle": { "tr": "IR yaşam döngüsü, kanıt, IOC/IOA, ransomware", "en": "IR lifecycle, evidence, IOC/IOA, ransomware" },
+  "icon": "local_fire_department",
+  "level": "defensive",
+  "topics": [
+    {
+      "id": "ir-lifecycle",
+      "title": { "tr": "IR Yaşam Döngüsü (NIST)", "en": "IR Lifecycle (NIST)" },
+      "tags": ["ir", "blue"],
+      "content": {
+        "tr": "## Olay Müdahale Yaşam Döngüsü\nNIST'e göre aşamalar:\n1. **Hazırlık** — araçlar, planlar, eğitim.\n2. **Tespit & Analiz** — uyarıyı doğrula, kapsamı belirle.\n3. **Sınırlama (Containment)** — yayılmayı durdur (ağ izolasyonu).\n4. **Eradikasyon** — kök nedeni ve saldırgan izlerini temizle.\n5. **Kurtarma** — sistemleri güvenle geri getir, izle.\n6. **Çıkarılan Dersler** — kök neden analizi, iyileştirme.\n\n### Kilit fikir\nHız önemli ama **kanıtı koruyarak** hareket et: bir makineyi kapatmadan önce uçucu kanıtı (RAM, ağ) topla.\n\n### Mini-lab (masaüstü tatbikatı)\nBir senaryo seç (örn. 'bir kullanıcı fidye notu gördü'). Altı aşamayı sırayla yazıp her aşamada ne yapacağını planla.\n\n> Pratik: Önceden yazılmış bir IR planı (runbook) ve iletişim akışı, kriz anında panik yerine yöntem sağlar. Rolleri önceden belirle.\n\n> Yaygın hata: Sınırlama (containment) yapmadan doğrudan eradikasyona geçmek. Saldırgan hâlâ aktifse, temizlik sırasında yeniden yayılabilir; önce yayılmayı durdur.",
+        "en": "## Incident Response Lifecycle\nPer NIST, the phases are:\n1. **Preparation** — tools, plans, training.\n2. **Detection & Analysis** — validate the alert, scope it.\n3. **Containment** — stop the spread (network isolation).\n4. **Eradication** — remove root cause and attacker traces.\n5. **Recovery** — bring systems back safely, monitor.\n6. **Lessons Learned** — root-cause analysis, improvement.\n\n### Key idea\nSpeed matters, but act while **preserving evidence**: collect volatile evidence (RAM, network) before powering off a machine.\n\n### Mini-lab (tabletop exercise)\nPick a scenario (e.g. 'a user saw a ransom note'). Write the six phases in order and plan what you'd do at each.\n\n> Practice: A pre-written IR plan (runbook) and communication flow provide method instead of panic during a crisis. Define roles in advance.\n\n> Common mistake: Jumping straight to eradication without containment. If the attacker is still active, they can re-spread during cleanup; stop the spread first."
+      }
+    },
+    {
+      "id": "evidence-handling",
+      "title": { "tr": "Kanıt Toplama ve Zinciri", "en": "Evidence Collection & Chain of Custody" },
+      "tags": ["ir", "forensics"],
+      "content": {
+        "tr": "## Kanıt Yönetimi\nBir olayda toplanan kanıtın **bütünlüğü** ve **izlenebilirliği**, hem analiz hem (gerekirse) hukuki süreç için kritiktir.\n\n### İlkeler\n- **Uçuculuk sırası (order of volatility):** önce en uçucu olanı topla — RAM, ağ bağlantıları, çalışan süreçler → sonra disk → sonra arşiv/log.\n- **Hash:** her kanıtın bütünlüğünü SHA256 ile mühürle.\n- **Kanıt zinciri (chain of custody):** kanıtın kim tarafından, ne zaman, nasıl toplandığı/aktarıldığı kaydı.\n\n### Mini-lab\nKüçük bir 'kanıt' dosyası oluştur, SHA256'sını al, kim/ne zaman/nereden topladığını içeren bir custody formu doldur.\n\n> Savunma: Kanıtı her zaman **kopya** üzerinde işle, orijinali yazma-korumalı tut. Saat senkronu (NTP) zaman çizelgesi için şarttır.\n\n> Yaygın hata: Kanıtı toplarken sırayı (uçuculuk) gözardı edip önce diski imajlamak, RAM'i kaybetmek. Önce en uçucu olanı al.",
+        "en": "## Evidence Handling\nIn an incident, the **integrity** and **traceability** of collected evidence are critical for analysis and (if needed) legal process.\n\n### Principles\n- **Order of volatility:** collect the most volatile first — RAM, network connections, running processes → then disk → then archives/logs.\n- **Hash:** seal each piece of evidence's integrity with SHA256.\n- **Chain of custody:** a record of who collected/transferred the evidence, when and how.\n\n### Mini-lab\nCreate a small 'evidence' file, compute its SHA256, fill a custody form with who/when/where it was collected.\n\n> Defense: Always process evidence on a **copy**, keep the original write-protected. Clock sync (NTP) is essential for the timeline.\n\n> Common mistake: Ignoring the order of volatility and imaging the disk first, losing RAM. Capture the most volatile first."
+      }
+    },
+    {
+      "id": "ioc-ioa",
+      "title": { "tr": "IOC / IOA ve Threat Intel", "en": "IOC / IOA and Threat Intel" },
+      "tags": ["ir", "intel"],
+      "content": {
+        "tr": "## Tehdit İstihbaratı\n- **IOC (Indicator of Compromise):** geçmiş saldırı izleri (kötü IP, hash, alan adı, dosya yolu).\n- **IOA (Indicator of Attack):** devam eden saldırı davranışı (örn. LSASS'a erişim, şüpheli üst-süreç).\n- **MISP:** IOC paylaşım/yönetim platformu.\n- Seviyeler: stratejik (eğilim), operasyonel (kampanya), taktik (TTP), teknik (IOC).\n\n### Mini-lab\nBir örnek olaydan 3 IOC (IP, hash, domain) çıkar; bunları bir 'tespit' kuralına nasıl dönüştüreceğini planla.\n\n> Yaklaşım: IOC'ler hızlı ama kısa ömürlüdür (saldırgan değiştirebilir); **davranış (IOA/TTP)** tabanlı tespit daha dayanıklıdır. İkisini birlikte kullan.\n\n> Yaygın hata: Yalnızca IOC beslemelerine güvenmek. Saldırgan altyapıyı kolayca değiştirir; TTP tabanlı tespit olmadan istihbarat hızla eskir.",
+        "en": "## Threat Intelligence\n- **IOC (Indicator of Compromise):** traces of past attacks (bad IP, hash, domain, file path).\n- **IOA (Indicator of Attack):** ongoing attack behavior (e.g. LSASS access, suspicious parent process).\n- **MISP:** an IOC sharing/management platform.\n- Levels: strategic (trends), operational (campaigns), tactical (TTPs), technical (IOCs).\n\n### Mini-lab\nExtract 3 IOCs (IP, hash, domain) from a sample incident; plan how to turn them into a 'detection' rule.\n\n> Approach: IOCs are fast but short-lived (the attacker can change them); **behavior (IOA/TTP)**-based detection is more durable. Use both together.\n\n> Common mistake: Relying only on IOC feeds. Attackers change infrastructure easily; without TTP-based detection, intelligence ages fast."
+      }
+    },
+    {
+      "id": "ransomware-ir",
+      "title": { "tr": "Ransomware Müdahalesi (2026)", "en": "Ransomware Response (2026)" },
+      "tags": ["ir", "modern"],
+      "content": {
+        "tr": "## Fidye Yazılımı Müdahalesi\n2026'da fidye yazılımı **çoklu şantaj** kullanıyor: şifreleme + veri çalma + halka sızdırma + operasyonel/regülasyon baskısı.\n\n### Müdahale ilkeleri\n1. **Sınırlama:** yayılmayı durdurmak için hızlı ağ izolasyonu.\n2. **Kanıt:** kapatmadan önce RAM/log topla.\n3. **Kurtarma:** **sağlam, çevrimdışı/değiştirilemez yedekler** anahtardır.\n4. **İletişim/hukuk:** otorite ve hukuki süreçleri izle; ödeme garanti değildir ve yeni saldırıyı teşvik eder.\n\n### Mini-lab (masaüstü tatbikatı)\nBir fidye senaryosunda ilk 60 dakikayı planla: kimi ara, neyi izole et, hangi kanıtı topla, kurtarmayı nasıl başlat?\n\n> Hazırlık: Yedekleri düzenli **test et** (geri yükleme provası), en az ayrıcalık ve segmentasyon yayılmayı sınırlar. 3-2-1 yedek kuralını uygula.\n\n> Yaygın hata: Yedeklerin var olduğunu varsayıp hiç test etmemek. Olay anında bozuk/erişilemez yedek, en kötü sürprizdir; düzenli geri yükleme provası şarttır.",
+        "en": "## Ransomware Response\nIn 2026, ransomware uses **multi-extortion**: encryption + data theft + public leaks + operational/regulatory pressure.\n\n### Response principles\n1. **Containment:** fast network isolation to stop the spread.\n2. **Evidence:** collect RAM/logs before powering off.\n3. **Recovery:** **solid, offline/immutable backups** are the key.\n4. **Comms/legal:** follow authority and legal processes; paying isn't guaranteed and encourages more attacks.\n\n### Mini-lab (tabletop)\nPlan the first 60 minutes of a ransomware scenario: who to call, what to isolate, which evidence to collect, how to start recovery?\n\n> Preparation: **Test** backups regularly (restore drills); least privilege and segmentation limit spread. Apply the 3-2-1 backup rule.\n\n> Common mistake: Assuming backups exist and never testing them. A corrupt/inaccessible backup during an incident is the worst surprise; regular restore drills are essential."
+      }
+    }
+  ]
+}

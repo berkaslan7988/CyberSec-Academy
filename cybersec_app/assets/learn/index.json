@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "sections": [
+    { "id": "network", "file": "network.json" },
+    { "id": "os", "file": "os.json" },
+    { "id": "scripting", "file": "scripting.json" },
+    { "id": "recon", "file": "recon.json" },
+    { "id": "scanning", "file": "scanning.json" },
+    { "id": "vulnscan", "file": "vulnscan.json" },
+    { "id": "web", "file": "web.json" },
+    { "id": "exploitation", "file": "exploitation.json" },
+    { "id": "shells", "file": "shells.json" },
+    { "id": "postexploit", "file": "postexploit.json" },
+    { "id": "ad", "file": "ad.json" },
+    { "id": "reversing", "file": "reversing.json" },
+    { "id": "forensics", "file": "forensics.json" },
+    { "id": "blueteam", "file": "blueteam.json" },
+    { "id": "ir", "file": "ir.json" },
+    { "id": "automation", "file": "automation.json" },
+    { "id": "cloud", "file": "cloud.json" },
+    { "id": "ai", "file": "ai.json" },
+    { "id": "futuretech", "file": "futuretech.json" },
+    { "id": "reporting", "file": "reporting.json" },
+    { "id": "practice", "file": "practice.json" }
+  ]
+}

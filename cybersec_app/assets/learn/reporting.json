@@ -1,0 +1,45 @@
+{
+  "id": "reporting",
+  "title": { "tr": "Raporlama ve Süreç", "en": "Reporting & Process" },
+  "subtitle": { "tr": "Pentest raporu, scope/RoE, yasal & etik, uyumluluk", "en": "Pentest report, scope/RoE, legal & ethics, compliance" },
+  "icon": "description",
+  "level": "process",
+  "topics": [
+    {
+      "id": "report-format",
+      "title": { "tr": "Pentest Raporu Formatı", "en": "Pentest Report Format" },
+      "tags": ["process", "reporting"],
+      "content": {
+        "tr": "## Pentest Raporu\nGerçek değer test değil, **iyi rapordur**: bulguların anlaşılır ve düzeltilebilir biçimde aktarılması. Rapor, işin teslim edilen ürünüdür.\n\n### Bölümler\n- **Executive Summary:** yöneticilere iş riski dili (teknik değil) — genel duruş, en kritik riskler, öneriler.\n- **Technical Findings:** her bulgu için: başlık, ciddiyet (CVSS), etki, **kanıt (ekran görüntüsü)**, **yeniden üretim adımları**, **düzeltme önerisi**.\n- Ekler: kapsam, metodoloji, araç çıktıları.\n\n### Bir bulgu nasıl yazılır?\nNe → Nerede → Etki → Kanıt → Nasıl üretilir → Nasıl düzeltilir.\n\n### Mini-lab\nBir lab'da bulduğun basit bir zafiyet (örn. eksik güvenlik başlığı) için tam bir 'finding' yaz: ciddiyet, etki, adımlar, düzeltme.\n\n> İlke: Bir bulgu, savunan ekibin **tek başına** düzeltebileceği kadar net olmalı. Düzeltme önerisi olmadan bir bulgu yarım kalmıştır.\n\n> Yaygın hata: Raporu yalnızca araç çıktısı dökümü yapmak. Yöneticiler iş riskini, geliştiriciler net düzeltme adımlarını ister; her ikisine de hitap et.",
+        "en": "## Pentest Report\nThe real value isn't the test but a **good report**: conveying findings clearly and actionably. The report is the delivered product.\n\n### Sections\n- **Executive Summary:** business-risk language for leadership (non-technical) — overall posture, top risks, recommendations.\n- **Technical Findings:** per finding: title, severity (CVSS), impact, **evidence (screenshot)**, **reproduction steps**, **remediation**.\n- Appendices: scope, methodology, tool output.\n\n### How to write a finding\nWhat → Where → Impact → Evidence → How to reproduce → How to fix.\n\n### Mini-lab\nWrite a full 'finding' for a simple vuln you found in a lab (e.g. a missing security header): severity, impact, steps, remediation.\n\n> Principle: A finding should be clear enough that the defending team can fix it **on its own**. A finding without remediation is half-done.\n\n> Common mistake: Making the report just a dump of tool output. Leadership wants business risk, developers want clear fix steps; address both."
+      }
+    },
+    {
+      "id": "scope-roe",
+      "title": { "tr": "Scope, Rules of Engagement, NDA", "en": "Scope, Rules of Engagement, NDA" },
+      "tags": ["process", "legal"],
+      "content": {
+        "tr": "## Yasal Çerçeve ve Sözleşme\nBir testin **ön koşulu**, hangi sınırlar içinde çalışılacağının yazılı netliğidir.\n- **Scope:** hangi sistemler/IP'ler/uygulamalar test edilebilir — dışına **asla** çıkılmaz.\n- **Rules of Engagement (RoE):** zaman penceresi, izinli teknikler, kaçınılacaklar (örn. DoS, sosyal mühendislik), iletişim/acil durum kişisi.\n- **NDA:** gizlilik yükümlülüğü.\n- **Yetki belgesi (authorization letter):** 'get out of jail' — yasal koruma.\n\n### Mini-lab\nKurgusal bir test için bir RoE taslağı yaz: kapsam, zaman, izinli/yasak teknikler, acil durum iletişimi.\n\n> Altın kural: Yazılı izin olmadan test = **yasa dışı erişim**. Yetki, scope ve RoE her işin ön koşuludur; şüphede dur ve teyit al.\n\n> Yaygın hata: Kapsamı sözlü/varsayımsal kabul edip 'ilgili' görünen bir sisteme dokunmak. Kapsam dışı tek bir host bile ciddi yasal sonuç doğurabilir; sınırda kal.",
+        "en": "## Legal Framework and Contract\nThe **precondition** of a test is written clarity on the boundaries you'll work within.\n- **Scope:** which systems/IPs/apps may be tested — **never** go outside it.\n- **Rules of Engagement (RoE):** time window, allowed techniques, what to avoid (e.g. DoS, social engineering), comms/emergency contact.\n- **NDA:** confidentiality obligation.\n- **Authorization letter:** 'get out of jail' — legal cover.\n\n### Mini-lab\nWrite an RoE draft for a fictional test: scope, timing, allowed/forbidden techniques, emergency contact.\n\n> Golden rule: Testing without written authorization = **illegal access**. Authorization, scope and RoE are preconditions for every engagement; when in doubt, stop and confirm.\n\n> Common mistake: Treating scope as verbal/assumed and touching a 'related'-looking system. Even one out-of-scope host can cause serious legal consequences; stay within bounds."
+      }
+    },
+    {
+      "id": "ethics-law",
+      "title": { "tr": "Etik, Yasa ve Sorumlu Açıklama", "en": "Ethics, Law & Responsible Disclosure" },
+      "tags": ["process", "ethics"],
+      "content": {
+        "tr": "## Etik ve Yasa\nSiber güvenlik becerileri **savunmak** için vardır. Aynı bilgi, bağlama göre meşru veya suç olabilir; ayrım **yetki**dir.\n\n### Temel ilkeler\n- Yetkisiz erişim, çoğu ülkede ciddi suçtur (KVKK/GDPR, ilgili ceza yasaları).\n- **Sorumlu açıklama (responsible disclosure):** bulduğun zafiyeti istismar etmek yerine sahibine gizlice bildir, düzeltme için makul süre tanı.\n- **Bug bounty** programları yasal test için çerçeve ve ödül sunar.\n\n### Mini-lab (kavramsal)\nBir zafiyet bulduğunu varsay (kapsam dışı bir sitede). Sorumlu açıklama adımlarını yaz: kime, nasıl, hangi sınırlarla bildirirsin?\n\n> Bu uygulamadaki tüm teknikler yalnızca kendi sistemlerinde, izinli lab'da veya yetkili testte kullanılır.\n\n> Yaygın hata: 'İyi niyetle' kapsam dışı bir sistemi test edip sonra bildirmek. İyi niyet, yetkisiz erişimi yasal yapmaz; önce izin al ya da resmi bir bug bounty kapsamında kal.",
+        "en": "## Ethics and Law\nCybersecurity skills exist to **defend**. The same knowledge can be legitimate or criminal depending on context; the distinction is **authorization**.\n\n### Core principles\n- Unauthorized access is a serious crime in most countries (GDPR/local data laws, relevant criminal codes).\n- **Responsible disclosure:** instead of exploiting a vuln you find, report it privately to the owner and allow reasonable time to fix.\n- **Bug bounty** programs offer a legal framework and rewards for testing.\n\n### Mini-lab (conceptual)\nAssume you found a vuln (on an out-of-scope site). Write the responsible-disclosure steps: to whom, how, within what limits do you report?\n\n> All techniques in this app are used only on your own systems, an authorized lab, or an authorized engagement.\n\n> Common mistake: Testing an out-of-scope system 'in good faith' and then reporting it. Good intent doesn't make unauthorized access legal; get permission first or stay within an official bug bounty scope."
+      }
+    },
+    {
+      "id": "compliance",
+      "title": { "tr": "Uyumluluk: ISO 27001, NIST CSF, KVKK/GDPR", "en": "Compliance: ISO 27001, NIST CSF, GDPR" },
+      "tags": ["process", "compliance"],
+      "content": {
+        "tr": "## Uyumluluk Çerçeveleri\nTeknik bulgular sonunda bir **uyumluluk/risk** diline çevrilir; güvenlik iş hedefleriyle hizalanır.\n- **ISO 27001:** bilgi güvenliği yönetim sistemi (ISMS) standardı — süreç odaklı.\n- **NIST CSF:** Tanımla → Koru → Tespit → Müdahale → Kurtar fonksiyonları.\n- **KVKK/GDPR:** kişisel verinin korunması; ihlal bildirimi yükümlülükleri (örn. 72 saat).\n- **PCI-DSS:** kart verisi işleyen sistemler için.\n\n### Mini-lab (kavramsal)\nKurumunun bir varlığını seç; NIST CSF'in beş fonksiyonu için birer kontrol yaz (örn. Tespit = SIEM uyarısı).\n\n> Bağlam: Uyumluluk 'güvenli' demek değildir ama ortak bir dil ve asgari taban sağlar. Gerçek güvenlik, çerçeveyi anlamlı kontrollere dönüştürmektir.\n\n> Yaygın hata: Uyumluluğu 'kutu işaretleme' olarak görmek. Belge uyumlu ama pratikte güvensiz olabilir; çerçeveyi gerçek risk azaltımına bağla.",
+        "en": "## Compliance Frameworks\nTechnical findings ultimately translate into a **compliance/risk** language; security aligns with business goals.\n- **ISO 27001:** the information security management system (ISMS) standard — process-focused.\n- **NIST CSF:** Identify → Protect → Detect → Respond → Recover functions.\n- **GDPR/local laws:** protection of personal data; breach notification duties (e.g. 72 hours).\n- **PCI-DSS:** for systems handling card data.\n\n### Mini-lab (conceptual)\nPick an asset in your org; write one control for each of NIST CSF's five functions (e.g. Detect = a SIEM alert).\n\n> Context: Compliance doesn't mean 'secure' but provides a common language and a minimum baseline. Real security is turning the framework into meaningful controls.\n\n> Common mistake: Treating compliance as 'box-ticking'. A document can be compliant yet insecure in practice; tie the framework to real risk reduction."
+      }
+    }
+  ]
+}

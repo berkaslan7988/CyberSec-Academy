@@ -1,0 +1,55 @@
+{
+  "id": "cloud",
+  "title": { "tr": "Bulut ve Cloud-Native Güvenlik", "en": "Cloud & Cloud-Native Security" },
+  "subtitle": { "tr": "IAM, S3, konteyner, Kubernetes, CI/CD, bulut loglama", "en": "IAM, S3, containers, Kubernetes, CI/CD, cloud logging" },
+  "icon": "cloud",
+  "level": "modern",
+  "topics": [
+    {
+      "id": "cloud-basics",
+      "title": { "tr": "AWS/Azure/GCP Temelleri (IAM, S3)", "en": "AWS/Azure/GCP Basics (IAM, S3)" },
+      "tags": ["cloud", "modern"],
+      "content": {
+        "tr": "## Bulut Temelleri\n- **IAM:** kim, neye, hangi koşulda erişebilir — bulut güvenliğinin kalbidir. Kullanıcı, rol, politika kavramları.\n- **Depolama (S3/Blob/GCS):** yanlış yapılandırma en sık veri sızıntısı nedeni.\n- **Security groups / NSG:** sanal güvenlik duvarı kuralları.\n- **Paylaşılan sorumluluk modeli:** sağlayıcı 'bulutun güvenliği'nden, müşteri 'buluttaki güvenlikten' sorumludur.\n\n### Komut\n```\naws sts get-caller-identity         # kim olarak kimlik doğrulandım\naws iam list-users\naws s3 ls\n```\n\n### Mini-lab (kendi/izinli hesap)\nKendi test hesabında `get-caller-identity` ile kimliğini, sonra IAM politikalarını incele; en az ayrıcalık uygulanmış mı değerlendir.\n\n> İlke: **En az ayrıcalık.** Geniş izinler (örn. `*:*`) ve herkese açık depolama kovaları en büyük risktir. Kök (root) hesabı günlük kullanma, MFA aç.\n\n> Yaygın hata: IAM rollerine 'kolaylık olsun' diye geniş (`*`) izin vermek. Bu, bir kimlik ele geçtiğinde tüm hesabı açar; izinleri daralt ve düzenli denetle.",
+        "en": "## Cloud Basics\n- **IAM:** who can access what, under which conditions — the heart of cloud security. Concepts: users, roles, policies.\n- **Storage (S3/Blob/GCS):** misconfiguration is the most common data-leak cause.\n- **Security groups / NSG:** virtual firewall rules.\n- **Shared responsibility model:** the provider secures 'the cloud', the customer secures 'in the cloud'.\n\n### Command\n```\naws sts get-caller-identity         # who am I authenticated as\naws iam list-users\naws s3 ls\n```\n\n### Mini-lab (your own / authorized account)\nIn your own test account, check identity with `get-caller-identity`, then review IAM policies; assess whether least privilege is applied.\n\n> Principle: **Least privilege.** Broad permissions (e.g. `*:*`) and public storage buckets are the biggest risks. Don't use the root account daily, enable MFA.\n\n> Common mistake: Granting IAM roles broad (`*`) permissions 'for convenience'. That opens the whole account when one identity is compromised; tighten and audit regularly."
+      }
+    },
+    {
+      "id": "cloud-misconfig",
+      "title": { "tr": "Cloud Misconfiguration (Açık S3 vb.)", "en": "Cloud Misconfiguration (Open S3 etc.)" },
+      "tags": ["cloud", "modern"],
+      "ethics": true,
+      "content": {
+        "tr": "## Yanlış Yapılandırma Zafiyetleri\nBuluttaki ihlallerin çoğu zafiyetten değil, **yanlış yapılandırmadan** kaynaklanır.\n\n### Tipik örnekler\n- Herkese açık S3 kovaları, aşırı geniş IAM rolleri, açık yönetim portları (22/3389), şifrelenmemiş veri, açık veritabanı, sızmış erişim anahtarı.\n\n### Araçlar\n- **CSPM/CNAPP:** bulut yapılandırmasını sürekli denetler.\n- **ScoutSuite/Prowler:** açık kaynak bulut denetimi.\n\n### Mini-lab (kendi/izinli hesap)\nKendi test hesabında Prowler/ScoutSuite çalıştır; en yüksek riskli 3 bulguyu ve düzeltmesini not et.\n\n> Etik & savunma: Yalnızca kendi/izinli hesaplarda denetle. Savunma: CSPM, IAM erişim analizörü, varsayılan olarak özel (private) depolama, şifreleme, anahtar rotasyonu.\n\n> Yaygın hata: Depolamayı 'geçici' herkese açık yapıp kapatmayı unutmak. Açık bir kova, dakikalar içinde botlar tarafından bulunur; varsayılanı private tut.",
+        "en": "## Misconfiguration Vulnerabilities\nMost cloud breaches come not from vulnerabilities but from **misconfiguration**.\n\n### Typical examples\n- Public S3 buckets, overly broad IAM roles, exposed management ports (22/3389), unencrypted data, open databases, leaked access keys.\n\n### Tools\n- **CSPM/CNAPP:** continuously audit cloud configuration.\n- **ScoutSuite/Prowler:** open-source cloud auditing.\n\n### Mini-lab (your own / authorized account)\nRun Prowler/ScoutSuite on your test account; note the top 3 risky findings and their fixes.\n\n> Ethics & defense: Audit only your own/authorized accounts. Defense: CSPM, IAM access analyzer, private-by-default storage, encryption, key rotation.\n\n> Common mistake: Making storage 'temporarily' public and forgetting to close it. An open bucket is found by bots within minutes; keep the default private."
+      }
+    },
+    {
+      "id": "containers-k8s",
+      "title": { "tr": "Konteyner & Kubernetes Güvenliği", "en": "Container & Kubernetes Security" },
+      "tags": ["cloud", "modern"],
+      "content": {
+        "tr": "## Cloud-Native Güvenlik\n- **Konteyner:** imaj tarama (zafiyet), root olmayan kullanıcı, çalışma anı koruması, salt-okunur dosya sistemi.\n- **Kubernetes (CKS konuları):** RBAC, network policy, pod security standartları, secret yönetimi, admission control.\n\n### Komutlar\n```\nkubectl get pods -A\nkubectl auth can-i --list           # mevcut yetkilerim\nkubectl get networkpolicies -A\n```\n\n### Mini-lab (lab kümesi)\nBir lab Kubernetes kümesinde (minikube/kind) `auth can-i --list` ile yetkilerini incele; bir pod'a aşırı yetki verip riskini gözlemle.\n\n> Savunma: Varsayılan açık ayarları sıkılaştır; en küçük (distroless) imajlar saldırı yüzeyini düşürür. RBAC'ı en az ayrıcalıkla, network policy'leri varsayılan-reddet kur.\n\n> Yaygın hata: Konteynerleri root olarak ve `privileged` çalıştırmak. Bu, bir konteyner ihlalini düğüm (node) ele geçirmeye dönüştürebilir; root olmayan + en az yetki kullan.",
+        "en": "## Cloud-Native Security\n- **Containers:** image scanning (vulns), non-root user, runtime protection, read-only filesystem.\n- **Kubernetes (CKS topics):** RBAC, network policy, pod security standards, secret management, admission control.\n\n### Commands\n```\nkubectl get pods -A\nkubectl auth can-i --list           # my current permissions\nkubectl get networkpolicies -A\n```\n\n### Mini-lab (lab cluster)\nIn a lab Kubernetes cluster (minikube/kind), review your permissions with `auth can-i --list`; give a pod excessive privilege and observe the risk.\n\n> Defense: Harden permissive defaults; minimal (distroless) images reduce attack surface. Configure RBAC with least privilege and network policies as default-deny.\n\n> Common mistake: Running containers as root and `privileged`. That can turn a container breach into node takeover; use non-root + least privilege."
+      }
+    },
+    {
+      "id": "supply-chain",
+      "title": { "tr": "CI/CD & Tedarik Zinciri Güvenliği", "en": "CI/CD & Supply Chain Security" },
+      "tags": ["cloud", "modern", "devsecops"],
+      "content": {
+        "tr": "## Tedarik Zinciri Güvenliği\n2026'da tedarik zinciri ihlalleri keskin biçimde arttı. Saldırganlar bağımlılıkları, CI/CD hatlarını ve paket depolarını hedefler.\n\n### Savunma\n- Bağımlılıkları sabitle ve imzala, **SBOM** (yazılım malzeme listesi) tut, **SCA** taraması yap.\n- CI/CD sırlarını koru, en az ayrıcalıklı çalıştırıcılar (runner), imzalı build (provenance).\n- Üçüncü taraf eklenti/paketleri doğrula; tipo-squatting'e dikkat.\n\n### Mini-lab\nKüçük bir projede bir SCA aracı (örn. `npm audit`/Trivy) çalıştır; savunmasız bir bağımlılık bul ve güncelleme yolunu planla.\n\n> Hatırla: Bir AI ajan skill pazarına yüklenen yüzlerce zararlı paket gibi olaylar, paket güveninin neden **doğrulanması** gerektiğini gösterir.\n\n> Yaygın hata: Bağımlılıkları sabitlemeden (pin) en güncel sürümü otomatik çekmek. Ele geçen bir paketin kötü amaçlı sürümü doğrudan hattına girebilir; sürümleri sabitle ve doğrula.",
+        "en": "## Supply Chain Security\nSupply chain breaches rose sharply by 2026. Attackers target dependencies, CI/CD pipelines and package registries.\n\n### Defense\n- Pin and sign dependencies, keep an **SBOM** (software bill of materials), run **SCA** scanning.\n- Protect CI/CD secrets, use least-privileged runners, signed builds (provenance).\n- Verify third-party plugins/packages; watch for typo-squatting.\n\n### Mini-lab\nRun an SCA tool (e.g. `npm audit`/Trivy) on a small project; find a vulnerable dependency and plan the update path.\n\n> Remember: Incidents like hundreds of malicious packages uploaded to an AI agent skill marketplace show why package trust must be **verified**.\n\n> Common mistake: Auto-pulling the latest version without pinning dependencies. A compromised package's malicious version can enter your pipeline directly; pin and verify versions."
+      }
+    },
+    {
+      "id": "cloud-logging",
+      "title": { "tr": "Bulut Loglama ve Tespit", "en": "Cloud Logging & Detection" },
+      "tags": ["cloud", "blue", "modern"],
+      "content": {
+        "tr": "## Bulut Loglama ve Tespit\nBulutta görünürlük, sağlayıcının denetim loglarından gelir: **AWS CloudTrail**, **Azure Activity Log**, **GCP Audit Logs**. Log yoksa, bulut ihlali görünmez.\n\n### Ne izlenmeli?\n- IAM değişiklikleri, yeni erişim anahtarı, kök (root) kullanımı, güvenlik grubu açılması, başarısız API çağrıları, olağandışı bölge/saat.\n\n### Komut\n```\naws cloudtrail lookup-events --max-results 20\n```\n\n### Mini-lab (kendi/izinli hesap)\nCloudTrail/Activity Log'da son olayları listele; bir IAM veya ağ değişikliği bul ve kimin/ne zaman yaptığını izle.\n\n> Savunma: Denetim loglarını **merkezi** ve **değiştirilemez** (immutable) sakla; kritik olaylar (root kullanımı, IAM değişimi) için uyarı kur. GuardDuty gibi tehdit tespiti servislerini aç.\n\n> Yaygın hata: CloudTrail/audit loglarını hiç açmamak veya saldırganın silebileceği bir yerde tutmak. Logları ayrı, salt-yazılır bir hesapta/kovada koru.",
+        "en": "## Cloud Logging & Detection\nCloud visibility comes from the provider's audit logs: **AWS CloudTrail**, **Azure Activity Log**, **GCP Audit Logs**. No logs, no visibility into a cloud breach.\n\n### What to monitor\n- IAM changes, new access keys, root usage, security group openings, failed API calls, unusual region/time.\n\n### Command\n```\naws cloudtrail lookup-events --max-results 20\n```\n\n### Mini-lab (your own / authorized account)\nList recent events in CloudTrail/Activity Log; find an IAM or network change and trace who did it and when.\n\n> Defense: Store audit logs **centrally** and **immutably**; alert on critical events (root usage, IAM changes). Enable threat-detection services like GuardDuty.\n\n> Common mistake: Never enabling CloudTrail/audit logs, or keeping them where an attacker can delete them. Store logs in a separate, write-once account/bucket."
+      }
+    }
+  ]
+}

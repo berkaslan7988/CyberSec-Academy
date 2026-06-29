@@ -1,0 +1,58 @@
+{
+  "id": "ad",
+  "title": { "tr": "Active Directory (AD)", "en": "Active Directory (AD)" },
+  "subtitle": { "tr": "Kerberos, NTLM, Kerberoasting, Golden Ticket ve ADCS", "en": "Kerberos, NTLM, Kerberoasting, Golden Ticket and ADCS" },
+  "icon": "hub",
+  "level": "offensive",
+  "topics": [
+    {
+      "id": "kerberos-ntlm",
+      "title": { "tr": "Kerberos ve NTLM", "en": "Kerberos and NTLM" },
+      "tags": ["ad"],
+      "content": {
+        "tr": "## AD Kimlik Doğrulama Protokolleri\n- **NTLM:** eski challenge-response; hash tabanlı, Pass-the-Hash'e açık.\n- **Kerberos:** bilet (ticket) tabanlı modern protokol; **KDC** (Key Distribution Center) biletleri verir.\n\n### Kerberos akışı (özet)\n1. Kullanıcı KDC'den **TGT** (Ticket Granting Ticket) alır.\n2. Bir servise erişmek için TGT'yi sunup **TGS** (servis bileti) ister.\n3. TGS'yi servise sunar; servis bileti doğrular.\n\n### Mini-lab (yetkili AD lab)\nBir lab AD'sinde `klist` ile mevcut Kerberos biletlerini listele; TGT ve TGS'leri ayırt et.\n\n> Savunma: NTLM'i mümkünse devre dışı bırak, Kerberos zırhı (armoring/FAST) ve güçlü parolalar kullan; eski protokollerin kullanımını logla.\n\n> Yaygın hata: NTLM'i 'eski ama zararsız' sanmak. NTLM relay ve Pass-the-Hash hâlâ çok etkili saldırılardır; mümkün olduğunca kaldır veya kısıtla.",
+        "en": "## AD Authentication Protocols\n- **NTLM:** legacy challenge-response; hash-based, vulnerable to Pass-the-Hash.\n- **Kerberos:** modern ticket-based protocol; the **KDC** (Key Distribution Center) issues tickets.\n\n### Kerberos flow (summary)\n1. The user gets a **TGT** (Ticket Granting Ticket) from the KDC.\n2. To access a service, presents the TGT and requests a **TGS** (service ticket).\n3. Presents the TGS to the service; the service validates it.\n\n### Mini-lab (authorized AD lab)\nIn a lab AD, list current Kerberos tickets with `klist`; distinguish TGTs from TGSs.\n\n> Defense: Disable NTLM where possible, use Kerberos armoring (FAST) and strong passwords; log use of legacy protocols.\n\n> Common mistake: Thinking NTLM is 'old but harmless'. NTLM relay and Pass-the-Hash are still very effective; remove or restrict it where possible."
+      }
+    },
+    {
+      "id": "kerberoasting",
+      "title": { "tr": "Kerberoasting & AS-REP Roasting", "en": "Kerberoasting & AS-REP Roasting" },
+      "tags": ["ad"],
+      "ethics": true,
+      "content": {
+        "tr": "## Kerberoasting\nServis hesaplarının (SPN'li) biletlerini isteyip **çevrimdışı** parola kırma denemesi. Herhangi bir kimlik doğrulanmış kullanıcı bilet isteyebildiği için tehlikelidir.\n\n### Kavram\n- Saldırgan SPN'li hesabın TGS biletini ister; bilet, hesabın parola hash'iyle şifrelidir → çevrimdışı kırılabilir.\n- **AS-REP Roasting:** ön kimlik doğrulaması (pre-auth) kapalı hesapları hedefler.\n\n### Komut (yetkili lab)\n```\n# Impacket örneği\nGetUserSPNs.py -request -dc-ip 10.10.10.5 lab.local/user\nhashcat -m 13100 hashes.txt rockyou.txt\n```\n\n### Mini-lab\nLab AD'sinde bir SPN'li servis hesabı oluştur (zayıf parolayla), Kerberoast et ve hashcat ile kırmayı dene.\n\n> Etik & savunma: Yalnızca yetkili AD testinde. Savunma: servis hesaplarına **uzun, rastgele parolalar** (gMSA), gereksiz SPN'leri kaldır, anormal bilet isteklerini izle.\n\n> Yaygın hata: Servis hesaplarına basit/insan-okunur parola vermek. Kerberoasting tam da bunu hedefler; gMSA ile yönetilen 25+ karakter parolalar kullanılmalıdır.",
+        "en": "## Kerberoasting\nRequesting tickets for service accounts (with SPNs) and attempting **offline** password cracking. It's dangerous because any authenticated user can request tickets.\n\n### Concept\n- The attacker requests the TGS of an SPN account; the ticket is encrypted with the account's password hash → crackable offline.\n- **AS-REP Roasting:** targets accounts with pre-authentication disabled.\n\n### Command (authorized lab)\n```\n# Impacket example\nGetUserSPNs.py -request -dc-ip 10.10.10.5 lab.local/user\nhashcat -m 13100 hashes.txt rockyou.txt\n```\n\n### Mini-lab\nIn a lab AD, create an SPN service account (with a weak password), Kerberoast it and try cracking with hashcat.\n\n> Ethics & defense: Only in authorized AD tests. Defense: give service accounts **long, random passwords** (gMSA), remove needless SPNs, monitor anomalous ticket requests.\n\n> Common mistake: Giving service accounts simple/human-readable passwords. Kerberoasting targets exactly that; use gMSA-managed 25+ character passwords."
+      }
+    },
+    {
+      "id": "pth-ticket-attacks",
+      "title": { "tr": "Pass-the-Hash / Ticket, Golden Ticket", "en": "Pass-the-Hash / Ticket, Golden Ticket" },
+      "tags": ["ad"],
+      "ethics": true,
+      "content": {
+        "tr": "## Kimlik Bilgisi Tekrar Saldırıları\n- **Pass-the-Hash:** parola yerine NTLM **hash** ile kimlik doğrulama.\n- **Pass-the-Ticket:** çalınan Kerberos bileti ile erişim.\n- **Golden Ticket:** **KRBTGT** hesabının hash'iyle sahte TGT üretip neredeyse sınırsız, uzun ömürlü erişim.\n- **Silver Ticket:** belirli bir servis için sahte TGS.\n\n### Mini-lab (yetkili AD lab)\nLab'da bir kullanıcının hash'ini elde et (Mimikatz), Pass-the-Hash ile başka bir kaynağa eriş; ardından KRBTGT senaryosunu kavramsal olarak incele.\n\n> Etik & savunma: Yalnızca yetkili lab. Savunma: KRBTGT parolasını düzenli (art arda iki kez) sıfırla, **tier modeli** uygula, ayrıcalıklı hesapları izole et, anormal bilet ömrü/ kullanımı tespit et.\n\n> Yaygın hata: Bir ihlalde yalnızca kullanıcı parolalarını sıfırlamak. Golden Ticket varsa **KRBTGT** sıfırlanana kadar saldırgan erişimi sürdürebilir; AD ihlalinde KRBTGT rotasyonu kritiktir.",
+        "en": "## Credential Replay Attacks\n- **Pass-the-Hash:** authenticate with an NTLM **hash** instead of a password.\n- **Pass-the-Ticket:** access using a stolen Kerberos ticket.\n- **Golden Ticket:** forge a TGT with the **KRBTGT** account hash for near-unlimited, long-lived access.\n- **Silver Ticket:** a forged TGS for a specific service.\n\n### Mini-lab (authorized AD lab)\nIn a lab, obtain a user's hash (Mimikatz), access another resource via Pass-the-Hash; then study the KRBTGT scenario conceptually.\n\n> Ethics & defense: Authorized lab only. Defense: rotate the KRBTGT password regularly (twice in a row), apply a **tier model**, isolate privileged accounts, detect anomalous ticket lifetimes/usage.\n\n> Common mistake: Resetting only user passwords after a breach. With a Golden Ticket, the attacker keeps access until **KRBTGT** is reset; KRBTGT rotation is critical in an AD breach."
+      }
+    },
+    {
+      "id": "ad-enum",
+      "title": { "tr": "AD Enumeration (ldapsearch, rpcclient)", "en": "AD Enumeration (ldapsearch, rpcclient)" },
+      "tags": ["ad", "recon"],
+      "ethics": true,
+      "content": {
+        "tr": "## AD Keşfi\nKullanıcılar, gruplar, bilgisayarlar ve güven ilişkilerini listeleme — AD saldırısının keşif aşaması.\n\n### Komutlar (yetkili lab)\n```\nldapsearch -x -H ldap://dc.lab -b \"dc=lab,dc=local\"\nrpcclient -U \"\" -N 10.10.10.5     # null session denemesi\nenum4linux-ng -A 10.10.10.5\n```\n- PowerView/BloodHound ile ilişki ve ayrıcalık haritası çıkarılır.\n\n### Mini-lab\nLab AD'sinde `ldapsearch` ile kullanıcı listesini çıkar; sonra BloodHound ile aynı veriyi görselleştir.\n\n> Etik & savunma: Yalnızca yetkili test. Savunma: anonim/null oturumları kapat, LDAP imzalama zorunlu kıl, aşırı okuma yetkilerini sınırla, anormal LDAP sorgularını izle.\n\n> Yaygın hata: Düşük yetkili bir hesabın 'zararsız' olduğunu sanmak. Sıradan bir kullanıcı bile tüm AD'yi okuyabilir (varsayılan); keşif buradan başlar.",
+        "en": "## AD Enumeration\nListing users, groups, computers and trust relationships — the recon phase of an AD attack.\n\n### Commands (authorized lab)\n```\nldapsearch -x -H ldap://dc.lab -b \"dc=lab,dc=local\"\nrpcclient -U \"\" -N 10.10.10.5     # null session attempt\nenum4linux-ng -A 10.10.10.5\n```\n- PowerView/BloodHound map relationships and privileges.\n\n### Mini-lab\nEnumerate the user list with `ldapsearch` in a lab AD; then visualize the same data with BloodHound.\n\n> Ethics & defense: Authorized tests only. Defense: disable anonymous/null sessions, enforce LDAP signing, limit excessive read rights, monitor anomalous LDAP queries.\n\n> Common mistake: Assuming a low-privileged account is 'harmless'. Even an ordinary user can read most of AD (by default); enumeration starts there."
+      }
+    },
+    {
+      "id": "adcs",
+      "title": { "tr": "AD Certificate Services (ADCS) Temeli", "en": "AD Certificate Services (ADCS) Basics" },
+      "tags": ["ad", "modern"],
+      "ethics": true,
+      "content": {
+        "tr": "## ADCS\n**Active Directory Certificate Services**, kurum içi PKI sağlar (akıllı kart, kimlik doğrulama sertifikaları). Yanlış yapılandırılmış sertifika şablonları, son yıllarda öne çıkan güçlü bir **yetki yükseltme** vektörüdür (ESC1-ESC8).\n\n### Kavram (kavramsal)\n- Bazı yanlış yapılandırmalarda, düşük yetkili bir kullanıcı kendine **başka biri adına** kimlik doğrulayabilen bir sertifika çıkarabilir → Domain Admin'e giden yol.\n- Araç: Certify/Certipy yanlış yapılandırmaları tespit eder.\n\n### Mini-lab (yetkili AD lab, kavramsal)\nLab ADCS'inde sertifika şablonlarını listele; 'enrollee supplies subject' gibi riskli ayarların neden tehlikeli olduğunu açıkla.\n\n> Etik & savunma: Yalnızca yetkili lab. Savunma: sertifika şablonu izinlerini sıkılaştır, riskli bayrakları kaldır, CA loglarını izle, Certipy ile düzenli denetle.\n\n> Yaygın hata: PKI'yı yalnızca 'şifreleme' meselesi sanıp yetkilendirme etkisini gözden kaçırmak. Sertifika = kimlik; yanlış şablon, kimlik taklidine kapı açar.",
+        "en": "## ADCS\n**Active Directory Certificate Services** provides on-prem PKI (smart cards, authentication certificates). Misconfigured certificate templates are a powerful **privilege escalation** vector highlighted in recent years (ESC1-ESC8).\n\n### Concept\n- In some misconfigurations, a low-privileged user can issue a certificate that authenticates **as someone else** → a path to Domain Admin.\n- Tooling: Certify/Certipy detect misconfigurations.\n\n### Mini-lab (authorized AD lab, conceptual)\nList certificate templates in a lab ADCS; explain why risky settings like 'enrollee supplies subject' are dangerous.\n\n> Ethics & defense: Authorized lab only. Defense: harden template permissions, remove risky flags, monitor CA logs, audit regularly with Certipy.\n\n> Common mistake: Treating PKI as only 'encryption' and missing its authorization impact. A certificate = identity; a wrong template opens the door to impersonation."
+      }
+    }
+  ]
+}

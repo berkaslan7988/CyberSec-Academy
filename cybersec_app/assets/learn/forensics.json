@@ -1,0 +1,45 @@
+{
+  "id": "forensics",
+  "title": { "tr": "Trafik Analizi ve Adli Bilişim", "en": "Traffic Analysis & Forensics" },
+  "subtitle": { "tr": "Wireshark, tcpdump, Volatility, disk adli analizi", "en": "Wireshark, tcpdump, Volatility, disk forensics" },
+  "icon": "travel_explore",
+  "level": "defensive",
+  "topics": [
+    {
+      "id": "wireshark",
+      "title": { "tr": "Wireshark (Paket Analizi)", "en": "Wireshark (Packet Analysis)" },
+      "tags": ["forensics", "blue"],
+      "content": {
+        "tr": "## Wireshark\nAğ paketlerini yakalayıp derinlemesine inceleyen grafik araç. Bir olayın 'ne oldu' sorusunu paket düzeyinde yanıtlar.\n\n### Faydalı görüntüleme filtreleri\n```\nhttp.request.method == \"POST\"\nip.addr == 10.10.10.5 && tcp.port == 443\ndns.qry.name contains \"example\"\ntcp.flags.syn == 1 && tcp.flags.ack == 0   # tarama tespiti\n```\n\n### Mini-lab\nLab'da bir HTTP isteği yakala; 'Follow TCP Stream' ile oturumu oku, başlıkları ve (varsa) açık metin veriyi incele.\n\n> Savunma: Açık metin parolalar, C2 desenleri, beklenmedik hedefler ve veri sızıntısı tespiti. Anormal hedeflere giden bağlantıları işaretle.\n\n> Yaygın hata: 'Capture filter' ile 'display filter'ı karıştırmak. Capture filter yakalama anında sınırlar (BPF sözdizimi), display filter ise yakalanmış veriyi süzer; ihtiyaca göre doğru olanı kullan.",
+        "en": "## Wireshark\nA GUI tool that captures and deeply inspects network packets. It answers 'what happened' at the packet level.\n\n### Useful display filters\n```\nhttp.request.method == \"POST\"\nip.addr == 10.10.10.5 && tcp.port == 443\ndns.qry.name contains \"example\"\ntcp.flags.syn == 1 && tcp.flags.ack == 0   # scan detection\n```\n\n### Mini-lab\nCapture an HTTP request in a lab; read the session with 'Follow TCP Stream', inspect headers and (if any) cleartext data.\n\n> Defense: Detect cleartext passwords, C2 patterns, unexpected destinations and exfiltration. Flag connections to anomalous destinations.\n\n> Common mistake: Confusing 'capture filter' with 'display filter'. A capture filter limits at capture time (BPF syntax); a display filter filters already-captured data; use the right one for the need."
+      }
+    },
+    {
+      "id": "tcpdump",
+      "title": { "tr": "tcpdump (Komut Satırı Yakalama)", "en": "tcpdump (CLI Capture)" },
+      "tags": ["forensics", "blue"],
+      "content": {
+        "tr": "## tcpdump\nSunucularda hızlı, hafif paket yakalama; çıktı Wireshark'ta incelenebilir. GUI olmayan ortamların vazgeçilmezi.\n\n### Komutlar\n```\ntcpdump -i eth0 -w capture.pcap port 80\ntcpdump -nn -r capture.pcap 'tcp[tcpflags] & tcp-syn != 0'\ntcpdump -i eth0 host 10.10.10.5 and port 443\n```\n- `-w` dosyaya yaz · `-r` dosyadan oku · `-nn` çözümleme yapma · BPF filtreleri.\n\n### Mini-lab\nBir lab sunucusunda olay anını simüle et: trafiği `.pcap`'e kaydet, sonra Wireshark'ta aç ve analiz et.\n\n> Pratik: Olay sırasında trafiği `.pcap`'e kaydet, sonra analiz et. Halkalı (ring) tampon (`-C`, `-W`) ile sürekli yakalama yapılabilir.\n\n> Yaygın hata: Filtresiz, sınırsız yakalama yapıp diski doldurmak. Belirli host/port'a odakla, boyut/süre limiti koy.",
+        "en": "## tcpdump\nFast, lightweight packet capture on servers; output can be inspected in Wireshark. Essential for headless environments.\n\n### Commands\n```\ntcpdump -i eth0 -w capture.pcap port 80\ntcpdump -nn -r capture.pcap 'tcp[tcpflags] & tcp-syn != 0'\ntcpdump -i eth0 host 10.10.10.5 and port 443\n```\n- `-w` write to file · `-r` read from file · `-nn` no resolution · BPF filters.\n\n### Mini-lab\nSimulate an incident moment on a lab server: record traffic to a `.pcap`, then open and analyze it in Wireshark.\n\n> Practice: Record traffic to a `.pcap` during an incident, then analyze. Continuous capture is possible with a ring buffer (`-C`, `-W`).\n\n> Common mistake: Capturing without filters or limits and filling the disk. Focus on a specific host/port and set size/time limits."
+      }
+    },
+    {
+      "id": "volatility",
+      "title": { "tr": "Volatility (Bellek Adli Analizi)", "en": "Volatility (Memory Forensics)" },
+      "tags": ["forensics", "blue"],
+      "content": {
+        "tr": "## Volatility\nBir sistemin RAM görüntüsünden süreçleri, ağ bağlantılarını, enjekte kodu ve kimlik bilgilerini çıkarır. Diskte iz bırakmayan (fileless) zararlıyı yakalamak için kritiktir.\n\n### Komutlar\n```\nvol.py -f mem.raw windows.pslist        # süreç listesi\nvol.py -f mem.raw windows.netscan       # ağ bağlantıları\nvol.py -f mem.raw windows.malfind       # enjekte kod\n```\n\n### Mini-lab\nHazır bir bellek imajı (CTF/eğitim) üzerinde `pslist` ve `netscan` çalıştır; şüpheli bir süreç ve bağlantı ara.\n\n> Pratik: Olay müdahalesinde RAM'i **kapatmadan önce** al; uçucu kanıt (çalışan süreçler, ağ, şifreleme anahtarları) kapanışta kaybolur.\n\n> Yaygın hata: Olay anında paniğe kapılıp makineyi kapatmak/yeniden başlatmak. Bu, uçucu kanıtı yok eder; önce bellek imajını al, sonra müdahale et.",
+        "en": "## Volatility\nExtracts processes, network connections, injected code and credentials from a system's RAM image. Critical for catching fileless malware that leaves no disk trace.\n\n### Commands\n```\nvol.py -f mem.raw windows.pslist        # process list\nvol.py -f mem.raw windows.netscan       # network connections\nvol.py -f mem.raw windows.malfind       # injected code\n```\n\n### Mini-lab\nOn a ready memory image (CTF/training), run `pslist` and `netscan`; look for a suspicious process and connection.\n\n> Practice: In incident response, capture RAM **before powering off**; volatile evidence (running processes, network, encryption keys) is lost at shutdown.\n\n> Common mistake: Panicking during an incident and shutting down/rebooting the machine. That destroys volatile evidence; capture the memory image first, then respond."
+      }
+    },
+    {
+      "id": "disk-forensics",
+      "title": { "tr": "Disk ve Dosya Adli İncelemesi", "en": "Disk & File Forensics" },
+      "tags": ["forensics", "blue"],
+      "content": {
+        "tr": "## Disk Adli İncelemesi\nKalıcı kanıtın (diskteki dosyalar, silinmiş veriler, zaman damgaları) sistematik incelenmesi.\n\n### Temel kavramlar\n- **İmaj alma:** diskin birebir kopyası (`dd`/FTK Imager) — orijinale dokunma, kopya üzerinde çalış.\n- **Hash doğrulama:** imajın bütünlüğünü MD5/SHA256 ile teyit et.\n- **Zaman çizelgesi (timeline):** dosya MAC zamanları (Modified/Accessed/Created) ile olay sıralaması.\n- **Silinmiş dosya kurtarma (carving):** dosya imzalarından kurtarma.\n\n### Komutlar\n```\nsha256sum disk.img                 # bütünlük\nmmls disk.img; fls -r -o 2048 disk.img   # Sleuth Kit ile dosya sistemi\n```\n\n### Mini-lab\nKüçük bir test imajı al (`dd`), hash'ini doğrula, Sleuth Kit/Autopsy ile dosya zaman çizelgesini çıkar.\n\n> Savunma & süreç: **Kanıt zinciri (chain of custody)** ve bütünlük (hash) korunmalıdır; aksi halde bulgular hukuken geçersiz olabilir. Daima kopya üzerinde çalış.\n\n> Yaygın hata: Orijinal disk/dosya üzerinde doğrudan çalışıp zaman damgalarını veya kanıtı bozmak. Önce imaj al ve hash'le, sonra incele.",
+        "en": "## Disk Forensics\nSystematic examination of persistent evidence (files on disk, deleted data, timestamps).\n\n### Core concepts\n- **Imaging:** a bit-for-bit copy of the disk (`dd`/FTK Imager) — don't touch the original, work on the copy.\n- **Hash verification:** confirm image integrity with MD5/SHA256.\n- **Timeline:** order events using file MAC times (Modified/Accessed/Created).\n- **Carving:** recovering deleted files from signatures.\n\n### Commands\n```\nsha256sum disk.img                 # integrity\nmmls disk.img; fls -r -o 2048 disk.img   # filesystem via Sleuth Kit\n```\n\n### Mini-lab\nTake a small test image (`dd`), verify its hash, build a file timeline with Sleuth Kit/Autopsy.\n\n> Defense & process: **Chain of custody** and integrity (hash) must be preserved; otherwise findings can be legally invalid. Always work on a copy.\n\n> Common mistake: Working directly on the original disk/file and corrupting timestamps or evidence. Image and hash first, then examine."
+      }
+    }
+  ]
+}

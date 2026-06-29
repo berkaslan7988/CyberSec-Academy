@@ -1,0 +1,45 @@
+{
+  "id": "automation",
+  "title": { "tr": "Otomasyon ve Lab Altyapısı", "en": "Automation & Lab Infrastructure" },
+  "subtitle": { "tr": "Git, Docker, sanallaştırma, IaC, sır yönetimi", "en": "Git, Docker, virtualization, IaC, secrets management" },
+  "icon": "build",
+  "level": "foundation",
+  "topics": [
+    {
+      "id": "git",
+      "title": { "tr": "Git (Sürüm Kontrol)", "en": "Git (Version Control)" },
+      "tags": ["automation"],
+      "content": {
+        "tr": "## Git\nKod, script ve tespit kurallarını sürümleyerek yönetmenin standardı; geri alma, dallanma ve iş birliği sağlar.\n\n### Temel komutlar\n```\ngit init && git add . && git commit -m \"ilk\"\ngit checkout -b feature/yeni\ngit log --oneline --graph\ngit diff HEAD~1\n```\n\n### Mini-lab\nKüçük bir script için repo aç, bir dal oluştur, değişiklik yap ve `git diff` ile farkı incele.\n\n> Güvenlik notu: Depolara **sır (parola, anahtar)** gömme. `.gitignore` kullan; sızan sırları gizlemek yetmez, **döndür (rotate)**. git-secrets/trufflehog ile geçmişi tara.\n\n> Yaygın hata: Bir sırrı commit edip sonra silmek ve 'temizlendi' sanmak. Git **geçmişi** tutar; sır hâlâ eski commit'lerde durur — tek güvenli yol anahtarı döndürmektir.",
+        "en": "## Git\nThe standard for managing code, scripts and detection rules with versioning; enables rollback, branching and collaboration.\n\n### Basic commands\n```\ngit init && git add . && git commit -m \"init\"\ngit checkout -b feature/new\ngit log --oneline --graph\ngit diff HEAD~1\n```\n\n### Mini-lab\nInit a repo for a small script, create a branch, make a change and inspect the diff with `git diff`.\n\n> Security note: Never commit **secrets (passwords, keys)**. Use `.gitignore`; hiding a leaked secret isn't enough — **rotate** it. Scan history with git-secrets/trufflehog.\n\n> Common mistake: Committing a secret, deleting it later and thinking it's 'cleaned'. Git keeps **history**; the secret still lives in old commits — the only safe fix is rotating the key."
+      }
+    },
+    {
+      "id": "docker",
+      "title": { "tr": "Docker (İzole Lablar)", "en": "Docker (Isolated Labs)" },
+      "tags": ["automation"],
+      "content": {
+        "tr": "## Docker\nSavunmasız uygulamaları ve araçları saniyeler içinde izole konteynerlerde çalıştır.\n\n### Komutlar\n```\ndocker run -d -p 3000:3000 bkimminich/juice-shop\ndocker ps; docker logs <id>\ndocker exec -it <id> /bin/sh\n```\n\n### Mini-lab\nJuice Shop'u Docker ile ayağa kaldır, `docker ps` ile doğrula, tarayıcıdan eriş ve bir 'challenge' dene.\n\n> Güvenlik: Konteyner ≠ tam izolasyon (çekirdeği paylaşır). İmajları tara (Trivy), root olmayan kullanıcı kullan, en az yetki ver, güncel temel imaj seç, `--privileged`'dan kaçın.\n\n> Yaygın hata: Konteyneri sanal makine kadar izole sanmak. Yanlış yapılandırma (privileged, host mount) konteynerden ana makineye **çıkış (escape)** yolu açabilir.",
+        "en": "## Docker\nRun vulnerable apps and tools in isolated containers within seconds.\n\n### Commands\n```\ndocker run -d -p 3000:3000 bkimminich/juice-shop\ndocker ps; docker logs <id>\ndocker exec -it <id> /bin/sh\n```\n\n### Mini-lab\nSpin up Juice Shop with Docker, verify with `docker ps`, access it from a browser and try a challenge.\n\n> Security: A container is not full isolation (shares the kernel). Scan images (Trivy), use a non-root user, least privilege, an up-to-date base image, and avoid `--privileged`.\n\n> Common mistake: Believing a container is as isolated as a VM. Misconfiguration (privileged, host mount) can open a container **escape** to the host."
+      }
+    },
+    {
+      "id": "virtualization-iac",
+      "title": { "tr": "Sanallaştırma & IaC", "en": "Virtualization & IaC" },
+      "tags": ["automation", "lab"],
+      "content": {
+        "tr": "## Sanallaştırma ve Kod ile Altyapı\n- **VirtualBox/VMware:** saldırgan + hedef VM'leriyle izole lab; **snapshot** ile hızlı geri dönüş.\n- **IaC (Terraform/Ansible):** lab/altyapıyı kod olarak tanımla → tekrar üretilebilir, yok et-yeniden kur.\n\n### Komut\n```\nterraform init && terraform plan && terraform apply\n```\n\n### Mini-lab\nBasit bir IaC dosyasıyla (örn. yerel bir VM/konteyner) bir lab kaynağı tanımla, oluştur ve sonra yok et; tekrarlanabilirliği gözlemle.\n\n> Fayda: Bozulan lab'ı tek komutla sıfırla; öğrenirken denemekten korkma. IaC ayrıca yanlış yapılandırma için taranabilir (tfsec/checkov).\n\n> Yaygın hata: IaC dosyalarına düz metin sır (API anahtarı, parola) gömmek. IaC de kod gibi sızabilir; sırları ayrı bir kasada (vault) tut.",
+        "en": "## Virtualization and Infrastructure as Code\n- **VirtualBox/VMware:** isolated lab with attacker + target VMs; fast rollback via **snapshots**.\n- **IaC (Terraform/Ansible):** define lab/infra as code → reproducible, destroy-and-rebuild.\n\n### Command\n```\nterraform init && terraform plan && terraform apply\n```\n\n### Mini-lab\nDefine a lab resource with a simple IaC file (e.g. a local VM/container), create then destroy it; observe reproducibility.\n\n> Benefit: Reset a broken lab with one command; experiment fearlessly while learning. IaC can also be scanned for misconfigurations (tfsec/checkov).\n\n> Common mistake: Embedding plaintext secrets (API keys, passwords) in IaC files. IaC can leak like any code; keep secrets in a separate vault."
+      }
+    },
+    {
+      "id": "secrets-management",
+      "title": { "tr": "Sır Yönetimi (Secrets Management)", "en": "Secrets Management" },
+      "tags": ["automation", "defense"],
+      "content": {
+        "tr": "## Sır Yönetimi\nParolalar, API anahtarları, tokenlar ve sertifikalar gibi **sırların** güvenli saklanması ve dağıtılması. Sızan bir sır, en sık ihlal nedenlerinden biridir.\n\n### İlkeler\n- Sırları **koda/depoya gömme**; ortam değişkeni yerine bir **kasa (vault)** kullan (HashiCorp Vault, cloud secret manager).\n- **Rotasyon:** sırları düzenli ve sızıntıda hemen değiştir.\n- **En az kapsam:** her sır yalnızca gereken yere, gereken süreyle.\n- **Tarama:** depo ve CI/CD'de sır tarayıcıları (gitleaks, trufflehog).\n\n### Mini-lab\nBir repo'da gitleaks/trufflehog çalıştır; varsa sızmış bir test sırrını bul ve 'rotasyon' adımlarını yaz.\n\n> Savunma: Sır = kimlik. Yönetilen bir kasa + rotasyon + tarama üçlüsü olmadan, tek bir sızmış anahtar tüm sistemi açabilir.\n\n> Yaygın hata: Sırları `.env` dosyasında tutup onu yanlışlıkla commit etmek veya imaja gömmek. Kasa kullan, `.env`'i `.gitignore`'a ekle, CI'da sır taraması zorunlu kıl.",
+        "en": "## Secrets Management\nSecurely storing and distributing **secrets** like passwords, API keys, tokens and certificates. A leaked secret is one of the most common breach causes.\n\n### Principles\n- **Never embed secrets in code/repos**; use a **vault** instead of plain env vars (HashiCorp Vault, a cloud secret manager).\n- **Rotation:** change secrets regularly and immediately on leak.\n- **Least scope:** each secret only where needed, for as long as needed.\n- **Scanning:** secret scanners in repos and CI/CD (gitleaks, trufflehog).\n\n### Mini-lab\nRun gitleaks/trufflehog on a repo; if present, find a leaked test secret and write the 'rotation' steps.\n\n> Defense: A secret = identity. Without the trio of a managed vault + rotation + scanning, a single leaked key can open the whole system.\n\n> Common mistake: Keeping secrets in a `.env` file and accidentally committing it or baking it into an image. Use a vault, add `.env` to `.gitignore`, enforce secret scanning in CI."
+      }
+    }
+  ]
+}
