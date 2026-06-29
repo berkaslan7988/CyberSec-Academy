@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../learn/models/learn_models.dart';
-import '../learn/ui/section_icons.dart';
 import '../learn/ui/topics_screen.dart';
 import '../quiz_engine/models/quiz.dart';
 import '../review/review_scheduler.dart';
