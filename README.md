@@ -7,11 +7,9 @@
 ![Flutter](https://img.shields.io/badge/Flutter-cross--platform-1E88E5.svg)
 ![Content](https://img.shields.io/badge/content-21%20sections%20·%20105%20topics%20·%20171%20questions-success.svg)
 
-<p align="center">
-  <img src="docs/screenshots/learn.svg" width="240" alt="Learn screen"/>
-  <img src="docs/screenshots/quiz.svg" width="240" alt="Quiz screen"/>
-  <img src="docs/screenshots/dashboard.svg" width="240" alt="Dashboard screen"/>
-</p>
+<img width="1917" height="963" alt="resim" src="https://github.com/user-attachments/assets/92273e42-61bc-42ef-8d76-18147f3592af" />
+<img width="1918" height="963" alt="resim" src="https://github.com/user-attachments/assets/130a3477-45da-4de4-9b8a-0d8a8c47b557" />
+<img width="1918" height="963" alt="resim" src="https://github.com/user-attachments/assets/4f0302f8-c723-46bd-b65f-b854ca2c17f6" />
 
 ---
 
