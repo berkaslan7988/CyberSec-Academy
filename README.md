@@ -13,8 +13,6 @@
   <img src="docs/screenshots/dashboard.svg" width="240" alt="Dashboard screen"/>
 </p>
 
-> The images above are UI previews (mockups). To capture real screenshots, run the app and drop PNGs into `docs/screenshots/`.
-
 ---
 
 ## English
