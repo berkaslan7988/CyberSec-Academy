@@ -16,9 +16,7 @@
 </picture>
 
 > [!NOTE]
-> This repository is a showcase of the live site; the source code is private. The
-> original Flutter app that used to live here is kept under the
-> [`flutter-v1`](https://github.com/berkaslan7988/CyberSec-Academy/tree/flutter-v1) tag.
+> This repository is a showcase of the live site; the source code is private.
 
 ## What's inside
 
@@ -81,9 +79,8 @@ Built with React, Vite, Cloudflare Workers and D1.
 CySec Akademi, siber güvenliği temelden ayrıntıya öğreten bir çalışma alanı: 21 bölümde
 105 rehberli ders, simüle terminalde vaka labları ve bölüm alıştırmaları. Site
 [cysec.aslanlabs.online](https://cysec.aslanlabs.online) adresinde yayında; kaynak kodu
-kapalı. Bu repoda daha önce bulunan Flutter uygulaması `flutter-v1` etiketinde duruyor.
+kapalı.
 
 ---
 
-© 2026 Berk Talha Aslan. All rights reserved. The Flutter app under the `flutter-v1` tag
-keeps its original MIT licence.
+© 2026 Berk Talha Aslan. All rights reserved.
